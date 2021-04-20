@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "86606479175",
+    "project_id": "locsaleapplication-57f2a",
+    "storage_bucket": "locsaleapplication-57f2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86606479175:android:ba85774d3bea1d9ab09662",
+        "android_client_info": {
+          "package_name": "com.example.locsaleapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86606479175-sn887ksj746r50abb9b9dku9gjnat8a3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.locsaleapplication",
+            "certificate_hash": "cb7e1e57b03361b8e8288e9626e53df2c5b3c97a"
+          }
+        },
+        {
+          "client_id": "86606479175-4dgc0m1gsuo4imeeg775fus9t19jveda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxYj8D5Hkpcx4wqtXW0qCn9SRlJi6gSAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86606479175-4dgc0m1gsuo4imeeg775fus9t19jveda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "520448611565",
+    "firebase_url": "https://locsaleapplication-default-rtdb.firebaseio.com",
+    "project_id": "locsaleapplication",
+    "storage_bucket": "locsaleapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520448611565:android:2e4670fc8a19a91e22a8e4",
+        "android_client_info": {
+          "package_name": "com.example.locsaleapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3P4c2dNlJ3Un-xHejUUGoMTwb_qQ8jbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
