@@ -135,47 +135,57 @@ public class RegisterActivity extends AppCompatActivity {
         pd.show();
         Toast.makeText(this, password, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
-        mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("name",name);
+                    map.put("email",email);
+                    map.put("dob",dob);
+                    map.put("id",mAuth.getCurrentUser().getUid());
+                    map.put("bio","");
+                    map.put("imageurl","default");
 
-                HashMap<String,Object> map = new HashMap<>();
-                map.put("name",name);
-                map.put("email",email);
-                map.put("dob",dob);
-                map.put("id",mAuth.getCurrentUser().getUid());
-
-
-                mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            pd.dismiss();
-                            Toast.makeText(RegisterActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else
-                        {
-                            if(task.getException() instanceof FirebaseAuthUserCollisionException)
-                            {
-                                Toast.makeText(RegisterActivity.this, "You are already registered", Toast.LENGTH_SHORT).show();
+                    mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                pd.dismiss();
+                                Toast.makeText(RegisterActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
                             }
                             else
                             {
-                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                pd.dismiss();
+                                Toast.makeText(RegisterActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            pd.dismiss();
+                            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else
+                {
+                    if(task.getException() instanceof FirebaseAuthUserCollisionException)
+                    {
                         pd.dismiss();
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "You are already registered", Toast.LENGTH_SHORT).show();
                     }
-                });
+                    else
+                    {
+                        pd.dismiss();
+                        Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
