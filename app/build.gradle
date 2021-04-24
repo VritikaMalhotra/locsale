@@ -42,4 +42,7 @@ dependencies {
     implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
+    //circular image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
