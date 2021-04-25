@@ -28,13 +28,14 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText register_name;
+    private EditText register_username;
     private EditText register_email;
     private EditText register_password;
     private EditText register_confirmPassword;
     private EditText register_dob;
     private TextView register_loginUser;
     private Button register_button;
-    private String name,email,password,confirmPassword,dob;
+    private String name,email,password,confirmPassword,dob,username;
 
     private DatabaseReference mRootRef;
     private FirebaseAuth mAuth;
@@ -47,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         register_name = findViewById(R.id.register_name);
+        register_username = findViewById(R.id.register_username);
         register_email = findViewById(R.id.register_email);
         register_password = findViewById(R.id.register_password);
         register_confirmPassword = findViewById(R.id.register_confirmPassword);
@@ -76,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void RegisterUserCheck(){
         name = register_name.getText().toString().trim();
+        username = register_username.getText().toString().trim();
         email = register_email.getText().toString().trim();
         password = register_password.getText().toString().trim();
         confirmPassword = register_confirmPassword.getText().toString().trim();
@@ -83,6 +86,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(name.isEmpty()){
             register_name.setError("Full name is required");
+            register_name.requestFocus();
+            return;
+        }
+        if(username.isEmpty()){
+            register_name.setError("Username is required");
             register_name.requestFocus();
             return;
         }
@@ -130,6 +138,8 @@ public class RegisterActivity extends AppCompatActivity {
         RegisterUser(name,email,password,dob);
 
     }
+
+
     private void RegisterUser(final String name, final String email, String password, final String dob) {
         pd.setMessage("please wait");
         pd.show();
@@ -141,6 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     HashMap<String,Object> map = new HashMap<>();
                     map.put("name",name);
+                    map.put("username",username);
                     map.put("email",email);
                     map.put("dob",dob);
                     map.put("id",mAuth.getCurrentUser().getUid());
