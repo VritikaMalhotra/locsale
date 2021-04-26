@@ -78,6 +78,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
+                filter(s.toString());
+
             }
         });
 
@@ -152,5 +154,19 @@ public class SearchFragment extends Fragment {
 
             }
         });
+    }
+
+    private void filter(String text){
+        List<String> mSearchTags = new ArrayList<>();
+        List<String> mSearchTagsCount = new ArrayList<>();
+
+        for(String s : mHashtags ){
+            if(s.toLowerCase().contains(text.toLowerCase())){
+                mSearchTags.add(s);
+                mSearchTagsCount.add(mhashtagsCount.get(mHashtags.indexOf(s)));
+            }
+
+            tagAdapter.fliter(mSearchTags,mSearchTagsCount);
+        }
     }
 }

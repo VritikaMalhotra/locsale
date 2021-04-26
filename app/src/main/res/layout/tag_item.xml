@@ -14,7 +14,7 @@
         android:text="#tag"
         android:maxLines="1"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:layout_width="wrap_content"
