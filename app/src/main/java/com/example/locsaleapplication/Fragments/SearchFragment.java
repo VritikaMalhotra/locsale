@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.locsaleapplication.Adapter.TagAdapter;
 import com.example.locsaleapplication.Adapter.UserAdapter;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -34,6 +35,11 @@ public class SearchFragment extends Fragment {
     private List<User> mUsers;
     private UserAdapter userAdapter;
     private SocialAutoCompleteTextView search_bar;
+
+    private RecyclerView recyclerViewTags;
+    private List<String> mHashtags;
+    private List<String> mhashtagsCount;
+    private TagAdapter tagAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +51,16 @@ public class SearchFragment extends Fragment {
         mUsers = new ArrayList<>();
         userAdapter = new UserAdapter(getContext(),mUsers,true);
         recyclerView.setAdapter(userAdapter);
+
+        recyclerViewTags = view.findViewById(R.id.recycler_view_tags);
+        recyclerViewTags.setHasFixedSize(true);
+        recyclerViewTags.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mHashtags = new ArrayList<>();
+        mhashtagsCount = new ArrayList<>();
+        tagAdapter = new TagAdapter(getContext(),mHashtags,mhashtagsCount);
+        recyclerViewTags.setAdapter(tagAdapter);
+
 
         search_bar = view.findViewById(R.id.search_bar);
 
@@ -66,7 +82,29 @@ public class SearchFragment extends Fragment {
         });
 
         readUsers();
+        readTags();
         return view;
+    }
+
+    private void readTags() {
+        FirebaseDatabase.getInstance().getReference().child("HashTags").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mHashtags.clear();
+                mhashtagsCount.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    mHashtags.add(snapshot.getKey());
+                    mhashtagsCount.add(snapshot.getChildrenCount()+"");
+                }
+                tagAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void readUsers() {
