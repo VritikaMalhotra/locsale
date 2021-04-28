@@ -61,6 +61,7 @@
                 tools:ignore="MissingConstraints"
                 android:src="@mipmap/ic_launcher"
                 android:background="@drawable/post_background"
+                android:outlineProvider="background"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,6 +127,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:id="@+id/no_of_comments"
+            android:text="18 comments"
             android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
