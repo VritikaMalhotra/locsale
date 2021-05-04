@@ -55,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("PROFILE",MODE_PRIVATE).edit().putString("profileId",profileId).apply();
 
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+            bottomNavigationView.setSelectedItemId(R.id.nav_profile);
         }else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
+
     }
 }

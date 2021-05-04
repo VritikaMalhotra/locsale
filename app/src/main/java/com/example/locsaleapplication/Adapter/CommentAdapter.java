@@ -1,6 +1,8 @@
 package com.example.locsaleapplication.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Comment;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +34,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private Context mContext;
+    String postId;
 
-    public CommentAdapter(Context mContext, List<Comment> mCommnet) {
+    public CommentAdapter(Context mContext, List<Comment> mCommnet,String postId) {
         this.mContext = mContext;
         this.mCommnet = mCommnet;
+        this.postId = postId;
     }
 
     private List<Comment> mCommnet;
@@ -86,6 +92,38 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 intent.putExtra("publisherId",comment.getPublisher());
                 mContext.startActivity(intent);
 
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(comment.getPublisher().endsWith(fUser.getUid())){
+                    AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                    alertDialog.setTitle("Do you want to delete?");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            FirebaseDatabase.getInstance().getReference().child("Comments")
+                                    .child(postId).child(comment.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(mContext, "Comment deleted successfully", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    alertDialog.show();
+                }
+                return  true;
             }
         });
     }
