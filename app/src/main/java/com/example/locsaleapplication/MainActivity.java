@@ -47,6 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        Bundle intent = getIntent().getExtras();
+        if(intent!= null){
+            String profileId = intent.getString("publisherId");
+
+            getSharedPreferences("PROFILE",MODE_PRIVATE).edit().putString("profileId",profileId).apply();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
     }
 }

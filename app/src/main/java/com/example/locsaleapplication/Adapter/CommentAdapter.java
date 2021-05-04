@@ -1,6 +1,7 @@
 package com.example.locsaleapplication.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Comment;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -47,7 +49,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        Comment comment = mCommnet.get(position);
+        final Comment comment = mCommnet.get(position);
         holder.comment.setText(comment.getComment());
         FirebaseDatabase.getInstance().getReference().child("Users").child(comment.getPublisher()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,6 +66,25 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.putExtra("publisherId",comment.getPublisher());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.putExtra("publisherId",comment.getPublisher());
+                mContext.startActivity(intent);
 
             }
         });
