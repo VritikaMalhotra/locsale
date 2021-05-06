@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,6 +20,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     private Context mContext;
     private List<Post> mPosts;
+
+    public PhotoAdapter(Context mContext, List<Post> mPosts) {
+        this.mContext = mContext;
+        this.mPosts = mPosts;
+    }
 
     @NonNull
     @Override
@@ -31,7 +37,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Post post = mPosts.get(position);
-        Picasso.get().load(post.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(holder.postImage);
+        /*Picasso.get().load(post.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(holder.postImage);*/
+        //.resize() method to change the size of image in grid layout in profile.
+        Picasso.get().load(post.getImageUrl()).resize(600,600).into(holder.postImage);
 
     }
 
