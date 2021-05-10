@@ -16,6 +16,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView changePhoto;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.example.locsaleapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -65,4 +66,5 @@ public class ForgotPassword extends AppCompatActivity {
             return;
         }
     }
-}
+
+    }
