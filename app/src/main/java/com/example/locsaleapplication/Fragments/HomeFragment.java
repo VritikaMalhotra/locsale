@@ -1,15 +1,14 @@
 package com.example.locsaleapplication.Fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.locsaleapplication.Adapter.PostAdapter;
 import com.example.locsaleapplication.Model.Post;
@@ -61,7 +60,7 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     followingList.add(snapshot.getKey());
                 }
-
+                //followingList.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 readPosts();
             }
 

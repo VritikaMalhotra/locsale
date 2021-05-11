@@ -1,23 +1,22 @@
 package com.example.locsaleapplication.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
-import com.example.locsaleapplication.Adapter.PostAdapter;
+import com.example.locsaleapplication.EditProfileActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -119,6 +118,7 @@ public class ProfileFragment extends Fragment {
                 String btnText = editProfile.getText().toString();
                 if(btnText.equals("Edit Profile")){
                     // GOTO edit profile
+                    startActivity(new Intent(getContext(), EditProfileActivity.class));
                 }else{
                     if(btnText.equals("follow")){
                         FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following")
