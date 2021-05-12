@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -50,10 +51,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         getUser(holder.imageProfile,holder.username, notification.getUserid());
         holder.comment.setText(notification.getTest());
 
-        if(notification.isPost()){
+        if(!notification.isPost()){
+
             holder.postImage.setVisibility(View.VISIBLE);
             getPostImage(holder.postImage,notification.getPostid());
         }else{
+
             holder.postImage.setVisibility(View.GONE);
         }
 
@@ -105,7 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Post post =dataSnapshot.getValue(Post.class);
-                Picasso.get().load(post.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(imageView);
+                Picasso.get().load(post.getImageUrl()).resize(400,400).placeholder(R.drawable.blank_image).into(imageView);
             }
 
             @Override
