@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.CommentActivity;
+import com.example.locsaleapplication.FollowersActivity;
 import com.example.locsaleapplication.Fragments.PostDetailFragment;
 import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.Model.Post;
@@ -171,6 +172,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                         .commit();
             }
         });
+
+        holder.noOfLikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, FollowersActivity.class);
+                intent.putExtra("id",post.getPublisher());
+                intent.putExtra("title","likes");
+                mContext.startActivity(intent);
+            }
+        });
     }
 
 
@@ -238,7 +249,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(firebaseUser.getUid()).exists()){
-                        imageView.setImageResource(R.drawable.ic_liked);
+                        imageView.setImageResource(R.drawable.liked);
                         imageView.setTag("Liked");
                     }else{
                         imageView.setImageResource(R.drawable.ic_like);
