@@ -152,7 +152,7 @@ public class CommentActivity extends AppCompatActivity {
                 if(user.getImageurl().equals("default")){
                     imageProfile.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Picasso.get().load(user.getImageurl()).into(imageProfile);
+                    Picasso.get().load(user.getImageurl()).resize(300,300).into(imageProfile);
                 }
 
             }

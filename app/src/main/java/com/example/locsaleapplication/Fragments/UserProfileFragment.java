@@ -3,17 +3,18 @@ package com.example.locsaleapplication.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
@@ -37,7 +38,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
     private RecyclerView recyclerViewSaves;
     private PhotoAdapter postAdaptersaves;
@@ -63,19 +64,20 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser firebaseUser;
     String profileId;
 
+
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId","none");
         if(data.equals("none")){
             profileId = firebaseUser.getUid();
-
         }else{
-            //profileId = firebaseUser.getUid()
-            profileId = data;
+            profileId = firebaseUser.getUid();
+            //profileId = data;
         }
 
         imageProfile = view.findViewById(R.id.image_profile);

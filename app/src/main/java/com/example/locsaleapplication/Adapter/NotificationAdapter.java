@@ -108,7 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Post post =dataSnapshot.getValue(Post.class);
-                Picasso.get().load(post.getImageUrl()).resize(400,400).placeholder(R.drawable.blank_image).into(imageView);
+                Picasso.get().load(post.getImageUrl()).resize(300,300).placeholder(R.drawable.blank_image).into(imageView);
             }
 
             @Override
@@ -127,7 +127,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 if(user.getImageurl().equals("default")){
                     imageProfile.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Picasso.get().load(user.getImageurl()).into(imageProfile);
+                    Picasso.get().load(user.getImageurl()).resize(300,300).into(imageProfile);
                 }
                 username.setText(user.getUsername());
             }

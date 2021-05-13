@@ -54,7 +54,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         final Post post = mPosts.get(position);
-        Picasso.get().load(post.getImageUrl()).resize(800,800).into(holder.postImage);
+        Picasso.get().load(post.getImageUrl()).resize(700,700).into(holder.postImage);
         holder.description.setText(post.getDescription());
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(post.getPublisher()).addValueEventListener(new ValueEventListener() {
@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 if(user.getImageurl().equals("default")){
                     holder.imageProfile.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Picasso.get().load(user.getImageurl()).placeholder(R.mipmap.ic_launcher).resize(1200,1200).into(holder.imageProfile);
+                    Picasso.get().load(user.getImageurl()).placeholder(R.mipmap.ic_launcher).resize(300,300).into(holder.imageProfile);
                 }
 
                 holder.username.setText(user.getUsername());

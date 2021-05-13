@@ -76,7 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 fullname.setText(user.getName());
                 username.setText(user.getUsername());
                 bio.setText(user.getBio());
-                Picasso.get().load(user.getImageurl()).into(imageprofile);
+                Picasso.get().load(user.getImageurl()).resize(400,400).into(imageprofile);
             }
 
             @Override

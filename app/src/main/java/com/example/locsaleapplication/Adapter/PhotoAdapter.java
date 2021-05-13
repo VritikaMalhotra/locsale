@@ -41,7 +41,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         final Post post = mPosts.get(position);
         /*Picasso.get().load(post.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(holder.postImage);*/
         //.resize() method to change the size of image in grid layout in profile.
-        Picasso.get().load(post.getImageUrl()).resize(600,600).into(holder.postImage);
+        Picasso.get().load(post.getImageUrl()).resize(550,550).into(holder.postImage);
         holder.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

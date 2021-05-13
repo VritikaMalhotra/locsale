@@ -11,6 +11,7 @@ import com.example.locsaleapplication.Fragments.HomeFragment;
 import com.example.locsaleapplication.Fragments.NotificationFragment;
 import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.Fragments.SearchFragment;
+import com.example.locsaleapplication.Fragments.UserProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         selectorFragment = new NotificationFragment();
                         break;
                     case R.id.nav_profile:
-                        selectorFragment = new ProfileFragment();
+                        selectorFragment = new UserProfileFragment();
                         break;
                 }
                 if(selectorFragment!=null){
