@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
         if(data.equals("none")){
             profileId = firebaseUser.getUid();
         }else{
+            //profileId = firebaseUser.getUid()
             profileId = data;
         }
 
