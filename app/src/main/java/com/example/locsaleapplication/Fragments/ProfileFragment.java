@@ -20,6 +20,7 @@ import com.example.locsaleapplication.EditProfileActivity;
 import com.example.locsaleapplication.FollowersActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
+import com.example.locsaleapplication.OptionsActivity;
 import com.example.locsaleapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -174,7 +175,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), OptionsActivity.class));
+            }
+        });
         return view;
     }
 
