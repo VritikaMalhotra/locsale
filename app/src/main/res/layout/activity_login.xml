@@ -107,6 +107,7 @@
                 android:fontFamily="@font/lora_bold"
                 android:inputType="textPersonName"
                 android:text="Log In"
+                android:textColor="#FFFFFF"
                 android:textSize="25dp"></Button>
 
             <TextView

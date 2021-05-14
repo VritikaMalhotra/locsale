@@ -42,7 +42,7 @@
         android:layout_height="30dp"
         android:background="@drawable/register_button"
         android:id="@+id/btn_follow"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#ffffff"
         android:layout_alignParentEnd="true"
         android:visibility="gone"/>
 

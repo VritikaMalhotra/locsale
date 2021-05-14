@@ -85,7 +85,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_comment"
                 android:layout_toEndOf="@+id/like"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="2dp"
                 android:id="@+id/comment"/>
             <ImageView
                 android:layout_width="30dp"

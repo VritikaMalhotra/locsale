@@ -189,8 +189,7 @@
                 android:textSize="25dp"
                 android:fontFamily="@font/lora_bold"
                 android:inputType="textPersonName"
-
-
+                android:textColor="#ffffff"
                 ></Button>
 
             <TextView
