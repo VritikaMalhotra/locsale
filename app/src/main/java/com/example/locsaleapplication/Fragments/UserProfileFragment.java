@@ -57,12 +57,13 @@ public class UserProfileFragment extends Fragment {
     private TextView bio;
     private TextView username;
 
-    private TextView myPictures;
-    private  TextView savedPictures;
+    private Button myPictures;
+    private  Button savedPictures;
     private Button editProfile;
 
     private FirebaseUser firebaseUser;
     String profileId;
+
 
 
     @Override
@@ -117,6 +118,7 @@ public class UserProfileFragment extends Fragment {
         }else{
             checkFollowingStatus();
         }
+
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,4 +332,6 @@ public class UserProfileFragment extends Fragment {
             }
         });
     }
+
+
 }

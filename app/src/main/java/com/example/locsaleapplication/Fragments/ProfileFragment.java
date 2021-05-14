@@ -56,8 +56,8 @@ public class ProfileFragment extends Fragment {
     private TextView bio;
     private TextView username;
 
-    private ImageView myPictures;
-    private  ImageView savedPictures;
+    private Button myPictures;
+    private  Button savedPictures;
     private Button editProfile;
 
     private FirebaseUser firebaseUser;
