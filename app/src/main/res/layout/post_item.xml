@@ -77,17 +77,22 @@
             android:padding="10dp"
             android:layout_marginTop="-50dp">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/ic_like"
-                android:id="@+id/like"/>
+                android:id="@+id/like"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="-10dp"
+               />
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/comment"
                 android:layout_toEndOf="@+id/like"
-                android:layout_marginStart="2dp"
-                android:id="@+id/comment"/>
+                android:layout_marginStart="-15dp"
+                android:id="@+id/comment"
+                android:layout_marginTop="-10dp"
+                />
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -98,23 +103,34 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/likes_backgorund"
+            android:layout_marginTop="-100dp"
+            android:padding="5dp"
+            android:layout_marginStart="10dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:id="@+id/no_of_likes"
             android:textColor="@color/colorAccent"
+            android:text="1000"
+            android:textStyle="bold"
 
-            android:textStyle="bold"/>
+            />
+        </RelativeLayout>
 
         <TextView
+            android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
-
             android:id="@+id/author"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="#181818"
+            android:text="Mayank Thacker"/>
 
         <com.hendraanggrian.appcompat.widget.SocialTextView
             android:layout_width="wrap_content"
@@ -122,9 +138,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/description"/>
+            android:textColor="#565656"
+            android:id="@+id/description"
+            android:text="Please do comment on my post!!"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -133,8 +149,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:id="@+id/no_of_comments"
-
-            android:textColor="@color/colorAccent"/>
+            android:textColor="#59565656"
+            android:text="18 comments"/>
 
     </LinearLayout>
 
