@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_enabled="true" android:state_focused="true">
+    <item  android:state_selected="true">
         <shape android:shape="rectangle">
             <stroke android:color="#ffffff"/>
             <solid android:color="#140BFC"/>
@@ -10,7 +10,7 @@
     </item>
 
 
-    <item android:state_enabled="true">
+    <item >
         <shape android:shape="rectangle">
             <stroke android:color="#ffffff"/>
             <solid android:color="#ECE8E8"/>
