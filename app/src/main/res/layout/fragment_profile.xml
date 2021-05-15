@@ -218,8 +218,8 @@ great team any one can ask for.!!"
                 android:id="@+id/bottom"
                 android:orientation="horizontal"
                 android:background="#ECE8E8"
-                android:padding="10dp"
->
+                android:padding="10dp">
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
