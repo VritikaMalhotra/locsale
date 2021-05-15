@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item  android:color="#140BFC" android:state_selected="true" android:state_pressed="true"
+        android:state_focused="true" android:state_activated="true"
+        android:state_active="true"
+        android:state_drag_hovered="true"
+        android:state_hovered="true"
+        android:state_checkable="true"
+        >
+
+    </item>
+
+
+    <item android:color="@color/colorPrimaryDark">
+
+    </item>
+
+</selector>
