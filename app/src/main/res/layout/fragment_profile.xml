@@ -212,14 +212,16 @@ great team any one can ask for.!!"
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="-5dp"
                 android:id="@+id/bottom"
                 android:orientation="horizontal"
-                android:background="#ECE8E8"
-                android:padding="10dp"
->
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/selector_bottom"
+                >
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,7 +230,7 @@ great team any one can ask for.!!"
                     android:text="Posts"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:background="@drawable/profile_selector"
+                    android:background="@color/transparent"
                     />
 
                 <Button
@@ -239,7 +241,7 @@ great team any one can ask for.!!"
                     android:text="Saved"
                     android:textSize="18sp"
                     android:textAlignment="center"
-                    android:background="@drawable/profile_selector"
+                    android:background="@color/transparent"
                     />
 
             </LinearLayout>

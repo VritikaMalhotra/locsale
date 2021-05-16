@@ -75,8 +75,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="-50dp">
+
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="55dp"
                 android:layout_height="55dp"
@@ -108,7 +108,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/likes_backgorund"
-            android:layout_marginTop="-100dp"
             android:padding="5dp"
             android:layout_marginStart="10dp">
 
@@ -130,7 +129,6 @@
             android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="60dp"
             android:layout_below="@id/layout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
