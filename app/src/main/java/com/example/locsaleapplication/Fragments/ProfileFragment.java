@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
 import com.example.locsaleapplication.FollowersActivity;
+import com.example.locsaleapplication.LoginActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.OptionsActivity;
@@ -33,6 +35,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -115,23 +118,30 @@ public class ProfileFragment extends Fragment {
         }else{
             checkFollowingStatus();
         }
+       
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkFollowingStatus();
                 String btnText = editProfile.getText().toString();
                 if(btnText.equals("Edit Profile")){
                     // GOTO edit profile
                     startActivity(new Intent(getContext(), EditProfileActivity.class));
                 }else{
-                    if(btnText.equals("follow")){
+
+                    if(btnText.equals("Follow")){
+
                         FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following")
                                 .child(profileId).setValue(true);
 
                         FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId).child("followers")
                                 .child(firebaseUser.getUid()).setValue(true);
 
+                        addNotification(profileId);
+
                     }else{
+
                         FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following")
                                 .child(profileId).removeValue();
 
@@ -141,6 +151,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
         recyclerView.setVisibility(View.VISIBLE);
         recyclerViewSaves.setVisibility(View.GONE);
         myPictures.setOnClickListener(new View.OnClickListener() {
@@ -250,8 +261,10 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(profileId).exists()){
                     editProfile.setText("Following");
+
                 }else{
                     editProfile.setText("Follow");
+
                 }
             }
 
@@ -327,5 +340,16 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+    }
+
+    private void addNotification(String UserId) {
+        HashMap<String,Object> map = new HashMap<>();
+
+        map.put("userid", firebaseUser.getUid());
+        map.put("test","Started following you");
+        map.put("postid","");
+        map.put("isPost",false);
+
+        FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
     }
 }
