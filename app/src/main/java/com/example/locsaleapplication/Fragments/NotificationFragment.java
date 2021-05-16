@@ -57,7 +57,7 @@ public class NotificationFragment extends Fragment {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     notificationList.add(snapshot.getValue(Notification.class));
                     //Collections.reverse(notificationList);
-                    notificationAdapter.notifyDataSetChanged();
+                    //notificationAdapter.notifyDataSetChanged();
                 }
                 Collections.reverse(notificationList);
                 notificationAdapter.notifyDataSetChanged();
