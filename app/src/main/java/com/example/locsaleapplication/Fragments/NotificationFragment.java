@@ -59,6 +59,8 @@ public class NotificationFragment extends Fragment {
                     //Collections.reverse(notificationList);
                     notificationAdapter.notifyDataSetChanged();
                 }
+                Collections.reverse(notificationList);
+                notificationAdapter.notifyDataSetChanged();
             }
 
             @Override
