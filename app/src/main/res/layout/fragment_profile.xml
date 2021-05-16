@@ -229,7 +229,7 @@ great team any one can ask for.!!"
                     android:text="Posts"
                     android:textAlignment="center"
                     android:textSize="18sp"
-
+                    android:background="@color/transparent"
                     />
 
                 <Button
@@ -240,7 +240,7 @@ great team any one can ask for.!!"
                     android:text="Saved"
                     android:textSize="18sp"
                     android:textAlignment="center"
-
+                    android:background="@color/transparent"
                     />
 
             </LinearLayout>
