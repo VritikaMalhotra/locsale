@@ -9,6 +9,7 @@
     android:layout_marginTop="10dp"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
+    android:id="@+id/main_post_background"
     >
 
     <ImageView
@@ -38,6 +39,13 @@
                 android:id="@+id/profile_image"
                 android:layout_margin="5dp"
             />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/promoted_post"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_promoted_post"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

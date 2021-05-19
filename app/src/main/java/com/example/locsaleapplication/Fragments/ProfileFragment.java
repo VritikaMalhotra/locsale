@@ -157,6 +157,7 @@ public class ProfileFragment extends Fragment {
         myPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerViewSaves.setVisibility(View.GONE);
             }
@@ -164,6 +165,9 @@ public class ProfileFragment extends Fragment {
         savedPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                savedPictures.setBackgroundResource(R.color.colorAccent);
+                myPictures.setBackgroundResource(R.color.colorPrimary);
+
                 recyclerView.setVisibility(View.GONE);
                 recyclerViewSaves.setVisibility(View.VISIBLE);
             }

@@ -217,9 +217,6 @@ great team any one can ask for.!!"
                 android:layout_marginEnd="-5dp"
                 android:id="@+id/bottom"
                 android:orientation="horizontal"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@color/selector_bottom"
                 >
 
                 <Button

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,12 +31,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     private Context mContext;
     private List<Post> mPosts;
     private FirebaseUser firebaseUser;
+    private String type;
 
     public PostAdapter(Context mContext, List<Post> mPosts) {
         this.mContext = mContext;
@@ -81,6 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         noOfLikes(post.getPostId(),holder.noOfLikes);
         getComments(post.getPostId(),holder.noOfComments);
         holder.isSaved(post.getPostId(),holder.save);
+        holder.isPromoted(post.getPostId(),holder.promotedPost,holder.mainPostBackground);
 
         holder.like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,12 +203,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         public ImageView comment;
         public ImageView save;
         public ImageView more;
+        public ImageView promotedPost;
 
         public TextView username;
         public TextView noOfLikes;
         public TextView author;
         public TextView noOfComments;
         SocialTextView description;
+
+        public RelativeLayout mainPostBackground;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -215,12 +222,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             comment = itemView.findViewById(R.id.comment);
             save = itemView.findViewById(R.id.save);
             more = itemView.findViewById(R.id.more);
+            promotedPost = itemView.findViewById(R.id.promoted_post);
 
             username = itemView.findViewById(R.id.username);
             noOfLikes = itemView.findViewById(R.id.no_of_likes);
             author = itemView.findViewById(R.id.author);
             noOfComments = itemView.findViewById(R.id.no_of_comments);
             description = itemView.findViewById(R.id.description);
+
+            mainPostBackground = itemView.findViewById(R.id.main_post_background);
         }
 
         private void isSaved(final String postId, final ImageView image) {
@@ -254,6 +264,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     }else{
                         imageView.setImageResource(R.drawable.ic_like);
                         imageView.setTag("Like");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void isPromoted(String postId, final ImageView promotedPost, final RelativeLayout mainPostBackground) {
+            FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue()!=null){
+                        Map<StringBuffer, String> map = (Map) dataSnapshot.getValue();
+                         type = map.get("type");
+                         if(type.equals("2")){
+                             promotedPost.setVisibility(View.GONE);
+                             mainPostBackground.setBackgroundResource(R.drawable.post_background);
+                         }else{
+                             promotedPost.setVisibility(View.VISIBLE);
+                             mainPostBackground.setBackgroundResource(R.drawable.promoted_post_background);
+                         }
                     }
                 }
 
