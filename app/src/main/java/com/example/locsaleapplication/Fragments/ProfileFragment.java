@@ -157,7 +157,7 @@ public class ProfileFragment extends Fragment {
         myPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Toast.makeText(getContext(), "in my pictures", Toast.LENGTH_SHORT).show();
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerViewSaves.setVisibility(View.GONE);
             }
@@ -165,8 +165,9 @@ public class ProfileFragment extends Fragment {
         savedPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savedPictures.setBackgroundResource(R.color.colorAccent);
-                myPictures.setBackgroundResource(R.color.colorPrimary);
+                //Toast.makeText(getContext(), "in saved pictures", Toast.LENGTH_SHORT).show();
+                //savedPictures.setBackgroundResource(R.color.colorAccent);
+                //myPictures.setBackgroundResource(R.color.colorPrimary);
 
                 recyclerView.setVisibility(View.GONE);
                 recyclerViewSaves.setVisibility(View.VISIBLE);
