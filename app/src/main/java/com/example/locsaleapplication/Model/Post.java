@@ -6,19 +6,29 @@ public class Post {
     private String imageUrl;
     private String postId;
     private String publisher;
+    private String type;
 
     public Post() {
     }
 
-    public Post(String description, String imageUrl, String postId, String publisher) {
+    public Post(String description, String imageUrl, String postId, String publisher, String type) {
         this.description = description;
         this.imageUrl = imageUrl;
         this.postId = postId;
         this.publisher = publisher;
+        this.type = type;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setDescription(String description) {

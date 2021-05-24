@@ -217,7 +217,7 @@ public class ProfileFragment extends Fragment {
                         for(DataSnapshot snapshot1: dataSnapshot1.getChildren()){
                             Post post = snapshot1.getValue(Post.class);
                             for(String id: savedIds){
-                                if(post.getPostId().equals(id)){
+                                if(post.getPostId().equals(id) && !post.getType().equals("0")){
                                     mySavedPosts.add(post);
                                 }
                             }
@@ -245,7 +245,7 @@ public class ProfileFragment extends Fragment {
                 myPhotoList.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if(post.getPublisher().equals(profileId)){
+                    if(post.getPublisher().equals(profileId) && !post.getType().equals("0")){
                         myPhotoList.add(post);
                     }
                 }
@@ -287,7 +287,7 @@ public class ProfileFragment extends Fragment {
                 int counter = 0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if(post.getPublisher().equals(profileId)){
+                    if(post.getPublisher().equals(profileId) && !post.getType().equals("0")){
                         counter++;
                     }
 

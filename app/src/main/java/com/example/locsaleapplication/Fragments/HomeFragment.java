@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     for(String id:followingList){
-                        if(post.getPublisher().equals(id)){
+                        if(post.getPublisher().equals(id) && !post.getType().equals("0")){
                             postList.add(post);
                         }
                     }
