@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.locsaleapplication">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:launchMode="singleTop"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -31,6 +33,15 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".FCM.FirebaseMessagingService"
+            android:permission="TODO"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
