@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -18,6 +19,8 @@ import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.SendNotification;
+import com.example.locsaleapplication.SendNotificationFromUA;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private List<User> mUsers;
     private boolean isFragment;
     private FirebaseUser firebaseUser;
+    public static String token;
 
     public UserAdapter(Context mContext, List<User> mUsers, boolean isFragment) {
         this.mContext = mContext;
@@ -154,6 +158,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     //Upadted by Vritika
     private void addNotification(String UserId) {
+
+        final String[] username = new String[1];
+        FirebaseDatabase.getInstance().getReference().child("Users").child(UserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                token = user.getToken();
+                username[0] = user.getUsername();
+                Toast.makeText(mContext, "Notification sent to "+username[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         HashMap<String,Object> map = new HashMap<>();
 
         map.put("userid", firebaseUser.getUid());
@@ -162,6 +184,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         map.put("isPost",false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
+
+        Intent myIntent = new Intent(mContext, SendNotificationFromUA.class);
+        mContext.startActivity(myIntent);
     }
 
 }

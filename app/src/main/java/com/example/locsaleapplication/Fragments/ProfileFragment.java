@@ -25,6 +25,7 @@ import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.OptionsActivity;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.SendNotification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,20 +67,12 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseUser firebaseUser;
     String profileId;
+    public static String token;
 
-    private Context mContext;
-
-   /* @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
-    }
-*/
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mContext = container.getContext();
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId","none");
@@ -355,16 +348,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private void addNotification(String UserId) {
-        final String[] token = new String[1];
         final String[] username = new String[1];
         FirebaseDatabase.getInstance().getReference().child("Users").child(UserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                token[0] = user.getToken();
+                token = user.getToken();
                 username[0] = user.getUsername();
                 Toast.makeText(getContext(), "Notification sent to "+username[0], Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), token[0], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -379,16 +370,9 @@ public class ProfileFragment extends Fragment {
         map.put("postid","");
         map.put("isPost",false);
 
-        Toast.makeText(getContext(), getActivity().toString(), Toast.LENGTH_SHORT).show();
-        try{
-            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token[0],"You have a new FOLLOWER!", "A new follower is added!"
-                    ,mContext,getActivity());
-            notificationsSender.SendNotifications();
-        }catch (Exception e){
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
+
+        Intent myIntent = new Intent(getActivity(), SendNotification.class);
+        startActivity(myIntent);
     }
 }
