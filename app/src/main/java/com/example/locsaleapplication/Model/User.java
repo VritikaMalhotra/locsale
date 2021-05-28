@@ -9,11 +9,12 @@ public class User {
     private String imageurl;
     private String id;
     private String type;
+    private String token;
 
     public User() {
     }
 
-    public User(String name, String email, String username, String bio, String imageurl, String id, String type) {
+    public User(String name, String email, String username, String bio, String imageurl, String id, String type, String token) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -21,6 +22,15 @@ public class User {
         this.imageurl = imageurl;
         this.id = id;
         this.type = type;
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {

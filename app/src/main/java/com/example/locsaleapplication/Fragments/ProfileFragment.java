@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
+import com.example.locsaleapplication.FCM.FcmNotificationsSender;
 import com.example.locsaleapplication.FollowersActivity;
 import com.example.locsaleapplication.LoginActivity;
 import com.example.locsaleapplication.Model.Post;
@@ -66,10 +67,19 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser firebaseUser;
     String profileId;
 
+    private Context mContext;
+
+   /* @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext=context;
+    }
+*/
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mContext = container.getContext();
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId","none");
@@ -157,7 +167,7 @@ public class ProfileFragment extends Fragment {
         myPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(), "in my pictures", Toast.LENGTH_SHORT).show();
+
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerViewSaves.setVisibility(View.GONE);
             }
@@ -165,9 +175,6 @@ public class ProfileFragment extends Fragment {
         savedPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(), "in saved pictures", Toast.LENGTH_SHORT).show();
-                //savedPictures.setBackgroundResource(R.color.colorAccent);
-                //myPictures.setBackgroundResource(R.color.colorPrimary);
 
                 recyclerView.setVisibility(View.GONE);
                 recyclerViewSaves.setVisibility(View.VISIBLE);
@@ -348,12 +355,39 @@ public class ProfileFragment extends Fragment {
     }
 
     private void addNotification(String UserId) {
+        final String[] token = new String[1];
+        final String[] username = new String[1];
+        FirebaseDatabase.getInstance().getReference().child("Users").child(UserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                token[0] = user.getToken();
+                username[0] = user.getUsername();
+                Toast.makeText(getContext(), "Notification sent to "+username[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), token[0], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         HashMap<String,Object> map = new HashMap<>();
 
         map.put("userid", firebaseUser.getUid());
         map.put("test","Started following you");
         map.put("postid","");
         map.put("isPost",false);
+
+        Toast.makeText(getContext(), getActivity().toString(), Toast.LENGTH_SHORT).show();
+        try{
+            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token[0],"You have a new FOLLOWER!", "A new follower is added!"
+                    ,mContext,getActivity());
+            notificationsSender.SendNotifications();
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
     }
