@@ -117,7 +117,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/likes_backgorund"
             android:padding="5dp"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-10dp"
+            >
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,6 +128,8 @@
             android:textColor="@color/colorAccent"
             android:text="1000"
             android:textStyle="bold"
+            android:fontFamily="@font/lora"
+            android:padding="4dp"
 
             />
         </RelativeLayout>
@@ -134,7 +138,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/post_image"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
         <TextView
             android:layout_below="@id/layout1"
@@ -144,7 +149,8 @@
             android:textStyle="bold"
             android:id="@+id/author"
             android:textColor="#181818"
-            android:text="Mayank Thacker"/>
+            android:text="Mayank Thacker"
+            android:fontFamily="@font/merriweather_bold"/>
 
         <com.hendraanggrian.appcompat.widget.SocialTextView
             android:layout_width="wrap_content"
@@ -154,17 +160,19 @@
             android:layout_marginBottom="5dp"
             android:textColor="#565656"
             android:id="@+id/description"
-            android:text="Please do comment on my post!!"/>
+            android:text="Please do comment on my post!!"
+            android:fontFamily="@font/lora"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
             android:id="@+id/no_of_comments"
             android:textColor="#59565656"
-            android:text="18 comments"/>
+            android:text="18 comments"
+            android:fontFamily="@font/lora"/>
 
         </LinearLayout>
 
