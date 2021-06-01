@@ -219,16 +219,16 @@ great team any one can ask for.!!"
                 android:orientation="horizontal"
                 >
 
-              <!--  <Button
-                    android:layout_width="match_parent"
+                <Button
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/my_pictures"
-                    android:text="Posts"
+                    android:text=""
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:background="@color/transparent"
-                    />-->
+                    />
 
                 <Button
                     android:layout_width="match_parent"
