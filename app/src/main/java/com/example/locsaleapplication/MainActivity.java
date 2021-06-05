@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.locsaleapplication.Fragments.ExploreFragment;
 import com.example.locsaleapplication.Fragments.HomeFragment;
 import com.example.locsaleapplication.Fragments.NotificationFragment;
 import com.example.locsaleapplication.Fragments.ProfileFragment;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_search:
                         selectorFragment = new SearchFragment();
+                        break;
+                    case R.id.nav_explore:
+                        selectorFragment = new ExploreFragment();
                         break;
                     case R.id.nav_heart:
                         selectorFragment = new NotificationFragment();

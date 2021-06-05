@@ -4,18 +4,22 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.Adapter.TagAdapter;
 import com.example.locsaleapplication.Adapter.UserAdapter;
+import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class SearchFragment extends Fragment {
 
@@ -40,6 +49,8 @@ public class SearchFragment extends Fragment {
     private List<String> mHashtags;
     private List<String> mhashtagsCount;
     private TagAdapter tagAdapter;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,7 +71,6 @@ public class SearchFragment extends Fragment {
         mhashtagsCount = new ArrayList<>();
         tagAdapter = new TagAdapter(getContext(),mHashtags,mhashtagsCount);
         recyclerViewTags.setAdapter(tagAdapter);
-
 
         search_bar = view.findViewById(R.id.search_bar);
 
@@ -169,4 +179,7 @@ public class SearchFragment extends Fragment {
             tagAdapter.fliter(mSearchTags,mSearchTagsCount);
         }
     }
+
+
+
 }
