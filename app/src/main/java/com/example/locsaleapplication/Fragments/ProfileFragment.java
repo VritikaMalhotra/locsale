@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
         fullname = view.findViewById(R.id.fullname);
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
-        myPictures = view.findViewById(R.id.my_pictures);
+        //myPictures = view.findViewById(R.id.my_pictures);
         savedPictures = view.findViewById(R.id.saved_pictures);
         editProfile = view.findViewById(R.id.edit_profile);
 
@@ -155,16 +155,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        recyclerView.setVisibility(View.VISIBLE);
-        recyclerViewSaves.setVisibility(View.GONE);
-        myPictures.setOnClickListener(new View.OnClickListener() {
+        //recyclerView.setVisibility(View.VISIBLE);
+        recyclerViewSaves.setVisibility(View.VISIBLE);
+        /*myPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerViewSaves.setVisibility(View.GONE);
             }
-        });
+        });*/
         savedPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
