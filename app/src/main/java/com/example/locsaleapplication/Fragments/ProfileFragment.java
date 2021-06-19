@@ -92,8 +92,8 @@ public class ProfileFragment extends Fragment {
         fullname = view.findViewById(R.id.fullname);
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
-        //myPictures = view.findViewById(R.id.my_pictures);
-        savedPictures = view.findViewById(R.id.saved_pictures);
+        myPictures = view.findViewById(R.id.my_pictures);
+        //savedPictures = view.findViewById(R.id.saved_pictures);
         editProfile = view.findViewById(R.id.edit_profile);
 
         recyclerView = view.findViewById(R.id.recycler_view_pictures);
@@ -155,8 +155,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //recyclerView.setVisibility(View.VISIBLE);
-        recyclerViewSaves.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
+        //recyclerViewSaves.setVisibility(View.VISIBLE);
         /*myPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +165,7 @@ public class ProfileFragment extends Fragment {
                 recyclerViewSaves.setVisibility(View.GONE);
             }
         });*/
-        savedPictures.setOnClickListener(new View.OnClickListener() {
+        /*savedPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -173,7 +173,7 @@ public class ProfileFragment extends Fragment {
                 recyclerViewSaves.setVisibility(View.VISIBLE);
             }
         });
-
+*/
         /*followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
