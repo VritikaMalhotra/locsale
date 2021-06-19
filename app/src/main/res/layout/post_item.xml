@@ -55,7 +55,9 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:fontFamily="@font/lora"
+                android:hint="Mayank"/>
 
         </LinearLayout>
 
