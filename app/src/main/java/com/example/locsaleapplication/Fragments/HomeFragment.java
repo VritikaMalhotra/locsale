@@ -51,13 +51,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
-                    Post post = snapshot.getValue(Post.class);
-                    Toast.makeText(getContext(), post.toString(), Toast.LENGTH_SHORT).show();
-                    /*if(post.getType().equals("1")){
-                        //Toast.makeText(getContext(), itemSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                    Post post = itemSnapshot.getValue(Post.class);
+                    if(post.getType().equals("1")){
                         FirebaseDatabase.getInstance().getReference().child("Posts").child(itemSnapshot.getKey())
                                 .child("type").setValue("0");
-                    }*/
+                    }
                 }
             }
 
