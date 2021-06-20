@@ -203,7 +203,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         public ImageView comment;
         public ImageView save;
         public ImageView more;
-        public ImageView promotedPost;
+        public TextView promotedPost;
 
         public TextView username;
         public TextView noOfLikes;
@@ -274,7 +274,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             });
         }
 
-        public void isPromoted(String postId, final ImageView promotedPost, final RelativeLayout mainPostBackground) {
+        public void isPromoted(String postId, final TextView promotedPost, final RelativeLayout mainPostBackground) {
             FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
