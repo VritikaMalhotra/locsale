@@ -76,31 +76,45 @@
             android:layout_gravity="center"
             android:id="@+id/change_photo"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+           />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fullname"
             android:hint="Full Name"
             android:layout_marginTop="20dp"
-            app:met_floatingLabel="normal"/>
+            android:background="@drawable/edit_profile_background"
+            android:padding="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Username"
             android:hint="User Name"
             android:layout_marginTop="20dp"
-            app:met_floatingLabel="normal"/>
+            android:background="@drawable/edit_profile_background"
+            android:padding="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bio"
             android:hint="Bio"
             android:layout_marginTop="20dp"
-            app:met_floatingLabel="normal"/>
+            android:background="@drawable/edit_profile_background"
+            android:padding="20dp"
+            android:fontFamily="@font/merriweather_bold"
+            android:minLines="5"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
+            />
 
     </LinearLayout>
 </LinearLayout>
