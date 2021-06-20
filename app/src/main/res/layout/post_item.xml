@@ -39,13 +39,13 @@
                 android:id="@+id/profile_image"
                 android:layout_margin="5dp"
             />
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:id="@+id/promoted_post"
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_promoted_post"
-                />
+<!--            <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:id="@+id/promoted_post"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:src="@drawable/ic_promoted_post"-->
+<!--                />-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,6 +58,18 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/lora"
                 android:hint="Mayank"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/promoted_post"
+                android:background="@drawable/register_button"
+                android:text="Promoted"
+                android:textColor="#ffffff"
+                android:padding="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/merriweather_bold"/>
 
         </LinearLayout>
 
@@ -104,6 +116,30 @@
                 android:id="@+id/comment"
                 android:layout_marginTop="-10dp"
                 />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/likes_backgorund"
+                android:padding="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="-5dp"
+                android:layout_toRightOf="@id/comment"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/no_of_likes"
+                    android:textColor="@color/colorAccent"
+                    android:text="1000"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/lora"
+                    android:padding="4dp"
+
+                    />
+            </RelativeLayout>
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -114,27 +150,7 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/likes_backgorund"
-            android:padding="5dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="-10dp"
-            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/no_of_likes"
-            android:textColor="@color/colorAccent"
-            android:text="1000"
-            android:textStyle="bold"
-            android:fontFamily="@font/lora"
-            android:padding="4dp"
-
-            />
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
