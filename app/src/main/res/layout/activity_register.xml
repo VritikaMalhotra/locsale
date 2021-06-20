@@ -176,6 +176,18 @@
                 android:layout_marginRight="25dp"
                 ></EditText>
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="I agree to Terms &amp; Conditions."
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/merriweather_bold"
+                android:layout_marginTop="15dp"
+                android:id="@+id/terms_conditions"
+                android:textSize="18sp"
+                />
+
 
             <Button
                 android:id="@+id/register_button"
@@ -207,5 +219,6 @@
                 ></TextView>
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
