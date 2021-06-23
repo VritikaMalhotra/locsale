@@ -221,7 +221,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);
             save = itemView.findViewById(R.id.save);
-            more = itemView.findViewById(R.id.more);
             promotedPost = itemView.findViewById(R.id.promoted_post);
 
             username = itemView.findViewById(R.id.username);
