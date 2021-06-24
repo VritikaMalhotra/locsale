@@ -323,7 +323,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
     private void getFollowersAndFollowingCount() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId);
         /*ref.child("followers").addValueEventListener(new ValueEventListener() {

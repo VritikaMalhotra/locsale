@@ -140,7 +140,7 @@ great team any one can ask for.!!"
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="POST"
+                                    android:text="SAVED POSTS"
                                     android:textSize="12sp"
                                     />
                             </LinearLayout>

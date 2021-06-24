@@ -289,15 +289,16 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void getPostCount() {
-        FirebaseDatabase.getInstance().getReference().child("Posts").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Saves").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int counter = 0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Post post = snapshot.getValue(Post.class);
+                    /*Post post = snapshot.getValue(Post.class);
                     if(post.getPublisher().equals(profileId) && !post.getType().equals("0")){
                         counter++;
-                    }
+                    }*/
+                    counter++;
 
                 }
                 posts.setText(String.valueOf(counter));
