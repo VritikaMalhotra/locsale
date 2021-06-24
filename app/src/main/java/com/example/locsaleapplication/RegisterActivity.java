@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView register_loginUser;
     private Button register_button;
     private String name,email,password,confirmPassword,dob,username;
+    private CheckBox terms_conditions;
 
     private DatabaseReference mRootRef;
     private FirebaseAuth mAuth;
@@ -71,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_dob = findViewById(R.id.register_dob);
         register_loginUser = findViewById(R.id.register_loginUser);
         register_button = findViewById(R.id.register_button);
+        terms_conditions = findViewById(R.id.terms_conditions);
         pd = new ProgressDialog(this);
 
 
@@ -150,6 +153,12 @@ public class RegisterActivity extends AppCompatActivity {
             register_confirmPassword.requestFocus();
             return;
         }
+        if(!terms_conditions.isChecked()){
+
+            terms_conditions.setError("You need to agree to terms and conditions before proceding further");
+            terms_conditions.requestFocus();
+            return;
+        }
 
         RegisterUser(name,email,password,dob);
 
@@ -157,6 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void RegisterUser(final String name, final String email, String password, final String dob) {
+
         pd.setMessage("please wait");
         pd.show();
         Toast.makeText(this, password, Toast.LENGTH_SHORT).show();

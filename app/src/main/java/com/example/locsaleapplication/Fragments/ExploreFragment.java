@@ -1,5 +1,6 @@
 package com.example.locsaleapplication.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,11 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +36,31 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_explore, container, false);
-        
+
+        //Back pressed Logic for fragment
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        /*Fragment fragment = new HomeFragment();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame_container, fragment);
+                        fragmentTransaction.commit();*/
+                        getActivity().finish();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
         recyclerViewExplore = view.findViewById(R.id.recycler_view_pictures_search);
         recyclerViewExplore.setHasFixedSize(true);
         recyclerViewExplore.setLayoutManager(new GridLayoutManager(getContext(),3));
@@ -67,4 +94,6 @@ public class ExploreFragment extends Fragment {
             }
         });
     }
+
+
 }
