@@ -1,18 +1,23 @@
 package com.example.locsaleapplication.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.locsaleapplication.Adapter.PostAdapter;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +42,25 @@ public class PostDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_detail, container, false);
+
+        //Back pressed Logic for fragment
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                        getActivity().finish();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         postId = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE).getString("postId","none");
         recyclerView = view.findViewById(R.id.recycler_view);

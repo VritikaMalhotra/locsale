@@ -202,7 +202,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         public ImageView like;
         public ImageView comment;
         public ImageView save;
-        public ImageView more;
+        //public ImageView more;
         public TextView promotedPost;
 
         public TextView username;
@@ -302,7 +302,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                text.setText(dataSnapshot.getChildrenCount()+" likes");
+                if(dataSnapshot.getChildrenCount() == 1){
+                    text.setText(dataSnapshot.getChildrenCount()+" like");
+                }else{
+                    text.setText(dataSnapshot.getChildrenCount()+" likes");
+                }
+
             }
 
             @Override
@@ -317,7 +322,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        text.setText("View All "+dataSnapshot.getChildrenCount() +" comments");
+                        if(dataSnapshot.getChildrenCount() == 1){
+                            text.setText("View All "+dataSnapshot.getChildrenCount() +" comment");
+                        }else{
+                            text.setText("View All "+dataSnapshot.getChildrenCount() +" comments");
+                        }
+
                     }
 
                     @Override

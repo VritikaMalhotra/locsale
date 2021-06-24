@@ -1,5 +1,6 @@
 package com.example.locsaleapplication.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.Adapter.TagAdapter;
 import com.example.locsaleapplication.Adapter.UserAdapter;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -55,6 +57,25 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false) ;
+
+        //Back pressed Logic for fragment
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                        getActivity().finish();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recycler_view_users);
         recyclerView.setHasFixedSize(true);

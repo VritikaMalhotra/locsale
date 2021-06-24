@@ -3,6 +3,7 @@ package com.example.locsaleapplication.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.locsaleapplication.EditProfileActivity;
 import com.example.locsaleapplication.FCM.FcmNotificationsSender;
 import com.example.locsaleapplication.FollowersActivity;
 import com.example.locsaleapplication.LoginActivity;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.OptionsActivity;
@@ -74,6 +76,26 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //Back pressed Logic for fragment
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                        getActivity().finish();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId","none");
         if(data.equals("none")){
@@ -301,7 +323,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
     private void getFollowersAndFollowingCount() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId);
         /*ref.child("followers").addValueEventListener(new ValueEventListener() {
