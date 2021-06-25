@@ -38,6 +38,7 @@
                 android:layout_height="35dp"
                 android:id="@+id/profile_image"
                 android:layout_margin="5dp"
+                android:src="@drawable/ic_profile"
             />
 <!--            <de.hdodenhof.circleimageview.CircleImageView-->
 <!--                android:layout_width="35dp"-->
@@ -57,7 +58,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_margin="5dp"
                 android:fontFamily="@font/lora"
-                android:hint="Mayank"
+                android:hint="Username"
                 android:layout_toEndOf="@+id/profile_image"/>
 
 
@@ -93,7 +94,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 android:id="@+id/post_image"
                 tools:ignore="MissingConstraints"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_profile"
                 android:background="@drawable/post_background"
                 android:outlineProvider="background"
                 />
@@ -172,7 +173,7 @@
             android:textStyle="bold"
             android:id="@+id/author"
             android:textColor="#181818"
-            android:text="Mayank Thacker"
+            android:text="Username"
             android:fontFamily="@font/merriweather_bold"/>
 
         <com.hendraanggrian.appcompat.widget.SocialTextView
@@ -194,7 +195,7 @@
             android:layout_marginBottom="5dp"
             android:id="@+id/no_of_comments"
             android:textColor="#59565656"
-            android:text="18 comments"
+            android:text="0 comments"
             android:fontFamily="@font/lora"/>
 
         </LinearLayout>

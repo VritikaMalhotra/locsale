@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mayank"
+                    android:text="Username"
                     android:textSize="18sp"
                     android:maxLines="1"
                     android:textStyle="bold"
@@ -77,7 +77,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:id="@+id/image_profile"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@drawable/ic_profile"
                             android:layout_centerHorizontal="true"
                             />
                     </RelativeLayout>
@@ -95,7 +95,7 @@
                             android:id="@+id/fullname"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:text="Mayank Thacker"
+                            android:text="Username"
                             android:textColor="@color/colorPrimaryDark"
                             android:textAlignment="center"/>
 
@@ -106,9 +106,8 @@
                             android:id="@+id/bio"
                             android:maxLines="5"
                             android:textAlignment="center"
-                            android:text="I am the crazy ass person you see me to be. I love myself and
-great team any one can ask for.!!"
-                            android:textColor="@color/colorAccent"/>
+                            android:text="Bio"
+                            android:textColor="#4A4949"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,7 +139,7 @@ great team any one can ask for.!!"
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="SAVED POSTS"
+                                    android:text="Saved Posts"
                                     android:textSize="12sp"
                                     />
                             </LinearLayout>
