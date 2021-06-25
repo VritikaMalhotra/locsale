@@ -12,15 +12,13 @@
         android:src="@mipmap/splash_image_foreground"
          android:layout_centerInParent="true"
         android:id="@+id/icon_image"
-        
-
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/relativeLayout"
+        android:id="@+id/constraintLayout"
         >
 
         <TextView
