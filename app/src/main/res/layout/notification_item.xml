@@ -8,7 +8,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/image_profile"
-
+        android:src="@drawable/ic_profile"
         />
 
     <LinearLayout
@@ -24,14 +24,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"
+            android:textColor="#4A4949"
+            android:text="Username"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/comment"
-
+            android:text="Notification details"
             />
 
     </LinearLayout>

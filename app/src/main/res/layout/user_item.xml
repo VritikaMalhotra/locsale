@@ -8,7 +8,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/image_profile"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/ic_profile"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,7 +25,8 @@
             android:text="username"
             android:maxLines="1"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="#181818"
+            android:layout_marginStart="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +34,9 @@
             android:id="@+id/fullname"
             android:text="Full name"
             android:maxLines="1"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="#4A4949"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 
