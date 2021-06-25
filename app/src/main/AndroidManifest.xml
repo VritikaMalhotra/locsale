@@ -10,7 +10,12 @@
         android:roundIcon="@drawable/splash_image"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".splash_screen"></activity>
+        <activity android:name=".splash_screen"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".TearmsAndConditionsActivity" />
         <activity android:name=".SendNotificationFromUA" />
         <activity android:name=".SendNotification" />
@@ -22,11 +27,7 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity
