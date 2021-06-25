@@ -28,6 +28,5 @@ public class SendNotificationFromUA extends AppCompatActivity {
         Toast.makeText(this, "in send notification activity UA", Toast.LENGTH_SHORT).show();
         finish();
 
-
     }
 }

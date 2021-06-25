@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Map;
 
-public class splash_screen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     private ImageView splash_img;
     private ConstraintLayout constraintLayout;
@@ -41,7 +41,7 @@ public class splash_screen extends AppCompatActivity {
         constraintLayout = findViewById(R.id.constraintLayout);
         splach_text = findViewById(R.id.splach_text);
 
-        String text = "<font color=#1505FA>LOC</font> <font color=#FA0505>SALE</font>";
+        String text = "<font color=#1505FA>LOC</font><font color=#FA0505>SALE</font>";
         splach_text.setText(Html.fromHtml(text));
 
         constraintLayout.animate().alpha(0f).setDuration(1);

@@ -13,16 +13,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    private TextView settings;
+    private TextView contact_us;
     private TextView logout;
+    private TextView terms_conditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        settings = findViewById(R.id.settings);
+        contact_us = findViewById(R.id.contact_us);
         logout = findViewById(R.id.logout);
+        terms_conditions = findViewById(R.id.terms_conditions);
 
         Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -32,6 +34,20 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        terms_conditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OptionsActivity.this, TearmsAndConditionsActivity.class));
+            }
+        });
+
+        contact_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OptionsActivity.this, ContactUsActivity.class));
             }
         });
 
