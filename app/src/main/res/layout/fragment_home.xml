@@ -54,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    
                     >
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -80,7 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
         android:id="@+id/home_explore"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
