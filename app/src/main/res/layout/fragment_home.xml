@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:text="Add Post"
+            android:text="Explore Shopkeepers"
             android:background="@drawable/home_button_background"
             android:textColor="#ffffff"
             android:fontFamily="sans-serif"
