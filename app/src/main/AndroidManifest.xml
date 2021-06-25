@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/splash_image_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".contact_us"></activity>
-        <activity android:name=".splash_screen">
+        <activity android:name=".ContactUsActivity"></activity>
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +37,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/splash_image_foreground" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
 
         <service
             android:name=".FCM.FirebaseMessagingService"
