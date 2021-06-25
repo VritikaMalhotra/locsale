@@ -5,15 +5,16 @@
     android:padding="12dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:id="@+id/image_profile" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/image_profile"
+        android:src="@drawable/ic_profile"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/image_profile"
         >
 
@@ -29,8 +30,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="5"
-            android:text=""
-            android:id="@+id/comment"/>
+            android:text="Your comment will appear hear"
+            android:textColor="#4A4949"
+            android:id="@+id/comment"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
 </RelativeLayout>

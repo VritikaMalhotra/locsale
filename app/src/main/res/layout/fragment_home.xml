@@ -48,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bar"
-                android:background="#ECE8E8">
+                android:background="#ECE8E8"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,6 +77,17 @@
 
             </androidx.core.widget.NestedScrollView>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,10 +104,10 @@
             android:textSize="30sp"
             android:id="@+id/explore_head"
             android:layout_marginTop="10dp"
-            android:padding="20dp"
+            android:padding="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:textColor="#4A4949"
+            android:textColor="#000000"
             />
         <ImageView
             android:layout_width="match_parent"
@@ -115,6 +127,7 @@
             android:id="@+id/explore_mid"
             android:layout_below="@+id/explore_img"
             android:layout_marginTop="40dp"
+            android:textColor="#000000"
             />
 
         <Button
@@ -140,7 +153,9 @@
 
     </RelativeLayout>
 
+        </LinearLayout>
 
+    </ScrollView>
 
 
 
