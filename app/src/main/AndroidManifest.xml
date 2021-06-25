@@ -41,9 +41,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/splash_image_foreground" />
-        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorPrimary" />
-
+        
         <service
             android:name=".FCM.FirebaseMessagingService"
             android:permission="TODO"
