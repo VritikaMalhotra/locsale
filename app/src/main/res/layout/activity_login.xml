@@ -108,7 +108,8 @@
                 android:inputType="textPersonName"
                 android:text="Log In"
                 android:textColor="#FFFFFF"
-                android:textSize="25dp"></Button>
+                android:textSize="25dp"
+                android:padding="10dp"></Button>
 
             <TextView
                 android:id="@+id/login_register"
