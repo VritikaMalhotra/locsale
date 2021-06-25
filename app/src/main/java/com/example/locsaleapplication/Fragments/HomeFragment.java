@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +38,8 @@ public class HomeFragment extends Fragment {
     private List<Post> postList;
     private List<String> followingList;
     DatabaseReference ttlRef;
+    private RelativeLayout home_explore;
+    private Button buttonExplore;
 
 
     @Override
@@ -43,6 +49,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false) ;
         recyclerViewPosts = view.findViewById(R.id.recycler_view_posts);
         recyclerViewPosts.setHasFixedSize(true);
+        home_explore = view.findViewById(R.id.home_explore);
+        buttonExplore = view.findViewById(R.id.buttonExplore);
 
         ttlRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS);
@@ -74,6 +82,17 @@ public class HomeFragment extends Fragment {
         recyclerViewPosts.setAdapter(postAdapter);
         followingList = new ArrayList<>();
 
+        buttonExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ExploreFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container, fragment);
+                fragmentTransaction.commit();
+            }
+        });
+
         checkFollowingUsers();
 
         return view;
@@ -85,6 +104,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 followingList.clear();
+                if(dataSnapshot.getChildrenCount() < 1){
+                    home_explore.setVisibility(View.VISIBLE);
+                }
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     followingList.add(snapshot.getKey());
                 }
@@ -105,6 +127,9 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 postList.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    if(dataSnapshot.getChildrenCount() < 1){
+                        home_explore.setVisibility(View.VISIBLE);
+                    }
                     Post post = snapshot.getValue(Post.class);
                     for(String id:followingList){
                         if(post.getPublisher().equals(id) && !post.getType().equals("0")){
