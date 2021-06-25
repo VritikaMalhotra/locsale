@@ -81,36 +81,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
         android:id="@+id/home_explore"
-        android:visibility="gone"
+        android:visibility="gon"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="You Don't Follow Anyone Yet!"
             android:gravity="center"
             android:fontFamily="@font/lora_bold"
-            android:textSize="22sp"
+            android:textSize="30sp"
             android:id="@+id/explore_head"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="#4A4949"
             />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/home_explore"
             android:layout_below="@+id/explore_head"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/explore_img"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="Please Follow Your Shopkeepers"
             android:gravity="center"
             android:fontFamily="@font/lora_bold"
-            android:textSize="22sp"
+            android:textSize="30sp"
             android:id="@+id/explore_mid"
             android:layout_below="@+id/explore_img"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             />
 
         <Button
@@ -118,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="Explore Shopkeepers"
             android:background="@drawable/home_button_background"
             android:textColor="#ffffff"
