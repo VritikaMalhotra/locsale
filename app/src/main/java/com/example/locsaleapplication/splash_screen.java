@@ -2,11 +2,13 @@ package com.example.locsaleapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -27,7 +29,8 @@ import java.util.Map;
 public class splash_screen extends AppCompatActivity {
 
     private ImageView splash_img;
-    private RelativeLayout relativeLayout;
+    private ConstraintLayout constraintLayout;
+    private TextView splach_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +38,13 @@ public class splash_screen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         splash_img = findViewById(R.id.icon_image);
-        relativeLayout = findViewById(R.id.relativeLayout);
+        constraintLayout = findViewById(R.id.constraintLayout);
+        splach_text = findViewById(R.id.splach_text);
 
-        relativeLayout.animate().alpha(0f).setDuration(1);
+        String text = "<font color=#1505FA>LOC</font> <font color=#FA0505>SALE</font>";
+        splach_text.setText(Html.fromHtml(text));
+
+        constraintLayout.animate().alpha(0f).setDuration(1);
 
         TranslateAnimation animation = new TranslateAnimation(0,0,0,-1000);
         animation.setDuration(2000);
@@ -58,7 +65,7 @@ public class splash_screen extends AppCompatActivity {
         public void onAnimationEnd(Animation animation) {
             splash_img.clearAnimation();
             splash_img.setVisibility(View.INVISIBLE);
-            relativeLayout.animate().alpha(1f).setDuration(2000);
+            constraintLayout.animate().alpha(1f).setDuration(2000);
 
             final Handler handler2 = new Handler(Looper.getMainLooper());
             handler2.postDelayed(new Runnable() {

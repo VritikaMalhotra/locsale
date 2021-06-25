@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
         android:id="@+id/home_explore"
-        android:visibility="gon"
+        android:visibility="gone"
         >
         <TextView
             android:layout_width="match_parent"
