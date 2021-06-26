@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FollowerDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:background="?android:attr/windowBackground">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Business Details"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_toEndOf="@+id/close"
+                    android:textAlignment="center"/>
+
+
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                >
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    android:text="Business Name"
+                    android:textColor="#373833"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/merriweather_bold"></TextView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/business_name"
+                    android:hint="Business Name"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_profile_background"
+                    android:padding="20dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    android:text="Business Field"
+                    android:textColor="#373833"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/merriweather_bold"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/business_field"
+                    android:hint="Business Field"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_profile_background"
+                    android:padding="20dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    android:text="Mobile Number"
+                    android:textColor="#373833"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/merriweather_bold"></TextView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mobile_number"
+                    android:hint="Mobile Number"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_profile_background"
+                    android:padding="20dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="15dp"
+                    android:padding="10dp"
+                    android:text="Address"
+                    android:textColor="#373833"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/merriweather_bold"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/address"
+                    android:hint="Address"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_profile_background"
+                    android:padding="20dp"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:minLines="5"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

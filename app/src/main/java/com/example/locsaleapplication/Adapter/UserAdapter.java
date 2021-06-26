@@ -15,12 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.locsaleapplication.FollowerDetailActivity;
+import com.example.locsaleapplication.FollowersActivity;
 import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.SendNotificationFromUA;
+import com.example.locsaleapplication.ShopkeeperDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -101,10 +104,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 if(isFragment){
                     mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE)
                             .edit().putString("profileId",user.getId()).apply();
-
                     ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
                 }else{
-                    Intent intent = new Intent(mContext, MainActivity.class);
+                    Intent intent = new Intent(mContext, FollowerDetailActivity.class);
                     intent.putExtra("publisherId",user.getId());
                     mContext.startActivity(intent);
                 }

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.locsaleapplication">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/splash_image"
@@ -10,7 +12,8 @@
         android:roundIcon="@mipmap/splash_image"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShopkeeperDetailActivity"></activity>
+        <activity android:name=".FollowerDetailActivity"></activity>
+        <activity android:name=".ShopkeeperDetailActivity" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
@@ -37,8 +40,7 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-        <!--  Set custom default icon. This is used when no icon is set for incoming notification messages. -->
+            android:resource="@array/preloaded_fonts" /> <!-- Set custom default icon. This is used when no icon is set for incoming notification messages. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_noti" />
@@ -59,7 +61,5 @@
             </intent-filter>
         </service>
     </application>
-
-    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>
