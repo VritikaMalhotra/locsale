@@ -51,7 +51,7 @@ public class FcmNotificationsSender  {
             JSONObject notiObject = new JSONObject();
             notiObject.put("title", title);
             notiObject.put("body", body);
-            notiObject.put("icon", "icon_image"); // enter icon that exists in drawable only
+            notiObject.put("icon", "ic_shoping_basket"); // enter icon that exists in drawable only
 
 
 

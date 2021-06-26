@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     DatabaseReference ttlRef;
     private RelativeLayout home_explore;
     private Button buttonExplore;
+    private ScrollView scroll_view_go_explore;
 
 
     @Override
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment {
         recyclerViewPosts.setHasFixedSize(true);
         home_explore = view.findViewById(R.id.home_explore);
         buttonExplore = view.findViewById(R.id.buttonExplore);
+        scroll_view_go_explore = view.findViewById(R.id.scroll_view_go_explore);
 
         ttlRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS);
@@ -106,6 +109,7 @@ public class HomeFragment extends Fragment {
                 followingList.clear();
                 if(dataSnapshot.getChildrenCount() < 1){
                     home_explore.setVisibility(View.VISIBLE);
+                    scroll_view_go_explore.setVisibility(View.VISIBLE);
                 }
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     followingList.add(snapshot.getKey());
@@ -129,6 +133,7 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     if(dataSnapshot.getChildrenCount() < 1){
                         home_explore.setVisibility(View.VISIBLE);
+                        scroll_view_go_explore.setVisibility(View.VISIBLE);
                     }
                     Post post = snapshot.getValue(Post.class);
                     for(String id:followingList){

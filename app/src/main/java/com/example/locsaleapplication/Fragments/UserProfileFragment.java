@@ -129,6 +129,7 @@ public class UserProfileFragment extends Fragment {
         postAdaptersaves = new PhotoAdapter(getContext(),mySavedPosts);
         recyclerViewSaves.setAdapter(postAdaptersaves);
 
+
         userInfo();
         getFollowersAndFollowingCount();
         getPostCount();
@@ -343,7 +344,7 @@ public class UserProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
-                Picasso.get().load(user.getImageurl()).resize(300,300).into(imageProfile);
+                Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(imageProfile);
                 username.setText(user.getUsername());
                 fullname.setText(user.getName());
                 bio.setText(user.getBio());

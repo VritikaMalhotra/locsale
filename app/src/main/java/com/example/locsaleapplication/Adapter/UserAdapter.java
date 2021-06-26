@@ -65,7 +65,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
 
-        Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.mipmap.ic_launcher).into(holder.imageProfile);
+        Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(holder.imageProfile);
 
         isFollowed(user.getId(),holder.btnfollow);
 
