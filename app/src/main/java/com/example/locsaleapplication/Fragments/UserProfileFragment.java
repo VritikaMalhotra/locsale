@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
@@ -37,6 +40,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -65,7 +69,7 @@ public class UserProfileFragment extends Fragment {
 
     private FirebaseUser firebaseUser;
     String profileId;
-
+    int counter;
 
 
     @Override
@@ -293,16 +297,32 @@ public class UserProfileFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("Saves").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int counter = 0;
+                counter = 0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    /*Post post = snapshot.getValue(Post.class);
-                    if(post.getPublisher().equals(profileId) && !post.getType().equals("0")){
-                        counter++;
-                    }*/
-                    counter++;
+                    FirebaseDatabase.getInstance().getReference().child("Posts").child(snapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Post post = dataSnapshot.getValue(Post.class);
+                            if(!post.getType().equals("0")){
+                                counter++;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
-                posts.setText(String.valueOf(counter));
+                final Handler handler2 = new Handler(Looper.getMainLooper());
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        posts.setText(String.valueOf(counter++));
+                    }
+                }, 3000);
+
             }
 
             @Override

@@ -135,7 +135,7 @@
                                     android:layout_gravity="center"
                                     android:textSize="18sp"
                                     android:textStyle="bold"
-                                    android:text="55"/>
+                                    android:text=""/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                                     android:layout_gravity="center"
                                     android:textSize="18sp"
                                     android:textStyle="bold"
-                                    android:text="100"/>
+                                    android:text=""/>
 
                                 <TextView
                                     android:layout_width="wrap_content"

@@ -51,8 +51,8 @@ public class FcmNotificationsSender  {
             JSONObject notiObject = new JSONObject();
             notiObject.put("title", title);
             notiObject.put("body", body);
-            notiObject.put("icon", "ic_shoping_basket"); // enter icon that exists in drawable only
-            //mainObj.put("notification", notiObject);
+            notiObject.put("icon", "ic_noti_icon"); // enter icon that exists in drawable only
+            mainObj.put("notification", notiObject);
 
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, postUrl, mainObj, new Response.Listener<JSONObject>() {
