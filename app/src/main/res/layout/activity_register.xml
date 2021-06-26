@@ -201,6 +201,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:fontFamily="@font/merriweather_bold"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/terms_conditions"
 
                     />
@@ -216,6 +217,8 @@
                     android:textStyle="bold"
                     android:layout_marginStart="-15dp"
                     android:textColor="#3F51B5"
+                    android:id="@+id/terms_conditions_text"
+                    android:layout_marginBottom="10dp"
                     />
 
 
