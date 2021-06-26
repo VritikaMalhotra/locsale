@@ -28,6 +28,7 @@ import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.OptionsActivity;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
+import com.example.locsaleapplication.ShopkeeperDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +67,7 @@ public class ProfileFragment extends Fragment {
     private Button myPictures;
     private  Button savedPictures;
     private Button editProfile;
+    private Button deatils;
 
     private FirebaseUser firebaseUser;
     String profileId;
@@ -117,6 +119,7 @@ public class ProfileFragment extends Fragment {
         myPictures = view.findViewById(R.id.my_pictures);
         //savedPictures = view.findViewById(R.id.saved_pictures);
         editProfile = view.findViewById(R.id.edit_profile);
+        deatils = view.findViewById(R.id.details);
 
         recyclerView = view.findViewById(R.id.recycler_view_pictures);
         recyclerView.setHasFixedSize(true);
@@ -143,7 +146,13 @@ public class ProfileFragment extends Fragment {
         }else{
             checkFollowingStatus();
         }
-       
+
+        deatils.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ShopkeeperDetailActivity.class));
+            }
+        });
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

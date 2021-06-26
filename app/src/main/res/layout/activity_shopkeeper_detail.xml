@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shopkeeperDetailActivity">
+    tools:context=".ShopkeeperDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,12 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_close"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/close"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +58,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Business"
+        android:id="@+id/business_name"
         android:hint="Business Name"
         android:layout_marginTop="50dp"
         android:background="@drawable/edit_profile_background"
@@ -85,7 +80,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Username"
+        android:id="@+id/mobile_number"
         android:hint="Mobile Number"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_profile_background"
@@ -96,7 +91,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bio"
+        android:id="@+id/address"
         android:hint="Address"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_profile_background"

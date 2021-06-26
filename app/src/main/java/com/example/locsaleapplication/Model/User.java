@@ -10,11 +10,17 @@ public class User {
     private String id;
     private String type;
     private String token;
+    private String business_name;
+    private String business_field;
+    private String contact_number;
+    private String address;
 
     public User() {
     }
 
-    public User(String name, String email, String username, String bio, String imageurl, String id, String type, String token) {
+    public User(String name, String email, String username, String bio,
+                String imageurl, String id, String type, String token,
+                String business_name, String business_field, String contact_number, String address) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -23,6 +29,42 @@ public class User {
         this.id = id;
         this.type = type;
         this.token = token;
+        this.business_name = business_name;
+        this.business_field = business_field;
+        this.contact_number = contact_number;
+        this.address = address;
+    }
+
+    public String getBusiness_name() {
+        return business_name;
+    }
+
+    public void setBusiness_name(String business_name) {
+        this.business_name = business_name;
+    }
+
+    public String getBusiness_field() {
+        return business_field;
+    }
+
+    public void setBusiness_field(String business_field) {
+        this.business_field = business_field;
+    }
+
+    public String getContact_number() {
+        return contact_number;
+    }
+
+    public void setContact_number(String contact_number) {
+        this.contact_number = contact_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getToken() {
