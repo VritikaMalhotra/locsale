@@ -66,7 +66,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     holder.imageProfile.setImageResource(R.mipmap.ic_launcher);
                 }else{
 
-                    Picasso.get().load(user.getImageurl()).resize(300,300).into(holder.imageProfile);
+                    Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(holder.imageProfile);
                 }
             }
 
