@@ -17,7 +17,7 @@ public class SendNotificationFromUA extends AppCompatActivity {
         setContentView(R.layout.activity_send_notification_from_u);
 
         String token = UserAdapter.token;
-        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+
         try{
             FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token,"You have a new FOLLOWER!", "A new follower is added!"
                     ,getApplicationContext(),SendNotificationFromUA.this);
@@ -25,7 +25,7 @@ public class SendNotificationFromUA extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "in send notification activity UA", Toast.LENGTH_SHORT).show();
+
         finish();
 
     }

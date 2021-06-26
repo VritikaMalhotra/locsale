@@ -385,7 +385,6 @@ public class ProfileFragment extends Fragment {
                 User user = dataSnapshot.getValue(User.class);
                 token = user.getToken();
                 username[0] = user.getUsername();
-                Toast.makeText(getContext(), "Notification sent to "+username[0], Toast.LENGTH_SHORT).show();
             }
 
             @Override

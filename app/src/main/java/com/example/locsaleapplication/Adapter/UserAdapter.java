@@ -166,8 +166,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 User user = dataSnapshot.getValue(User.class);
                 token = user.getToken();
                 username[0] = user.getUsername();
-                Toast.makeText(mContext, "Notification sent to "+username[0], Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
             }
 
             @Override

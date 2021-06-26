@@ -17,7 +17,6 @@ public class SendNotification extends AppCompatActivity {
         setContentView(R.layout.activity_send_notification);
 
         String token = ProfileFragment.token;
-        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
         try{
             FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token,"You have a new FOLLOWER!", "A new follower is added!"
                     ,getApplicationContext(),SendNotification.this);
@@ -25,7 +24,6 @@ public class SendNotification extends AppCompatActivity {
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "in send notification activity", Toast.LENGTH_SHORT).show();
         finish();
 
 

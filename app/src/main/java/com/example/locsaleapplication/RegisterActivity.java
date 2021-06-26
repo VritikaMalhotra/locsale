@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (task.isSuccessful()) {
                             token = Objects.requireNonNull(task.getResult()).getToken();
-                            Toast.makeText(RegisterActivity.this, token, Toast.LENGTH_LONG).show();
+
                         }
 
                     }
@@ -169,8 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         pd.setMessage("please wait");
         pd.show();
-        Toast.makeText(this, password, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
+
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

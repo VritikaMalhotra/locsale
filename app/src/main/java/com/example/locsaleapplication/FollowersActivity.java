@@ -124,7 +124,6 @@ public class FollowersActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     for(String id:idList){
                         if(user.getId().equals(id)){
-                            Toast.makeText(FollowersActivity.this, "added", Toast.LENGTH_SHORT).show();
                             mUsers.add(user);
                         }
                     }

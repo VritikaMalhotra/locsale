@@ -93,7 +93,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(TextUtils.isEmpty(addComment.getText().toString())){
-                    Toast.makeText(CommentActivity.this, "No comment added", Toast.LENGTH_SHORT).show();
+
                 }else{
                     putComment();
                 }
@@ -136,7 +136,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(CommentActivity.this, "Comment added!", Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(CommentActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

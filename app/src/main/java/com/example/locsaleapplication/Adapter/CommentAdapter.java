@@ -114,7 +114,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(mContext, "Comment deleted successfully", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                     }
                                 }
