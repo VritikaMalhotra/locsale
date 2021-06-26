@@ -189,18 +189,75 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/edit_profile"
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        >-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/edit_profile"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:text="Edit Profile"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textColor="#FFFFFF"-->
+<!--                        android:background="@drawable/profile_button"-->
+<!--                        />-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/edit_details"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="Edit Profile"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:layout_marginStart="30dp"-->
+<!--                            android:layout_marginEnd="30dp"-->
+<!--                            android:textColor="#FFFFFF"-->
+<!--                            android:background="@drawable/profile_button"-->
+<!--                            />-->
+
+<!--                    </LinearLayout>-->
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Edit Profile"
-                        android:textSize="18sp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:textColor="#FFFFFF"
-                        android:background="@drawable/profile_button"
-                        />
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        >
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/edit_profile"
+                            android:text="EDIT"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:background="@drawable/profile_button"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif"
+                            />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/"
+                            android:text="Details"
+                            android:textSize="18sp"
+                            android:textAlignment="center"
+                            android:background="@drawable/profile_button"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginStart="5dp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif"
+                            />
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
