@@ -68,6 +68,11 @@
                 android:textSize="20dp"
                 ></TextView>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
+
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
@@ -80,6 +85,7 @@
                 android:inputType="textPassword"
                 android:layout_marginRight="25dp"
                 ></EditText>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/login_forgotPassword"

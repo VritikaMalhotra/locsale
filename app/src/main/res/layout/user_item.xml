@@ -47,6 +47,7 @@
         android:id="@+id/btn_follow"
         android:textColor="#ffffff"
         android:layout_alignParentEnd="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:fontFamily="sans-serif"/>
 
 </RelativeLayout>

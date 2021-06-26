@@ -92,7 +92,7 @@
            />
 
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fullname"
@@ -103,7 +103,7 @@
             android:fontFamily="@font/merriweather_bold"
             />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Username"
@@ -114,7 +114,7 @@
             android:fontFamily="@font/merriweather_bold"
             />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/bio"
