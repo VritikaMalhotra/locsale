@@ -150,9 +150,9 @@ public class CommentActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getImageurl().equals("default")){
-                    imageProfile.setImageResource(R.mipmap.ic_launcher);
+                    imageProfile.setImageResource(R.drawable.ic_profile);
                 }else{
-                    Picasso.get().load(user.getImageurl()).resize(300,300).into(imageProfile);
+                    Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(imageProfile);
                 }
 
             }

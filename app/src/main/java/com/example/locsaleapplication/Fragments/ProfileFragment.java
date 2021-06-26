@@ -58,8 +58,8 @@ public class ProfileFragment extends Fragment {
     private CircleImageView imageProfile;
     private ImageView options;
     private TextView posts;
-    //private TextView followers;
-    private TextView following;
+    private TextView followers;
+    //private TextView following;
     private TextView fullname;
     private TextView bio;
     private TextView username;
@@ -111,8 +111,8 @@ public class ProfileFragment extends Fragment {
         imageProfile = view.findViewById(R.id.image_profile);
         options = view.findViewById(R.id.options);
         posts = view.findViewById(R.id.posts);
-        //followers = view.findViewById(R.id.followers);
-        following = view.findViewById(R.id.following);
+        followers = view.findViewById(R.id.followers);
+        //following = view.findViewById(R.id.following);
         fullname = view.findViewById(R.id.fullname);
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
@@ -205,7 +205,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 */
-        /*followers.setOnClickListener(new View.OnClickListener() {
+        followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), FollowersActivity.class);
@@ -213,9 +213,9 @@ public class ProfileFragment extends Fragment {
                 intent.putExtra("title","followers");
                 startActivity(intent);
             }
-        });*/
+        });
 
-        following.setOnClickListener(new View.OnClickListener() {
+       /* following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), FollowersActivity.class);
@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment {
                 intent.putExtra("title","followings");
                 startActivity(intent);
             }
-        });
+        });*/
         options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -334,7 +334,7 @@ public class ProfileFragment extends Fragment {
     }
     private void getFollowersAndFollowingCount() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId);
-        /*ref.child("followers").addValueEventListener(new ValueEventListener() {
+        ref.child("followers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 followers.setText(""+dataSnapshot.getChildrenCount());
@@ -344,8 +344,8 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
-        ref.child("following").addValueEventListener(new ValueEventListener() {
+        });
+        /*ref.child("following").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 following.setText(""+dataSnapshot.getChildrenCount());
@@ -355,7 +355,7 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
     private void userInfo() {

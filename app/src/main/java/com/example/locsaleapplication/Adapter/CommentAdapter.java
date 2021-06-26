@@ -63,7 +63,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 User user = dataSnapshot.getValue(User.class);
                 holder.username.setText(user.getUsername());
                 if(user.getImageurl().equals("default")){
-                    holder.imageProfile.setImageResource(R.mipmap.ic_launcher);
+                    holder.imageProfile.setImageResource(R.drawable.ic_profile);
                 }else{
 
                     Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(holder.imageProfile);

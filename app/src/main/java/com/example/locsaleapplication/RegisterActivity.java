@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button register_button;
     private String name,email,password,confirmPassword,dob,username;
     private CheckBox terms_conditions;
+    private TextView terms_conditions_text;
 
     private DatabaseReference mRootRef;
     private FirebaseAuth mAuth;
@@ -75,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_button = findViewById(R.id.register_button);
         terms_conditions = findViewById(R.id.terms_conditions);
         pd = new ProgressDialog(this);
+        terms_conditions_text = findViewById(R.id.terms_conditions_text);
 
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -91,6 +93,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RegisterUserCheck();
+            }
+        });
+
+        terms_conditions_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this,TearmsAndConditionsActivity.class));
             }
         });
     }
