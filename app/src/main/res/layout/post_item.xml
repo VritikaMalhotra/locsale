@@ -183,8 +183,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="#565656"
+            app:socialFlags="hashtag|mention"
+            app:hashtagColor="#1732C8"
             android:id="@+id/description"
-            android:text="Please do comment on my post!!"
+            android:text="Please do comment on my post!! #Lets"
             android:fontFamily="@font/lora"/>
 
         <TextView
