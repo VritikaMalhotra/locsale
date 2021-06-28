@@ -29,6 +29,7 @@ import com.example.locsaleapplication.OptionsActivity;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.ShopkeeperDetailActivity;
+import com.example.locsaleapplication.UserFollowersActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -208,7 +209,7 @@ public class ProfileFragment extends Fragment {
         followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                Intent intent = new Intent(getContext(), UserFollowersActivity.class);
                 intent.putExtra("id",profileId);
                 intent.putExtra("title","followers");
                 startActivity(intent);
