@@ -178,59 +178,6 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/contact_number"
-                        android:layout_marginStart="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phone:-"
-                        android:layout_marginStart="10dp"
-                        android:textSize="25sp"
-                        android:textColor="#4A4949"
-                        android:textStyle="bold"
-                        android:fontFamily="sans-serif"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+91 9638570784"
-                        android:textSize="23sp"
-                        android:layout_marginStart="25dp"
-                        android:textStyle="normal"
-                        android:textColor="#4A4949"
-                        android:fontFamily="sans-serif"/>
-
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/contact_us_line"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"/>
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp">
@@ -260,7 +207,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="locsaleapp@gmail.com"
+                        android:text="Developer@locsale.com"
                         android:textSize="22sp"
                         android:layout_marginStart="25dp"
                         android:textStyle="normal"
