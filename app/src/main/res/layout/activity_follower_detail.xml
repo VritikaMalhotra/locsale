@@ -33,7 +33,6 @@
                     android:layout_marginStart="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:layout_toEndOf="@+id/close"
                     android:textAlignment="center"/>
 
 
