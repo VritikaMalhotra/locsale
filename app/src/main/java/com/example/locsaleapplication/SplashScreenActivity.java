@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private ImageView splash_img;
     private ConstraintLayout constraintLayout;
-    private ImageView splach_text;
+    private TextView splach_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.constraintLayout);
         splach_text = findViewById(R.id.splach_text);
 
-        /*String text = "<font color=#1505FA>LOC</font><font color=#FA0505>SALE</font>";
+        String text = "<font color=#1505FA>LOC</font><font color=#FA0505>SALE</font>";
         splach_text.setText(Html.fromHtml(text));
-*/
+
         constraintLayout.animate().alpha(0f).setDuration(1);
 
         TranslateAnimation animation = new TranslateAnimation(0,0,0,-1000);

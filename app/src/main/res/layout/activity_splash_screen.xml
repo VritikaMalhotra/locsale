@@ -7,12 +7,11 @@
     tools:context=".SplashScreenActivity">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:src="@mipmap/notification_image_foreground"
          android:layout_centerInParent="true"
         android:id="@+id/icon_image"
-        android:visibility="gone"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +21,7 @@
         android:id="@+id/constraintLayout"
         >
 
-        <ImageView
+        <TextView
             android:id="@+id/splach_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
