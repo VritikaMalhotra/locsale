@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:520448611565:android:2e4670fc8a19a91e22a8e4",
         "android_client_info": {
-          "package_name": "com.example.locsaleapplication"
+          "package_name": "com.locsale.locsaleapplication"
         }
       },
       "oauth_client": [
