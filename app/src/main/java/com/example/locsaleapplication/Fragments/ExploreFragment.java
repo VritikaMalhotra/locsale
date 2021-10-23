@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("All")
 public class ExploreFragment extends Fragment {
     private RecyclerView recyclerViewExplore;
     private PhotoAdapter photoAdapter;
@@ -38,18 +39,18 @@ public class ExploreFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_explore, container, false);
 
         //Back pressed Logic for fragment
-        view.setFocusableInTouchMode(true);
+        /*view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        /*Fragment fragment = new HomeFragment();
+                        *//*Fragment fragment = new HomeFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_container, fragment);
-                        fragmentTransaction.commit();*/
+                        fragmentTransaction.commit();*//*
                         getActivity().finish();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
@@ -58,11 +59,11 @@ public class ExploreFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
 
 
         recyclerViewExplore = view.findViewById(R.id.recycler_view_pictures_search);
-        recyclerViewExplore.setHasFixedSize(true);
+        //recyclerViewExplore.setHasFixedSize(true);
         recyclerViewExplore.setLayoutManager(new GridLayoutManager(getContext(),3));
         myPhotoList = new ArrayList<>();
         photoAdapter = new PhotoAdapter(getContext(),myPhotoList);
@@ -83,8 +84,8 @@ public class ExploreFragment extends Fragment {
                         myPhotoList.add(post);
                     }
                 }
-                Collections.reverse(myPhotoList);
-                Collections.shuffle(myPhotoList, new Random());
+                //Collections.reverse(myPhotoList);
+                //Collections.shuffle(myPhotoList);
                 photoAdapter.notifyDataSetChanged();
             }
 

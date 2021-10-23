@@ -1,7 +1,5 @@
 package com.example.locsaleapplication.Adapter;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,35 +7,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.locsaleapplication.FollowerDetailActivity;
-import com.example.locsaleapplication.FollowersActivity;
-import com.example.locsaleapplication.Fragments.ProfileFragment;
-import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
-import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.SendNotificationFromUA;
-import com.example.locsaleapplication.ShopkeeperDetailActivity;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("All")
 public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapter.ViewHolder> {
 
     private Context mContext;
@@ -68,10 +58,9 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
 
-        Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(holder.imageProfile);
+        AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
 
         holder.btnfollow.setVisibility(View.GONE);
-
     }
 
 

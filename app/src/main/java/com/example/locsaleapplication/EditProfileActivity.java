@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.locsaleapplication.Model.User;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,8 +28,6 @@ import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -36,6 +35,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("All")
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView close;
@@ -77,7 +77,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 fullname.setText(user.getName());
                 username.setText(user.getUsername());
                 bio.setText(user.getBio());
-                Picasso.get().load(user.getImageurl()).resize(400,400).placeholder(R.drawable.ic_profile).into(imageprofile);
+                AppGlobal.loadImageUser(EditProfileActivity.this, user.getImageurl(), 400, imageprofile);
             }
 
             @Override

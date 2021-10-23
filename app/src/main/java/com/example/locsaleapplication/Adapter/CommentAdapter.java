@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +16,7 @@ import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Comment;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,18 +25,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("All")
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private Context mContext;
     String postId;
 
-    public CommentAdapter(Context mContext, List<Comment> mCommnet,String postId) {
+    public CommentAdapter(Context mContext, List<Comment> mCommnet, String postId) {
         this.mContext = mContext;
         this.mCommnet = mCommnet;
         this.postId = postId;
@@ -44,10 +44,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     private List<Comment> mCommnet;
     private FirebaseUser fUser;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.comment_item,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.comment_item, parent, false);
         return new CommentAdapter.ViewHolder(view);
     }
 
@@ -62,11 +63,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 holder.username.setText(user.getUsername());
-                if(user.getImageurl().equals("default")){
+                if (user.getImageurl().equals("default")) {
                     holder.imageProfile.setImageResource(R.drawable.ic_profile);
-                }else{
-
-                    Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(holder.imageProfile);
+                } else {
+                    AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
                 }
             }
 
@@ -80,7 +80,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MainActivity.class);
-                intent.putExtra("publisherId",comment.getPublisher());
+                intent.putExtra("publisherId", comment.getPublisher());
                 mContext.startActivity(intent);
             }
         });
@@ -89,7 +89,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, MainActivity.class);
-                intent.putExtra("publisherId",comment.getPublisher());
+                intent.putExtra("publisherId", comment.getPublisher());
                 mContext.startActivity(intent);
 
             }
@@ -97,7 +97,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(comment.getPublisher().endsWith(fUser.getUid())){
+                if (comment.getPublisher().endsWith(fUser.getUid())) {
                     AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
                     alertDialog.setTitle("Do you want to delete?");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "NO", new DialogInterface.OnClickListener() {
@@ -113,7 +113,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     .child(postId).child(comment.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         dialog.dismiss();
                                     }
                                 }
@@ -122,7 +122,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     });
                     alertDialog.show();
                 }
-                return  true;
+                return true;
             }
         });
     }
@@ -132,10 +132,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return mCommnet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public CircleImageView imageProfile;
         public TextView username;
         public TextView comment;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

@@ -17,6 +17,7 @@ import com.example.locsaleapplication.Adapter.NotificationAdapter;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Notification;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,18 +41,18 @@ public class NotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notification,container,false);
 
         //Back pressed Logic for fragment
-        view.setFocusableInTouchMode(true);
+        /*view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        /*Fragment fragment = new HomeFragment();
+                        *//*Fragment fragment = new HomeFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.frame_container, fragment);
-                        fragmentTransaction.commit();*/
+                        fragmentTransaction.commit();*//*
                         getActivity().finish();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
@@ -60,7 +61,7 @@ public class NotificationFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -91,7 +92,7 @@ public class NotificationFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                AppGlobal.showLog("Error : " + databaseError.getMessage());
             }
         });
     }

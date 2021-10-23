@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false) ;
 
         //Back pressed Logic for fragment
-        view.setFocusableInTouchMode(true);
+        /*view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -75,7 +75,7 @@ public class SearchFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
 
         recyclerView = view.findViewById(R.id.recycler_view_users);
         recyclerView.setHasFixedSize(true);

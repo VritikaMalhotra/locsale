@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -18,14 +17,15 @@ import com.example.locsaleapplication.Model.Notification;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+@SuppressWarnings("All")
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder>{
 
     private Context mContext;
@@ -68,13 +68,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             .edit().putString("postId",notification.getPostid()).apply();
 
                     ((FragmentActivity)mContext).getSupportFragmentManager()
-                            .beginTransaction().replace(R.id.frame_container,new PostDetailFragment()).commit();
+                            .beginTransaction().replace(R.id.frame_container,new PostDetailFragment()).addToBackStack(null).commit();
                 }else{
                     mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE)
                             .edit().putString("profileId",notification.getUserid()).apply();
 
                     ((FragmentActivity)mContext).getSupportFragmentManager()
-                            .beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+                            .beginTransaction().replace(R.id.frame_container,new ProfileFragment()).addToBackStack(null).commit();
                 }
             }
         });
@@ -108,7 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Post post =dataSnapshot.getValue(Post.class);
-                Picasso.get().load(post.getImageUrl()).resize(300,300).placeholder(R.drawable.blank_image).into(imageView);
+                AppGlobal.loadImage(mContext, post.getImageUrl(), 300,imageView);
             }
 
             @Override
@@ -127,7 +127,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 if(user.getImageurl().equals("default")){
                     imageProfile.setImageResource(R.drawable.ic_profile);
                 }else{
-                    Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(imageProfile);
+                    AppGlobal.loadImageUser(mContext, user.getImageurl(), 300,imageProfile);
                 }
                 username.setText(user.getUsername());
             }

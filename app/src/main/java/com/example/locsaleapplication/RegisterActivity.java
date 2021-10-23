@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -16,19 +17,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
-import java.util.Objects;
 
+@SuppressWarnings("All")
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText register_name;
@@ -39,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_dob;
     private TextView register_loginUser;
     private Button register_button;
-    private String name,email,password,confirmPassword,dob,username;
+    private String name, email, password, confirmPassword, dob, username;
     private CheckBox terms_conditions;
     private TextView terms_conditions_text;
 
@@ -54,17 +53,18 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (task.isSuccessful()) {
-                            token = Objects.requireNonNull(task.getResult()).getToken();
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
 
-                        }
-
-                    }
-                });
+                // Get new FCM registration token
+                token = task.getResult();
+            }
+        });
 
         register_name = findViewById(R.id.register_name);
         register_username = findViewById(R.id.register_username);
@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         register_loginUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
 
@@ -99,12 +99,12 @@ public class RegisterActivity extends AppCompatActivity {
         terms_conditions_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this,TearmsAndConditionsActivity.class));
+                startActivity(new Intent(RegisterActivity.this, TearmsAndConditionsActivity.class));
             }
         });
     }
 
-    private void RegisterUserCheck(){
+    private void RegisterUserCheck() {
         name = register_name.getText().toString().trim();
         username = register_username.getText().toString().trim();
         email = register_email.getText().toString().trim();
@@ -112,64 +112,59 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPassword = register_confirmPassword.getText().toString().trim();
         dob = register_dob.getText().toString().trim();
 
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             register_name.setError("Full name is required");
             register_name.requestFocus();
             return;
         }
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             register_name.setError("Username is required");
             register_name.requestFocus();
             return;
         }
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             register_email.setError("Email address is required");
             register_email.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-        {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             register_email.setError("Please enter a correct Email pattern");
             register_email.requestFocus();
             return;
         }
-        if(dob.isEmpty()){
+        if (dob.isEmpty()) {
             register_dob.setError("DOB is required");
             register_dob.requestFocus();
             return;
         }
-        if(password.isEmpty())
-        {
+        if (password.isEmpty()) {
             register_password.setError("Password is required");
             register_password.requestFocus();
             return;
         }
-        if(password.length()<8)
-        {
+        if (password.length() < 8) {
             register_password.setError("Minimum length of password should be 8");
             register_password.requestFocus();
             return;
         }
-        if(confirmPassword.isEmpty())
-        {
+        if (confirmPassword.isEmpty()) {
             register_confirmPassword.setError("Confirmed password required");
             register_confirmPassword.requestFocus();
             return;
         }
-        if(!(password.equals(confirmPassword)))
-        {
+        if (!(password.equals(confirmPassword))) {
             register_confirmPassword.setError("Password does not match");
             register_confirmPassword.requestFocus();
             return;
         }
-        if(!terms_conditions.isChecked()){
+        if (!terms_conditions.isChecked()) {
 
             terms_conditions.setError("You need to agree to terms and conditions before proceding further");
             terms_conditions.requestFocus();
             return;
         }
 
-        RegisterUser(name,email,password,dob);
+        RegisterUser(name, email, password, dob);
 
     }
 
@@ -179,34 +174,32 @@ public class RegisterActivity extends AppCompatActivity {
         pd.setMessage("please wait");
         pd.show();
 
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    HashMap<String,Object> map = new HashMap<>();
-                    map.put("name",name);
-                    map.put("username",username);
-                    map.put("email",email);
-                    map.put("dob",dob);
-                    map.put("id",mAuth.getCurrentUser().getUid());
-                    map.put("bio","");
-                    map.put("imageurl","default");
-                    map.put("type","2");
-                    map.put("token",token);
+                if (task.isSuccessful()) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("name", name);
+                    map.put("username", username);
+                    map.put("email", email);
+                    map.put("dob", dob);
+                    map.put("id", mAuth.getCurrentUser().getUid());
+                    map.put("bio", "");
+                    map.put("imageurl", "default");
+                    map.put("type", "2");
+                    map.put("token", token);
 
                     mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 pd.dismiss();
                                 Toast.makeText(RegisterActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finish();
-                            }
-                            else
-                            {
+                            } else {
                                 pd.dismiss();
                                 Toast.makeText(RegisterActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
                             }
@@ -220,15 +213,11 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
 
-                }else
-                {
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException)
-                    {
+                } else {
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         pd.dismiss();
                         Toast.makeText(RegisterActivity.this, "You are already registered", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
+                    } else {
                         pd.dismiss();
                         Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

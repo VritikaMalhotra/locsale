@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.locsaleapplication.Fragments.PostDetailFragment;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
-import com.squareup.picasso.LruCache;
-import com.squareup.picasso.Picasso;
+import com.example.locsaleapplication.utils.AppGlobal;
 
 import java.util.List;
 
+@SuppressWarnings("All")
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
     private Context mContext;
@@ -41,7 +41,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         final Post post = mPosts.get(position);
         /*Picasso.get().load(post.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(holder.postImage);*/
         //.resize() method to change the size of image in grid layout in profile.
-        Picasso.get().load(post.getImageUrl()).resize(550,550).into(holder.postImage);
+        AppGlobal.showLog(post.getImageUrl());
+        AppGlobal.loadImage(mContext, post.getImageUrl(), 200, holder.postImage);
+
         holder.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +51,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                         .apply();
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container,new PostDetailFragment())
+                        .addToBackStack(null)
                         .commit();
             }
         });

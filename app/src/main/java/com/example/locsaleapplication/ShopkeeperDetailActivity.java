@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.locsaleapplication.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,8 +14,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
+@SuppressWarnings("All")
 public class ShopkeeperDetailActivity extends AppCompatActivity {
 
     private FirebaseUser firebaseUser;

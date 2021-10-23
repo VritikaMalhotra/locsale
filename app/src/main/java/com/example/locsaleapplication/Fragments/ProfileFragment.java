@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,9 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
-import com.example.locsaleapplication.FCM.FcmNotificationsSender;
-import com.example.locsaleapplication.FollowersActivity;
-import com.example.locsaleapplication.LoginActivity;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
@@ -30,6 +26,7 @@ import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.ShopkeeperDetailActivity;
 import com.example.locsaleapplication.UserFollowersActivity;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +34,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +42,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("All")
 public class ProfileFragment extends Fragment {
 
     private RecyclerView recyclerViewSaves;
@@ -81,7 +78,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Back pressed Logic for fragment
-        view.setFocusableInTouchMode(true);
+        /*view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -97,7 +94,7 @@ public class ProfileFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId","none");
@@ -365,7 +362,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
-                Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(imageProfile);
+                AppGlobal.loadImageUser(getActivity(), user.getImageurl(), 300,imageProfile);
                 username.setText(user.getUsername());
                 fullname.setText(user.getName());
                 bio.setText(user.getBio());

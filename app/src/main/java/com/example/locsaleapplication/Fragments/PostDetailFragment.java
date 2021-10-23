@@ -44,7 +44,7 @@ public class PostDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post_detail, container, false);
 
         //Back pressed Logic for fragment
-        view.setFocusableInTouchMode(true);
+        /*view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -60,7 +60,7 @@ public class PostDetailFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
 
         postId = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE).getString("postId","none");
         recyclerView = view.findViewById(R.id.recycler_view);

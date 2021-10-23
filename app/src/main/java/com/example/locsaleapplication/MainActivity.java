@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 if(selectorFragment!=null){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,selectorFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,selectorFragment)
+                            .addToBackStack(null).commit();
                 }
                 return true;
             }
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
             getSharedPreferences("PROFILE",MODE_PRIVATE).edit().putString("profileId",profileId).apply();
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment())
+                    .addToBackStack(null).commit();
             bottomNavigationView.setSelectedItemId(R.id.nav_profile);
         }else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new HomeFragment())
+                    .addToBackStack(null).commit();
         }
 
 

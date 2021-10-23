@@ -1,23 +1,23 @@
 package com.example.locsaleapplication;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.locsaleapplication.Adapter.CommentAdapter;
 import com.example.locsaleapplication.Model.Comment;
 import com.example.locsaleapplication.Model.User;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +27,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +34,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("All")
 public class CommentActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -78,7 +78,7 @@ public class CommentActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList,postId);
+        commentAdapter = new CommentAdapter(this, commentList, postId);
         recyclerView.setAdapter(commentAdapter);
 
         addComment = findViewById(R.id.add_comment);
@@ -92,9 +92,9 @@ public class CommentActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(addComment.getText().toString())){
+                if (TextUtils.isEmpty(addComment.getText().toString())) {
 
-                }else{
+                } else {
                     putComment();
                 }
             }
@@ -108,7 +108,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 commentList.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Comment comment = snapshot.getValue(Comment.class);
                     commentList.add(comment);
                 }
@@ -123,21 +123,21 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void putComment() {
-        HashMap<String,Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Comments").child(postId);
         String id = ref.push().getKey();
-        map.put("id",id);
-        map.put("comment",addComment.getText().toString());
-        map.put("publisher",fuser.getUid());
+        map.put("id", id);
+        map.put("comment", addComment.getText().toString());
+        map.put("publisher", fuser.getUid());
 
         addComment.setText("");
 
         ref.child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                }else{
+                } else {
                     Toast.makeText(CommentActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -149,10 +149,10 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(user.getImageurl().equals("default")){
+                if (user.getImageurl().equals("default")) {
                     imageProfile.setImageResource(R.drawable.ic_profile);
-                }else{
-                    Picasso.get().load(user.getImageurl()).resize(300,300).placeholder(R.drawable.ic_profile).into(imageProfile);
+                } else {
+                    AppGlobal.loadImageUser(CommentActivity.this, user.getImageurl(), 300, imageProfile);
                 }
 
             }
