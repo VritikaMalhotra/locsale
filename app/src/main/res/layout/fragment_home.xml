@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.HomeFragment"
     android:background="#ECE8E8"
-    >
+    tools:context=".Fragments.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bar"
         android:background="#ECE8E8">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
             android:background="#ECE8E8">
 
             <RelativeLayout
@@ -26,132 +25,129 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="LocSale"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:textColor="#373833"
-                    android:textAlignment="center"
                     android:layout_marginEnd="20dp"
-                    android:textSize="22sp"/>
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="LocSale"
+                    android:textAlignment="center"
+                    android:textColor="#373833"
+                    android:textSize="20sp" />
 
-               <!-- <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_inbox"
+                <ImageView
+                    android:id="@+id/imageInbox"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="15dp"/>-->
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/ic_inbox" />
 
             </RelativeLayout>
+
         </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/bar"
-                android:background="#ECE8E8"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:id="@+id/recycler_view_story"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:id="@+id/recycler_view_posts"
-                        />
-
-
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
-        android:id="@+id/scroll_view_go_explore"
-        android:visibility="gone"
-        >
+        android:background="#ECE8E8">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <RelativeLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_story"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_posts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ScrollView
+        android:id="@+id/scroll_view_go_explore"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/bar"
-        android:id="@+id/home_explore"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="You Don't Follow Anyone Yet!"
-            android:gravity="center"
-            android:fontFamily="@font/lora_bold"
-            android:textSize="30sp"
-            android:id="@+id/explore_head"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="#000000"
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/home_explore"
-            android:layout_below="@+id/explore_head"
-            android:layout_marginTop="30dp"
-            android:id="@+id/explore_img"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Please Follow Your Shopkeepers"
-            android:gravity="center"
-            android:fontFamily="@font/lora_bold"
-            android:textSize="30sp"
-            android:id="@+id/explore_mid"
-            android:layout_below="@+id/explore_img"
-            android:layout_marginTop="40dp"
-            android:textColor="#000000"
-            />
+        android:visibility="gone">
 
-        <Button
-            android:id="@+id/buttonExplore"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="Explore Shopkeepers"
-            android:background="@drawable/home_button_background"
-            android:textColor="#ffffff"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:layout_below="@+id/explore_mid"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:padding="5dp"
-            />
-            
-        
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/home_explore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bar"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/explore_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/lora_bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="You Don't Follow Anyone Yet!"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/explore_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/explore_head"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/home_explore" />
+
+                <TextView
+                    android:id="@+id/explore_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/explore_img"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/lora_bold"
+                    android:gravity="center"
+                    android:text="Please Follow Your Shopkeepers"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/buttonExplore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/explore_mid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/home_button_background"
+                    android:fontFamily="sans-serif"
+                    android:padding="5dp"
+                    android:text="Explore Shopkeepers"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
 
         </LinearLayout>
 

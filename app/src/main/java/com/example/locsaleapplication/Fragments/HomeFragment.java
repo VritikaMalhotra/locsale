@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.locsaleapplication.Adapter.PostAdapter;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.presentation.Inbox.InboxFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("All")
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerViewPosts;
@@ -42,18 +45,37 @@ public class HomeFragment extends Fragment {
     private RelativeLayout home_explore;
     private Button buttonExplore;
     private ScrollView scroll_view_go_explore;
+    private ImageView imageInbox;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false) ;
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         recyclerViewPosts = view.findViewById(R.id.recycler_view_posts);
         recyclerViewPosts.setHasFixedSize(true);
         home_explore = view.findViewById(R.id.home_explore);
         buttonExplore = view.findViewById(R.id.buttonExplore);
         scroll_view_go_explore = view.findViewById(R.id.scroll_view_go_explore);
+
+        imageInbox = view.findViewById(R.id.imageInbox);
+        imageInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new InboxFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         ttlRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         long cutoff = new Date().getTime() - TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS);
@@ -97,9 +119,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        checkFollowingUsers();
 
-        return view;
+
+        checkFollowingUsers();
     }
 
     private void checkFollowingUsers() {
