@@ -12,4 +12,10 @@
     <color name="lightgraycolor">#C6C6C6</color>
     <color name="darkgray">#93959A</color>
 
+    <color name="gainsboro">#DCDCDC</color>
+    <color name="app_color">#c52127</color>
+
+    <color name="delete_message_bg">#f2f2f2</color>
+    <color name="delete_message_text">#b8b8b8</color>
+
 </resources>

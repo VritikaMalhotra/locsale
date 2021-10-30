@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.presentation.chat.ChatActivity;
+import com.example.locsaleapplication.presentation.chat.commons.Fragment_Callback;
 import com.example.locsaleapplication.presentation.selectUser.SelectUserFragment;
 import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
@@ -117,7 +119,7 @@ public class InboxFragment extends Fragment {
 
                 // if user allow the stroage permission then we open the chat view
                 if (check_ReadStoragepermission())
-                    chatFragment(item.getId(), item.getSellerName(), item.getSellerPic());
+                    chatFragment(item.getId(), item.getSellerId(), item.getSellerName(), item.getSellerPic());
 
 
             }
@@ -222,8 +224,8 @@ public class InboxFragment extends Fragment {
 
     //open the chat fragment and on item click and pass your id and the other person id in which
     //you want to chat with them and this parameter is that is we move from match list or inbox list
-    public void chatFragment(String receiverid, String name, String picture) {
-        /*Chat_Activity chat_activity = new Chat_Activity(new Fragment_Callback() {
+    public void chatFragment(String threadId, String receiverid, String name, String picture) {
+        ChatActivity chat_activity = new ChatActivity(new Fragment_Callback() {
             @Override
             public void Responce(Bundle bundle) {
 
@@ -233,13 +235,14 @@ public class InboxFragment extends Fragment {
         transaction.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left, R.anim.in_from_left, R.anim.out_to_right);
 
         Bundle args = new Bundle();
+        args.putString("thread_id", threadId);
         args.putString("user_id", receiverid);
         args.putString("user_name", name);
         args.putString("user_pic", picture);
 
         chat_activity.setArguments(args);
         transaction.addToBackStack(null);
-        transaction.replace(R.id.Inbox_F, chat_activity).commit();*/
+        transaction.replace(R.id.Inbox_F, chat_activity).commit();
     }
 
 

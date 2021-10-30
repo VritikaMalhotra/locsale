@@ -12,20 +12,44 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.locsaleapplication.BuildConfig;
 import com.example.locsaleapplication.R;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AppGlobal {
 
+    public final static int permission_camera_code=786;
+    public final static int permission_write_data=788;
     public final static int permission_Read_data=789;
+    public final static int permission_Recording_audio=790;
+
+    /*public static final  String main_domain="http://api.mastiappind.com/";
+    public static final String base_url=main_domain+"app_api/";
+    public static final String api_domain =base_url+"index.php?p=";
+    public static final String get_user_data= api_domain +"get_user_data";
+    public static final String sendPushNotification= api_domain +"sendPushNotification";*/
+
+    public static final SimpleDateFormat df =
+            new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZ", Locale.ENGLISH);
+
+    public static final SimpleDateFormat df2 =
+            new SimpleDateFormat("dd-MM-yyyy HH:mmZZ", Locale.ENGLISH);
 
     public static void showLog(String msg) {
         if (BuildConfig.DEBUG) {
             Log.e("Locsale", msg);
         }
     }
+
+    public static void loadImage(Context mContext, String imagePath, ImageView imageView) {
+        Glide.with(mContext)
+                .load(imagePath)
+                .placeholder(R.drawable.image_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView);
+    }
+
     public static void loadImage(Context mContext, String imagePath, int size, ImageView imageView) {
         Glide.with(mContext)
                 .load(imagePath)
@@ -39,6 +63,16 @@ public class AppGlobal {
                 .load(imagePath)
                 .placeholder(R.drawable.ic_profile)
                 .override(size, size)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView);
+    }
+
+    public static void loadImageChat(Context mContext, String imagePath, int size, ImageView imageView) {
+        Glide.with(mContext)
+                .load(imagePath)
+                .placeholder(R.drawable.image_placeholder)
+                .override(size, size)
+                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }
@@ -92,4 +126,6 @@ public class AppGlobal {
             return sdf.format(date);
         }
     }
+
+
 }
