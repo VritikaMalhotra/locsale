@@ -47,6 +47,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.locsaleapplication.FCM.send.SendNotification;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -578,7 +579,8 @@ public class ChatActivity extends Fragment {
         rootref.updateChildren(user_map, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
+                SendNotification.sendNotification(getActivity(),
+                        userName, message, userPic, senderid, Receiverid, token);
             }
         });
     }

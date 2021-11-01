@@ -32,7 +32,7 @@
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
         android:text="Your message"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="15dp"
         tools:ignore="RtlCompat" />
 
