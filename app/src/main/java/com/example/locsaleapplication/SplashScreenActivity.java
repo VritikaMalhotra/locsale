@@ -1,9 +1,5 @@
 package com.example.locsaleapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,18 +9,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.AnnotatedElement;
-import java.util.Map;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -71,9 +59,29 @@ public class SplashScreenActivity extends AppCompatActivity {
             handler2.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
+                    Bundle bundleSend = null;
+                    Bundle intent = getIntent().getExtras();
+                    if (intent != null) {
+                        if (intent.containsKey("action_type")) {
+
+                            bundleSend = new Bundle();
+                            bundleSend.putString("title", intent.getString("title", ""));
+                            bundleSend.putString("message", intent.getString("message", ""));
+                            bundleSend.putString("icon", intent.getString("icon", ""));
+                            bundleSend.putString("senderid", intent.getString("senderid", ""));
+                            bundleSend.putString("receiverid", intent.getString("receiverid", ""));
+                            bundleSend.putString("action_type", intent.getString("action_type", ""));
+                        }
+                    }
+
+
                     finish();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
+                    Intent intentNew = new Intent(getApplicationContext(), LoginActivity.class);
+                    if (bundleSend != null) {
+                        intentNew.putExtras(bundleSend);
+                    }
+                    startActivity(intentNew);
                 }
             }, 2000);
 

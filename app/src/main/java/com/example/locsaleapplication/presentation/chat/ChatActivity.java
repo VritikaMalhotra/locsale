@@ -138,6 +138,7 @@ public class ChatActivity extends Fragment {
     private String user_id = "", userName = "", userPic = "";
 
     User currentUser;
+    public static Context mContext = null;
 
     private void getCurrentUserData() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -162,6 +163,7 @@ public class ChatActivity extends Fragment {
         view = inflater.inflate(R.layout.activity_chat, container, false);
 
         context = getContext();
+        mContext = getActivity();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         return view;
@@ -1276,5 +1278,6 @@ public class ChatActivity extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ((MainActivity) getActivity()).showBottomNavigation();
+        mContext = null;
     }
 }

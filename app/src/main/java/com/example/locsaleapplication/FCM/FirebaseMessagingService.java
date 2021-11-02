@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.presentation.chat.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,15 +38,23 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).updateChildren(map);
+        if (firebaseUser != null && firebaseUser.getUid() != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).updateChildren(map);
+        }
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+        if (ChatActivity.mContext == null) {
+            generateNotification(remoteMessage);
+        }
 
-// playing audio and vibration when user se reques
+    }
+
+    private void generateNotification(RemoteMessage remoteMessage) {
+        // playing audio and vibration when user se reques
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
@@ -58,10 +67,17 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         long[] pattern = {100, 300, 300, 300};
         v.vibrate(pattern, -1);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "111");
         builder.setSmallIcon(R.mipmap.splash_image);
 
         Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra("title", remoteMessage.getData().get("title"));
+        resultIntent.putExtra("message", remoteMessage.getData().get("message"));
+        resultIntent.putExtra("icon", remoteMessage.getData().get("icon"));
+        resultIntent.putExtra("senderid", remoteMessage.getData().get("senderid"));
+        resultIntent.putExtra("receiverid", remoteMessage.getData().get("receiverid"));
+        resultIntent.putExtra("action_type", remoteMessage.getData().get("action_type"));
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentTitle(remoteMessage.getData().get("title"));

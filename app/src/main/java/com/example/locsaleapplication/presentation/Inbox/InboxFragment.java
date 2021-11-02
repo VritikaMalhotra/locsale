@@ -181,12 +181,21 @@ public class InboxFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 inbox_arraylist.clear();
 
+                Bundle bundle = getArguments();
+                InboxModel modelSend = null;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     InboxModel model = ds.getValue(InboxModel.class);
                     model.setId(ds.getKey());
                     if (model.getId().contains(firebaseUser.getUid())) {
+
+                        if (bundle != null && bundle.containsKey("action_type")) {
+                            if (model.getSellerId().equals(bundle.getString("senderid"))) {
+                                modelSend = model;
+                            }
+                        }
+
                         inbox_arraylist.add(model);
                     }
                 }
@@ -201,6 +210,9 @@ public class InboxFragment extends Fragment {
                     mInboxAdapter.notifyDataSetChanged();
                 }
 
+                if (modelSend != null) {
+                    checkMessageRedirection(modelSend);
+                }
             }
 
             @Override
@@ -210,6 +222,10 @@ public class InboxFragment extends Fragment {
         };
 
         inbox_query.addValueEventListener(eventListener2);
+    }
+
+    private void checkMessageRedirection(InboxModel model) {
+        chatFragment(model.getId(), model.getSellerId(), model.getSellerName(), model.getSellerPic());
     }
 
 

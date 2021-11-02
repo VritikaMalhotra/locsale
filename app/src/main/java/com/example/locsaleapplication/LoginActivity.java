@@ -173,8 +173,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         if (mAuth.getCurrentUser() != null) {
+
+            Bundle bundleSend = null;
+            Bundle intent = getIntent().getExtras();
+            if (intent != null) {
+                if (intent.containsKey("action_type")) {
+
+                    bundleSend = new Bundle();
+                    bundleSend.putString("title", intent.getString("title", ""));
+                    bundleSend.putString("message", intent.getString("message", ""));
+                    bundleSend.putString("icon", intent.getString("icon", ""));
+                    bundleSend.putString("senderid", intent.getString("senderid", ""));
+                    bundleSend.putString("receiverid", intent.getString("receiverid", ""));
+                    bundleSend.putString("action_type", intent.getString("action_type", ""));
+                }
+            }
+
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            if (bundleSend != null) {
+                mainIntent.putExtras(bundleSend);
+            }
+            startActivity(mainIntent);
         }
     }
 }
