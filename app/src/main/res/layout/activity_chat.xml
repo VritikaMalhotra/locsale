@@ -175,6 +175,7 @@
                 android:padding="5dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_send"
+                android:tint="@color/blue"
                 android:text="@string/send" />
 
 

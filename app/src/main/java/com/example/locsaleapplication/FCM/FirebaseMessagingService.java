@@ -50,7 +50,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         if (ChatActivity.mContext == null) {
             generateNotification(remoteMessage);
         }
-
     }
 
     private void generateNotification(RemoteMessage remoteMessage) {
@@ -71,12 +70,14 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         builder.setSmallIcon(R.mipmap.splash_image);
 
         Intent resultIntent = new Intent(this, MainActivity.class);
-        resultIntent.putExtra("title", remoteMessage.getData().get("title"));
-        resultIntent.putExtra("message", remoteMessage.getData().get("message"));
-        resultIntent.putExtra("icon", remoteMessage.getData().get("icon"));
-        resultIntent.putExtra("senderid", remoteMessage.getData().get("senderid"));
-        resultIntent.putExtra("receiverid", remoteMessage.getData().get("receiverid"));
-        resultIntent.putExtra("action_type", remoteMessage.getData().get("action_type"));
+        if (remoteMessage.getData().keySet().contains("action_type")) {
+            resultIntent.putExtra("title", remoteMessage.getData().get("title"));
+            resultIntent.putExtra("message", remoteMessage.getData().get("message"));
+            resultIntent.putExtra("icon", remoteMessage.getData().get("icon"));
+            resultIntent.putExtra("senderid", remoteMessage.getData().get("senderid"));
+            resultIntent.putExtra("receiverid", remoteMessage.getData().get("receiverid"));
+            resultIntent.putExtra("action_type", remoteMessage.getData().get("action_type"));
+        }
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
