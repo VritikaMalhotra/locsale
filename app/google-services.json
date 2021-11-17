@@ -10,10 +10,129 @@
       "client_info": {
         "mobilesdk_app_id": "1:520448611565:android:2e4670fc8a19a91e22a8e4",
         "android_client_info": {
+          "package_name": "com.example.locsaleapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520448611565-0j50l6i2j6khutlb6sp1fgpmdofv65h7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.locsaleapplication",
+            "certificate_hash": "b02d0b100bcb49b2e68f8db40a52bbe80b307cdd"
+          }
+        },
+        {
+          "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3P4c2dNlJ3Un-xHejUUGoMTwb_qQ8jbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520448611565:android:45f057f998fafc6e22a8e4",
+        "android_client_info": {
+          "package_name": "com.example.shopkeeperlocsaleappliation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520448611565-o8ehsq3dq1iu15prq7n9oc2rdnsn9ovr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shopkeeperlocsaleappliation",
+            "certificate_hash": "b02d0b100bcb49b2e68f8db40a52bbe80b307cdd"
+          }
+        },
+        {
+          "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3P4c2dNlJ3Un-xHejUUGoMTwb_qQ8jbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520448611565:android:cac2ccef37e2afee22a8e4",
+        "android_client_info": {
           "package_name": "com.locsale.locsaleapplication"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "520448611565-pvl6ct9feihqmcgl3a3k6haj6vqlgdk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locsale.locsaleapplication",
+            "certificate_hash": "b02d0b100bcb49b2e68f8db40a52bbe80b307cdd"
+          }
+        },
+        {
+          "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3P4c2dNlJ3Un-xHejUUGoMTwb_qQ8jbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520448611565:android:e899e7e162d839f822a8e4",
+        "android_client_info": {
+          "package_name": "com.locsale.shopkeeperlocsaleappliation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520448611565-k6tauvf6rm2t57ev3oqv1e7slert3iq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locsale.shopkeeperlocsaleappliation",
+            "certificate_hash": "b02d0b100bcb49b2e68f8db40a52bbe80b307cdd"
+          }
+        },
         {
           "client_id": "520448611565-uckvj62e6o27eshqnp8fceqovov6n1g8.apps.googleusercontent.com",
           "client_type": 3

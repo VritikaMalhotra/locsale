@@ -9,5 +9,10 @@
     <string name="send_message_here">Send Message Here…</string>
     <string name="version">1.0</string>
     <string name="device">android</string>
+    <string name="resend">Resend</string>
+    <string name="didn_t_receive_the_otp">Didn\'t receive the OTP ?</string>
+    <string name="enter_the_otp_sent_to">Enter the OTP sent to :</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="verify">Verify</string>
 
 </resources>

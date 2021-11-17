@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.locsaleapplication.presentation.otp.OTPActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -31,14 +32,15 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText register_name;
-    private EditText register_username;
+//    private EditText register_username;
     private EditText register_email;
-    private EditText register_password;
-    private EditText register_confirmPassword;
+//    private EditText register_password;
+//    private EditText register_confirmPassword;
+    private EditText register_number;
     private EditText register_dob;
     private TextView register_loginUser;
     private Button register_button;
-    private String name, email, password, confirmPassword, dob, username;
+    private String name, email, /*password, confirmPassword,*/ dob, number/*username*/;
     private CheckBox terms_conditions;
     private TextView terms_conditions_text;
 
@@ -67,10 +69,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         register_name = findViewById(R.id.register_name);
-        register_username = findViewById(R.id.register_username);
+//        register_username = findViewById(R.id.register_username);
         register_email = findViewById(R.id.register_email);
-        register_password = findViewById(R.id.register_password);
-        register_confirmPassword = findViewById(R.id.register_confirmPassword);
+//        register_password = findViewById(R.id.register_password);
+//        register_confirmPassword = findViewById(R.id.register_confirmPassword);
+        register_number = findViewById(R.id.register_number);
         register_dob = findViewById(R.id.register_dob);
         register_loginUser = findViewById(R.id.register_loginUser);
         register_button = findViewById(R.id.register_button);
@@ -106,10 +109,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void RegisterUserCheck() {
         name = register_name.getText().toString().trim();
-        username = register_username.getText().toString().trim();
+//        username = register_username.getText().toString().trim();
         email = register_email.getText().toString().trim();
-        password = register_password.getText().toString().trim();
-        confirmPassword = register_confirmPassword.getText().toString().trim();
+//        password = register_password.getText().toString().trim();
+//        confirmPassword = register_confirmPassword.getText().toString().trim();
+        number = register_number.getText().toString().trim();
         dob = register_dob.getText().toString().trim();
 
         if (name.isEmpty()) {
@@ -117,11 +121,11 @@ public class RegisterActivity extends AppCompatActivity {
             register_name.requestFocus();
             return;
         }
-        if (username.isEmpty()) {
+/*        if (username.isEmpty()) {
             register_name.setError("Username is required");
             register_name.requestFocus();
             return;
-        }
+        }*/
         if (email.isEmpty()) {
             register_email.setError("Email address is required");
             register_email.requestFocus();
@@ -137,24 +141,15 @@ public class RegisterActivity extends AppCompatActivity {
             register_dob.requestFocus();
             return;
         }
-        if (password.isEmpty()) {
-            register_password.setError("Password is required");
-            register_password.requestFocus();
+
+        if (number.isEmpty()) {
+            register_number.setError("Contact number is required");
+            register_number.requestFocus();
             return;
         }
-        if (password.length() < 8) {
-            register_password.setError("Minimum length of password should be 8");
-            register_password.requestFocus();
-            return;
-        }
-        if (confirmPassword.isEmpty()) {
-            register_confirmPassword.setError("Confirmed password required");
-            register_confirmPassword.requestFocus();
-            return;
-        }
-        if (!(password.equals(confirmPassword))) {
-            register_confirmPassword.setError("Password does not match");
-            register_confirmPassword.requestFocus();
+        if (number.length() != 10) {
+            register_number.setError("Mobile number must be 10 digits");
+            register_number.requestFocus();
             return;
         }
         if (!terms_conditions.isChecked()) {
@@ -164,14 +159,22 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        RegisterUser(name, email, password, dob);
+        RegisterUser(name, email, number, "91", dob);
 
     }
 
 
-    private void RegisterUser(final String name, final String email, String password, final String dob) {
+    private void RegisterUser(final String name, final String email, String number, String countryCode, final String dob) {
 
-        pd.setMessage("please wait");
+        Intent intentOTP = new Intent(RegisterActivity.this, OTPActivity.class);
+        intentOTP.putExtra("name", name);
+        intentOTP.putExtra("email", email);
+        intentOTP.putExtra("dob", dob);
+        intentOTP.putExtra("number", number);
+        intentOTP.putExtra("countryCode", countryCode);
+        startActivity(intentOTP);
+
+        /*pd.setMessage("please wait");
         pd.show();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -223,6 +226,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
 }

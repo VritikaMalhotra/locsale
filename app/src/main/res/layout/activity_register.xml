@@ -2,28 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp"
     tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/register"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                app:srcCompat="@drawable/register" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -35,99 +35,113 @@
                 android:textColor="#373833"
                 android:textSize="25dp"
                 android:textStyle="bold"
-
-
-                app:fontFamily="@font/merriweather_bold"></TextView>
+                app:fontFamily="@font/merriweather_bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Full Name"
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                ></TextView>
+                android:text="Full Name"
+                android:textSize="20dp"/>
 
             <EditText
                 android:id="@+id/register_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
                 android:layout_marginRight="25dp"
-                ></EditText>
+                android:text=""
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                ></TextView>
+                android:text="Email"
+                android:textSize="20dp"/>
 
             <EditText
                 android:id="@+id/register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:inputType="textEmailAddress"
                 android:layout_marginRight="25dp"
-                ></EditText>
+                android:inputType="textEmailAddress"
+                android:text=""
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:layout_gravity="start"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
+                android:text="Mobile Number"
+                android:textColor="#4A4949"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/register_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="25dp"
+                android:inputType="number"
+                android:text=""
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                ></TextView>
+                android:text="Username"
+                android:visibility="gone"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
                 android:layout_marginRight="25dp"
-                ></EditText>
+                android:text=""
+                android:visibility="gone"
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                ></TextView>
+                android:text="Date of Birth"
+                android:textSize="20dp"/>
 
             <EditText
                 android:id="@+id/register_dob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:inputType="date"
                 android:layout_marginRight="25dp"
-                ></EditText>
+                android:inputType="date"
+                android:text=""
+                android:textSize="20dp"/>
 
 
             <TextView
@@ -137,55 +151,55 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
                 android:text="Password"
-                android:textSize="20dp"
-                ></TextView>
+                android:visibility="gone"
+                android:textSize="20dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                android:visibility="gone">
 
-            <EditText
-                android:id="@+id/register_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_gravity="left"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:inputType="textPassword"
-                android:layout_marginRight="25dp"
-                ></EditText>
+                <EditText
+                    android:id="@+id/register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:textSize="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password"
                 android:layout_gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                ></TextView>
+                android:text="Confirm Password"
+                android:visibility="gone"
+                android:textSize="20dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                android:visibility="gone">
 
-            <EditText
-                android:id="@+id/register_confirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_gravity="left"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:inputType="textPassword"
-                android:layout_marginRight="25dp"
-                ></EditText>
+                <EditText
+                    android:id="@+id/register_confirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:textSize="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -194,67 +208,62 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/terms_conditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I agree to"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="20dp"
-                    android:fontFamily="@font/merriweather_bold"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:id="@+id/terms_conditions"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="I agree to"
 
                     />
 
                 <TextView
+                    android:id="@+id/terms_conditions_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:layout_marginTop="15dp"
-                    android:textSize="15sp"
-                    android:text="terms &amp; Conditions"
                     android:layout_gravity="center"
-                    android:textStyle="bold"
                     android:layout_marginStart="-15dp"
-                    android:textColor="#3F51B5"
-                    android:id="@+id/terms_conditions_text"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    />
-
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="terms &amp; Conditions"
+                    android:textColor="#3F51B5"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-
 
 
             <Button
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/register_button"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="25dp"
-                android:text="Sign Up"
-                android:textSize="25dp"
+                android:background="@drawable/register_button"
                 android:fontFamily="@font/lora_bold"
                 android:inputType="textPersonName"
+                android:text="Sign Up"
                 android:textColor="#ffffff"
-                ></Button>
+                android:textSize="25dp"/>
 
             <TextView
                 android:id="@+id/register_loginUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:text="Already have an account? Log In"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
                 android:fontFamily="@font/merriweather_bold"
-                ></TextView>
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Already have an account? Log In"
+                android:textColor="#000000"/>
 
         </LinearLayout>
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.locsaleapplication.presentation.otp.OTPActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,14 +31,14 @@ import java.util.Map;
 @SuppressWarnings("All")
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText login_email;
-    private EditText login_password;
+    private EditText login_mobile_number;
     private Button login_button;
     private TextView login_register;
     private FirebaseAuth mAuth;
     private TextView login_forgotPassword;
 
     private String email, password;
+    private String mobileNumber;
 
     private String type;
     String token;
@@ -60,8 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        login_email = findViewById(R.id.login_email);
-        login_password = findViewById(R.id.login_password);
+        login_mobile_number = findViewById(R.id.login_mobile_number);
         login_button = findViewById(R.id.login_button);
         login_register = findViewById(R.id.login_register);
         login_forgotPassword = findViewById(R.id.login_forgotPassword);
@@ -93,20 +93,26 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoginUserCheck() {
 
-        email = login_email.getText().toString().trim();
-        password = login_password.getText().toString().trim();
+        mobileNumber = login_mobile_number.getText().toString().trim();
 
-        if (email.isEmpty()) {
-            login_email.setError("Email address is required");
-            login_email.requestFocus();
+        if (mobileNumber.isEmpty()) {
+            login_mobile_number.setError("Mobile number is required");
+            login_mobile_number.requestFocus();
             return;
         }
-        if (password.isEmpty()) {
-            login_password.setError("Password is required");
-            login_password.requestFocus();
+        if (mobileNumber.length() != 10) {
+            login_mobile_number.setError("Mobile number must be 10 digits");
+            login_mobile_number.requestFocus();
             return;
         }
-        LoginUser(email, password);
+
+
+        Intent intentOTP = new Intent(LoginActivity.this, OTPActivity.class);
+        intentOTP.putExtra("number", mobileNumber);
+        intentOTP.putExtra("from", "login");
+        intentOTP.putExtra("countryCode", "91");
+        startActivity(intentOTP);
+/*        LoginUser(email, password);*/
     }
 
     private void LoginUser(String email, String password) {
