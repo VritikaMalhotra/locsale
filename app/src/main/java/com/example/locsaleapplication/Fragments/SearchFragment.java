@@ -1,29 +1,29 @@
 package com.example.locsaleapplication.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.os.CountDownTimer;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
-import com.example.locsaleapplication.Adapter.PhotoAdapter;
-import com.example.locsaleapplication.Adapter.TagAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.locsaleapplication.Adapter.SearchCategoryAdapter;
 import com.example.locsaleapplication.Adapter.UserAdapter;
-import com.example.locsaleapplication.MainActivity;
-import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
+import com.example.locsaleapplication.presentation.category.CategoryAndSubCategoryCommon;
+import com.example.locsaleapplication.presentation.category.CategoryModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,129 +33,183 @@ import com.google.firebase.database.ValueEventListener;
 import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
+@SuppressWarnings("All")
 public class SearchFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewBusiness;
     private List<User> mUsers;
+    private List<User> mListBusiness = new ArrayList<>();
+    private ArrayList<CategoryModel.SubCategoryModel> mListOtherCategory = new ArrayList<>();
     private UserAdapter userAdapter;
     private SocialAutoCompleteTextView search_bar;
 
-    private RecyclerView recyclerViewTags;
-    private List<String> mHashtags;
-    private List<String> mhashtagsCount;
-    private TagAdapter tagAdapter;
+    private LinearLayout lvBusiness, lvCategories;
+    private AppCompatTextView tvBusiness, tvCategories;
+    private View viewBusiness, viewCategories;
 
+    private RecyclerView recyclerViewCategories;
+    private SearchCategoryAdapter searchCategoryAdapter;
+    private ArrayList<CategoryModel> listCategory = new ArrayList<>();
+
+    private ProgressBar progressBar;
+    private AppCompatTextView tvNoData;
+    private String stSearchType = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false) ;
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        return view;
+    }
 
-        //Back pressed Logic for fragment
-        /*view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        tvNoData = view.findViewById(R.id.tvSearchNoData);
+        progressBar = view.findViewById(R.id.progressBarLoading);
+
+        lvBusiness = view.findViewById(R.id.linearSearchBusiness);
+        lvCategories = view.findViewById(R.id.linearSearchCategories);
+
+        tvBusiness = view.findViewById(R.id.tvSearchBusiness);
+        tvCategories = view.findViewById(R.id.tvSearchCategories);
+
+        viewBusiness = view.findViewById(R.id.viewSearchBusiness);
+        viewCategories = view.findViewById(R.id.viewSearchCategories);
+
+        recyclerViewCategories = view.findViewById(R.id.recycler_view_categories);
+
+        listCategory = new ArrayList<>();
+        listCategory = CategoryAndSubCategoryCommon.getCategoryModels();
+        searchCategoryAdapter = new SearchCategoryAdapter(getActivity(), listCategory, new SearchCategoryAdapter.OnItemClickCategorySub() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-                        getActivity().finish();
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        startActivity(intent);
-                        return true;
-                    }
+            public void onItemClickCategorySub(CategoryModel model, CategoryModel.SubCategoryModel subCategoryModel) {
+                lvBusiness.performClick();
+                if (subCategoryModel != null) {
+                    stSearchType = "subCategory";
+                    searchUserForCategory(subCategoryModel.getStSubCategoryName());
+                } else {
+                    stSearchType = "category";
+                    searchUserForCategory(model.getStCategoryName());
                 }
-                return false;
+
+                //search_bar.setText(subCategoryModel.getStSubCategoryName());
             }
-        });*/
+        });
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewCategories.setAdapter(searchCategoryAdapter);
 
-        recyclerView = view.findViewById(R.id.recycler_view_users);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        setClickEvent();
+
+        recyclerViewBusiness = view.findViewById(R.id.recycler_view_users);
+        recyclerViewBusiness.setHasFixedSize(true);
+        recyclerViewBusiness.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
-        userAdapter = new UserAdapter(getContext(),mUsers,true);
-        recyclerView.setAdapter(userAdapter);
-
-        recyclerViewTags = view.findViewById(R.id.recycler_view_tags);
-        recyclerViewTags.setHasFixedSize(true);
-        recyclerViewTags.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        mHashtags = new ArrayList<>();
-        mhashtagsCount = new ArrayList<>();
-        tagAdapter = new TagAdapter(getContext(),mHashtags,mhashtagsCount);
-        recyclerViewTags.setAdapter(tagAdapter);
+        userAdapter = new UserAdapter(getContext(), mUsers, true);
+        recyclerViewBusiness.setAdapter(userAdapter);
 
         search_bar = view.findViewById(R.id.search_bar);
 
         search_bar.addTextChangedListener(new TextWatcher() {
+
+            CountDownTimer timer = null;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                stSearchType = "text";
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SearchUser(s.toString());
+                if (timer != null) {
+                    timer.cancel();
+                }
+
+                timer = new CountDownTimer(1000, 100) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        searchUserForCategory(s.toString());
+                    }
+                }.start();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                filter(s.toString());
-
             }
         });
 
-        readUsers();
-        readTags();
-        return view;
+        //readUsers();
+        getOtherCategories();
     }
 
-    private void readTags() {
-        FirebaseDatabase.getInstance().getReference().child("HashTags").addValueEventListener(new ValueEventListener() {
+    private void setClickEvent() {
+        lvBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mHashtags.clear();
-                mhashtagsCount.clear();
+            public void onClick(View view) {
+                viewBusiness.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
+                viewCategories.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    mHashtags.add(snapshot.getKey());
-                    mhashtagsCount.add(snapshot.getChildrenCount()+"");
-                }
-                tagAdapter.notifyDataSetChanged();
+                tvBusiness.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
+                tvCategories.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+
+                recyclerViewBusiness.setVisibility(View.VISIBLE);
+                recyclerViewCategories.setVisibility(View.GONE);
+
+                tvNoData.setVisibility(View.GONE);
             }
+        });
 
+        lvCategories.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onClick(View view) {
+                viewBusiness.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+                viewCategories.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
 
+                tvBusiness.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+                tvCategories.setTextColor(ContextCompat.getColor(getActivity(), R.color.red));
+
+                recyclerViewBusiness.setVisibility(View.GONE);
+                recyclerViewCategories.setVisibility(View.VISIBLE);
+
+                tvNoData.setVisibility(View.GONE);
             }
         });
     }
 
-    private void readUsers() {
+    private void getOtherCategories() {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(TextUtils.isEmpty(search_bar.getText().toString())){
-                    mUsers.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        User user = snapshot.getValue(User.class);
-                        if(user.getType().equals("1")){
-                            mUsers.add(user);
+                mListOtherCategory = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    if (checkStrinValueReturn(user.getType(), "").equals("1")
+                            && checkStrinValueReturn(user.getBusiness_field(), "").equals("Others")) {
+                        if (checkStrinValue(user.getBusiness_sub_category())) {
+                            mListOtherCategory.add(new CategoryModel.SubCategoryModel(user.getBusiness_sub_category(), R.drawable.ic_cat_hospital, false));
                         }
                     }
-                    userAdapter.notifyDataSetChanged();
                 }
+
+                if (mListOtherCategory.size() > 0) {
+                    listCategory.add(new CategoryModel("Other", mListOtherCategory, false));
+                } else {
+                    listCategory.add(new CategoryModel("Other", new ArrayList<>(), false));
+                }
+
+                searchCategoryAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -165,16 +219,16 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void SearchUser(String s){
+    /*private void SearchUser(String s) {
         Query query = FirebaseDatabase.getInstance().getReference().child("Users")
-                .orderByChild("username").startAt(s).endAt(s+"\uf8ff");
+                .orderByChild("business_name").startAt(s).endAt(s + "\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    if(user.getType().equals("1")){
+                    if (user.getType() != null && user.getType().equals("1")) {
                         mUsers.add(user);
                     }
                     userAdapter.notifyDataSetChanged();
@@ -187,22 +241,71 @@ public class SearchFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
-    private void filter(String text){
-        List<String> mSearchTags = new ArrayList<>();
-        List<String> mSearchTagsCount = new ArrayList<>();
+    private void searchUserForCategory(String s) {
+        progressBar.setVisibility(View.VISIBLE);
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                mUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    if (user.getType() != null && user.getType().equals("1")) {
 
-        for(String s : mHashtags ){
-            if(s.toLowerCase().contains(text.toLowerCase())){
-                mSearchTags.add(s);
-                mSearchTagsCount.add(mhashtagsCount.get(mHashtags.indexOf(s)));
+                        if (stSearchType.equalsIgnoreCase("category") &&
+                                checkStrinValueReturn(user.getBusiness_field(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                            mUsers.add(user);
+                        } else if (stSearchType.equalsIgnoreCase("subCategory") &&
+                                checkStrinValueReturn(user.getBusiness_sub_category(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                            mUsers.add(user);
+                        } else {
+                            if (checkStrinValueReturn(user.getBusiness_name(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)) ||
+                                    checkStrinValueReturn(user.getName(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                                mUsers.add(user);
+                            }
+                        }
+
+                        /*if (checkStrinValueReturn(user.getBusiness_name(), "").contains(s) ||
+                                checkStrinValueReturn(user.getBusiness_field(), "").contains(s)||
+                                checkStrinValueReturn(user.getBusiness_sub_category(), "").contains(s)) {
+                            mUsers.add(user);
+                        }*/
+                    }
+                }
+
+                if (mUsers != null && mUsers.size() > 0) {
+                    userAdapter.notifyDataSetChanged();
+                    recyclerViewBusiness.setVisibility(View.VISIBLE);
+                    tvNoData.setVisibility(View.GONE);
+                } else {
+                    recyclerViewBusiness.setVisibility(View.GONE);
+                    tvNoData.setVisibility(View.VISIBLE);
+                }
             }
 
-            tagAdapter.fliter(mSearchTags,mSearchTagsCount);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public boolean checkStrinValue(String value) {
+        if (value != null && !value.isEmpty() && !value.equalsIgnoreCase("null")) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-
-
+    public String checkStrinValueReturn(String value, String returnvalue) {
+        if (value != null && !value.isEmpty() && !value.equalsIgnoreCase("null")) {
+            return value;
+        } else {
+            return returnvalue;
+        }
+    }
 }

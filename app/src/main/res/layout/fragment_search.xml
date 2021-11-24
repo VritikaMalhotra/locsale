@@ -1,73 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Fragments.SearchFragment">
 
-    <!-- TODO: Search fragment layout -->
-   <com.google.android.material.appbar.AppBarLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/bar"
-       android:background="?android:attr/windowBackground">
-
-       <androidx.appcompat.widget.Toolbar
-           android:layout_marginTop="5dp"
-           android:layout_marginBottom="5dp"
-           android:layout_marginStart="10dp"
-           android:layout_marginEnd="10dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/toolbar"
-           android:background="@drawable/post_background">
-
-           <ImageView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:src="@drawable/ic_search"/>
-
-           <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/search_bar"
-               android:background="@android:color/transparent"
-               android:hint="Search..."
-               android:layout_marginStart="20dp"/>
-
-       </androidx.appcompat.widget.Toolbar>
-
-   </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bar">
+        android:background="?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:contentInsetLeft="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/post_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_search" />
+
+                <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+                    android:id="@+id/search_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarLoading"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/bar"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linearSearchCategories"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_users"
-                android:layout_below="@+id/bar"/>
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSearchCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/categories"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/viewSearchCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/red" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearSearchBusiness"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_tags"
-                android:layout_below="@+id/recycler_view_users"
-                android:layout_marginTop="5dp"/>
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSearchBusiness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/business"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
+                <View
+                    android:id="@+id/viewSearchBusiness"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white" />
+
+            </LinearLayout>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:alpha="0.1"
+            android:background="@color/black" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_users"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSearchNoData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/no_data_available"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                android:gravity="center"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

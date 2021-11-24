@@ -122,7 +122,7 @@ public class FollowersActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
                     for(String id:idList){
-                        if(user.getId().equals(id)){
+                        if(user.getId() != null && user.getId().equals(id)){
                             mUsers.add(user);
                         }
                     }

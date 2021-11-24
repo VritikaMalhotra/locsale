@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".SplashScreenActivity">
 
     <ImageView
+        android:id="@+id/icon_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:src="@mipmap/notification_image_foreground"
-         android:layout_centerInParent="true"
-        android:id="@+id/icon_image"
-        />
+        android:layout_centerInParent="true"
+        android:src="@drawable/image_splash" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/constraintLayout"
-        >
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/splach_text"
@@ -28,6 +27,7 @@
             android:fontFamily="@font/merriweather_bold"
             android:text="LOCSALE"
             android:textSize="40sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

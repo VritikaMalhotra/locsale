@@ -72,7 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
                 }
 
-                holder.username.setText(user.getUsername());
+                holder.username.setText(user.getBusiness_name());
                 holder.author.setText(user.getName());
             }
 

@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -80,11 +81,16 @@ public class ExploreFragment extends Fragment {
                 myPhotoList.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if(!post.getType().equals("0")){
+                    if(post.getType() != null && post.getType().equals("1")) {
                         myPhotoList.add(post);
                     }
                 }
-                //Collections.reverse(myPhotoList);
+                Collections.sort(myPhotoList, new Comparator<Post>() {
+                    @Override
+                    public int compare(Post post, Post t1) {
+                        return (post.getTimestamp() <= t1.getTimestamp() ? 1 : -1);
+                    }
+                });
                 //Collections.shuffle(myPhotoList);
                 photoAdapter.notifyDataSetChanged();
             }

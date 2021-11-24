@@ -208,7 +208,7 @@ public class SelectUserFragment extends Fragment {
                     view.findViewById(R.id.no_data_layout).setVisibility(View.GONE);
                     SelectUserAdapter mAdapter = new SelectUserAdapter(getActivity(), listUsers, new OnItemClick<User>() {
                         @Override
-                        public void onItemClick(int position, User data) {
+                        public void onItemClick(User data, int position) {
                             pbar.setVisibility(View.VISIBLE);
                             ChatFunctions.insertInbox(root_ref,
                                     firebaseUser.getUid(),

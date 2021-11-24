@@ -7,16 +7,26 @@ public class Post {
     private String postId;
     private String publisher;
     private String type;
+    private long timestamp;
 
     public Post() {
     }
 
-    public Post(String description, String imageUrl, String postId, String publisher, String type) {
+    public Post(String description, String imageUrl, String postId, String publisher, String type, long timestamp) {
         this.description = description;
         this.imageUrl = imageUrl;
         this.postId = postId;
         this.publisher = publisher;
         this.type = type;
+        this.timestamp = timestamp;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getDescription() {

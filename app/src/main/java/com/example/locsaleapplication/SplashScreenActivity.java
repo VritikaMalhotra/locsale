@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+@SuppressWarnings("All")
 public class SplashScreenActivity extends AppCompatActivity {
 
     private ImageView splash_img;
@@ -32,14 +33,41 @@ public class SplashScreenActivity extends AppCompatActivity {
         String text = "<font color=#FA0505>LOC</font><font color=#1505FA>SALE</font>";
         splach_text.setText(Html.fromHtml(text));
 
-        constraintLayout.animate().alpha(0f).setDuration(1);
+        /*constraintLayout.animate().alpha(0f).setDuration(1);
 
         TranslateAnimation animation = new TranslateAnimation(0,0,0,-1000);
         animation.setDuration(2000);
         animation.setFillAfter(false);
-        animation.setAnimationListener(new MyAnimationListener());
+        animation.setAnimationListener(new MyAnimationListener());*/
 
-        splash_img.setAnimation(animation);
+        //splash_img.setAnimation(animation);
+
+        final Handler handler2 = new Handler(Looper.getMainLooper());
+        handler2.postDelayed(() -> {
+
+            Bundle bundleSend = null;
+            Bundle intent = getIntent().getExtras();
+            if (intent != null) {
+                if (intent.containsKey("action_type")) {
+
+                    bundleSend = new Bundle();
+                    bundleSend.putString("title", intent.getString("title", ""));
+                    bundleSend.putString("message", intent.getString("message", ""));
+                    bundleSend.putString("icon", intent.getString("icon", ""));
+                    bundleSend.putString("senderid", intent.getString("senderid", ""));
+                    bundleSend.putString("receiverid", intent.getString("receiverid", ""));
+                    bundleSend.putString("action_type", intent.getString("action_type", ""));
+                }
+            }
+
+
+            finish();
+            Intent intentNew = new Intent(getApplicationContext(), LoginActivity.class);
+            if (bundleSend != null) {
+                intentNew.putExtras(bundleSend);
+            }
+            startActivity(intentNew);
+        }, 3000);
     }
 
     private class MyAnimationListener implements Animation.AnimationListener{
@@ -54,36 +82,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             splash_img.clearAnimation();
             splash_img.setVisibility(View.INVISIBLE);
             constraintLayout.animate().alpha(1f).setDuration(2000);
-
-            final Handler handler2 = new Handler(Looper.getMainLooper());
-            handler2.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Bundle bundleSend = null;
-                    Bundle intent = getIntent().getExtras();
-                    if (intent != null) {
-                        if (intent.containsKey("action_type")) {
-
-                            bundleSend = new Bundle();
-                            bundleSend.putString("title", intent.getString("title", ""));
-                            bundleSend.putString("message", intent.getString("message", ""));
-                            bundleSend.putString("icon", intent.getString("icon", ""));
-                            bundleSend.putString("senderid", intent.getString("senderid", ""));
-                            bundleSend.putString("receiverid", intent.getString("receiverid", ""));
-                            bundleSend.putString("action_type", intent.getString("action_type", ""));
-                        }
-                    }
-
-
-                    finish();
-                    Intent intentNew = new Intent(getApplicationContext(), LoginActivity.class);
-                    if (bundleSend != null) {
-                        intentNew.putExtras(bundleSend);
-                    }
-                    startActivity(intentNew);
-                }
-            }, 2000);
 
         }
 

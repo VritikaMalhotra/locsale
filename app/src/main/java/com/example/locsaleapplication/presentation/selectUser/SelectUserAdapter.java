@@ -79,7 +79,7 @@ public class SelectUserAdapter extends RecyclerView.Adapter<SelectUserAdapter.Cu
             @Override
             public void onClick(View view) {
                 if (listenerItem != null) {
-                    listenerItem.onItemClick(i, item);
+                    listenerItem.onItemClick(item, i);
                 }
             }
         });

@@ -57,97 +57,103 @@
         android:layout_height="2dp"
         android:background="@drawable/shadow_divider" />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="20dp"
-            app:srcCompat="@drawable/image_otp_one" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/enter_the_otp_sent_to"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvOTPMobileNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="+91 1234567890"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="40dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <in.aabhasjindal.otptextview.OtpTextView
-                android:id="@+id/otpViewVerifyNumber"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="20dp"
+                app:srcCompat="@drawable/image_otp_one" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/enter_the_otp_sent_to"
                 android:textColor="@color/black"
-                app:length="6"
-                app:otp_box_background="@drawable/back_otp"
-                app:otp_text_size="16dp" />
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOTPMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="+91 1234567890"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="40dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <in.aabhasjindal.otptextview.OtpTextView
+                    android:id="@+id/otpViewVerifyNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    app:length="6"
+                    app:otp_box_background="@drawable/back_otp"
+                    app:otp_text_size="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearVerifyResend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/didn_t_receive_the_otp"
+                    android:textColor="@color/dimgray"
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvVerifyResend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="@string/resend"
+                    android:textColor="@color/blueDark"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOtpVerify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/register_button"
+                android:fontFamily="@font/lora_bold"
+                android:text="@string/verify"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearVerifyResend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/didn_t_receive_the_otp"
-                android:textColor="@color/dimgray"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvVerifyResend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="0dp"
-                android:text="@string/resend"
-                android:textColor="@color/blueDark"
-                android:textSize="13sp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnOtpVerify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/register_button"
-            android:fontFamily="@font/lora_bold"
-            android:text="@string/verify"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

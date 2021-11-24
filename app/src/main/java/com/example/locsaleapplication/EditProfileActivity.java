@@ -48,9 +48,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private FirebaseUser fUser;
     private Uri mImageUri;
-   private StorageTask uploadTask;
-   private StorageReference storageRef;
-
+    private StorageTask uploadTask;
+    private StorageReference storageRef;
 
 
     @Override
@@ -73,9 +72,9 @@ public class EditProfileActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user= dataSnapshot.getValue(User.class);
+                User user = dataSnapshot.getValue(User.class);
                 fullname.setText(user.getName());
-                username.setText(user.getUsername());
+                username.setText(user.getBusiness_name());
                 bio.setText(user.getBio());
                 AppGlobal.loadImageUser(EditProfileActivity.this, user.getImageurl(), 400, imageprofile);
             }
@@ -113,27 +112,29 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
     }
-    private void updateProfile(){
+
+    private void updateProfile() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", fullname.getText().toString());
         map.put("username", username.getText().toString());
-        map.put("bio",bio.getText().toString());
+        map.put("bio", bio.getText().toString());
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).updateChildren(map);
     }
-    protected void uploadImage(){
+
+    protected void uploadImage() {
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Uploading");
         pd.show();
 
-        if(mImageUri != null){
-            final StorageReference fileREf = storageRef.child(System.currentTimeMillis()+ ".jpeg");
+        if (mImageUri != null) {
+            final StorageReference fileREf = storageRef.child(System.currentTimeMillis() + ".jpeg");
 
-            uploadTask =fileREf.putFile(mImageUri);
+            uploadTask = fileREf.putFile(mImageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
-                    if(!task.isSuccessful()){
+                    if (!task.isSuccessful()) {
                         throw task.getException();
                     }
                     return fileREf.getDownloadUrl();
@@ -141,21 +142,18 @@ public class EditProfileActivity extends AppCompatActivity {
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
                         String url = downloadUri.toString();
 
                         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).child("imageurl").setValue(url);
                         pd.dismiss();
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(EditProfileActivity.this, "Upload Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        }
-        else{
+        } else {
             Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
         }
     }
@@ -163,15 +161,12 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK)
-        {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             mImageUri = result.getUri();
 
             uploadImage();
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }

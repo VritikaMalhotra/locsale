@@ -14,5 +14,10 @@
     <string name="enter_the_otp_sent_to">Enter the OTP sent to :</string>
     <string name="otp_verification">OTP Verification</string>
     <string name="verify">Verify</string>
+    <string name="categories">Categories</string>
+    <string name="business">Business</string>
+    <string name="search">Search...</string>
+    <string name="no_data_available">No Data available</string>
+    <string name="select_date">Select Date</string>
 
 </resources>

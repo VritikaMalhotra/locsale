@@ -1,8 +1,6 @@
 package com.example.locsaleapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,22 +9,25 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.example.locsaleapplication.presentation.otp.OTPActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @SuppressWarnings("All")
 public class RegisterActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
 //    private EditText register_password;
 //    private EditText register_confirmPassword;
     private EditText register_number;
-    private EditText register_dob;
+    private AppCompatTextView register_dob;
     private TextView register_loginUser;
     private Button register_button;
     private String name, email, /*password, confirmPassword,*/ dob, number/*username*/;
@@ -105,6 +106,27 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, TearmsAndConditionsActivity.class));
             }
         });
+
+        register_dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this);
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar myCalendar = Calendar.getInstance();
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                        register_dob.setText(sdf.format(myCalendar.getTime()));
+                    }
+                });
+                datePickerDialog.show();
+            }
+        });
     }
 
     private void RegisterUserCheck() {
@@ -137,8 +159,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         if (dob.isEmpty()) {
-            register_dob.setError("DOB is required");
-            register_dob.requestFocus();
+            Toast.makeText(RegisterActivity.this, "Please select date", Toast.LENGTH_SHORT).show();
             return;
         }
 

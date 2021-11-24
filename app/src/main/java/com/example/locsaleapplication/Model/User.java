@@ -12,6 +12,7 @@ public class User {
     private String token;
     private String business_name;
     private String business_field;
+    private String business_sub_category;
     private String contact_number;
     private String address;
 
@@ -20,7 +21,7 @@ public class User {
 
     public User(String name, String email, String username, String bio,
                 String imageurl, String id, String type, String token,
-                String business_name, String business_field, String contact_number, String address) {
+                String business_name, String business_field, String business_sub_category, String contact_number, String address) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -31,6 +32,7 @@ public class User {
         this.token = token;
         this.business_name = business_name;
         this.business_field = business_field;
+        this.business_sub_category = business_sub_category;
         this.contact_number = contact_number;
         this.address = address;
     }
@@ -49,6 +51,14 @@ public class User {
 
     public void setBusiness_field(String business_field) {
         this.business_field = business_field;
+    }
+
+    public String getBusiness_sub_category() {
+        return business_sub_category;
+    }
+
+    public void setBusiness_sub_category(String business_sub_category) {
+        this.business_sub_category = business_sub_category;
     }
 
     public String getContact_number() {

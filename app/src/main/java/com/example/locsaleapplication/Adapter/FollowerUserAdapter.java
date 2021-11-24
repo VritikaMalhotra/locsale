@@ -55,7 +55,7 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
         final User user = mUsers.get(position);
         holder.btnfollow.setVisibility(View.VISIBLE);
 
-        holder.username.setText(user.getUsername());
+        holder.username.setText(user.getBusiness_name());
         holder.name.setText(user.getName());
 
         AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
@@ -97,7 +97,7 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 token = user.getToken();
-                username[0] = user.getUsername();
+                username[0] = user.getBusiness_name();
             }
 
             @Override

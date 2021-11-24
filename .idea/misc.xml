@@ -3,27 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/border_box.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/drawable/d_my_msg_background.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/drawable/d_other_msg_background.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/drawable/d_round_gray_background_2.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/drawable/d_round_white_background.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/drawable/editfield_releative_border.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/drawable/post_background.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3875" />
-        <entry key="app/src/main/res/layout/activity_otp.xml" value="0.2712962962962963" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.2712962962962963" />
+        <entry key="app/src/main/res/layout/activity_otp.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/dialog_view_image.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/fragment_see_full_image.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/item_category.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/item_chat_alert.xml" value="0.28923076923076924" />
         <entry key="app/src/main/res/layout/item_chat_image_my.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/item_chat_image_other.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/item_chat_my.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/item_chat_other.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/item_dialog_loading_view.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/item_sub_category.xml" value="0.3875" />
         <entry key="app/src/main/res/layout/photo_item.xml" value="0.3875" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.3875" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_image.xml" value="0.4036458333333333" />
       </map>
     </option>
