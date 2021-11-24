@@ -19,10 +19,8 @@ import java.util.Locale;
 
 public class AppGlobal {
 
-    public final static int permission_camera_code=786;
-    public final static int permission_write_data=788;
-    public final static int permission_Read_data=789;
-    public final static int permission_Recording_audio=790;
+    public final static int permission_camera_code = 786;
+    public final static int permission_Read_data = 789;
 
     /*public static final  String main_domain="http://api.mastiappind.com/";
     public static final String base_url=main_domain+"app_api/";

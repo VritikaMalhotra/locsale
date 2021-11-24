@@ -43,7 +43,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView save;
     private TextView changePhoto;
     private EditText fullname;
-    private EditText username;
+    private EditText edMobileNumber;
     private EditText bio;
 
     private FirebaseUser fUser;
@@ -62,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save = findViewById(R.id.save);
         changePhoto = findViewById(R.id.change_photo);
         fullname = findViewById(R.id.fullname);
-        username = findViewById(R.id.Username);
+        edMobileNumber = findViewById(R.id.edMobileNumber);
         bio = findViewById(R.id.bio);
 
 
@@ -74,7 +74,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 fullname.setText(user.getName());
-                username.setText(user.getBusiness_name());
+                edMobileNumber.setText(user.getContact_number());
                 bio.setText(user.getBio());
                 AppGlobal.loadImageUser(EditProfileActivity.this, user.getImageurl(), 400, imageprofile);
             }
@@ -116,7 +116,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void updateProfile() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", fullname.getText().toString());
-        map.put("username", username.getText().toString());
+        //map.put("username", username.getText().toString());
         map.put("bio", bio.getText().toString());
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).updateChildren(map);

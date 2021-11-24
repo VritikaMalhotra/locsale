@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.presentation.otp.OTPActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -106,13 +107,60 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-
         Intent intentOTP = new Intent(LoginActivity.this, OTPActivity.class);
         intentOTP.putExtra("number", mobileNumber);
         intentOTP.putExtra("from", "login");
         intentOTP.putExtra("countryCode", "91");
         startActivity(intentOTP);
-/*        LoginUser(email, password);*/
+        //checkMobileNumberIsExist();
+        /*LoginUser(email, password);*/
+    }
+
+    private void checkMobileNumberIsExist() {
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User userMain = null;
+                        String type = "";
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            User user = snapshot.getValue(User.class);
+                            //user.setId(dataSnapshot.getKey());
+                            if (user.getId() != null && user.getId().equals(mAuth.getUid())) {
+                                type = "exist";
+                                userMain = user;
+                                break;
+                            } else if (user.getContact_number() != null) {
+                                if (mobileNumber.contains(user.getContact_number())) {
+                                    type = "change";
+                                    userMain = user;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (userMain != null && userMain.getType() != null && userMain.getType().equals("2")) {
+                            Intent intentOTP = new Intent(LoginActivity.this, OTPActivity.class);
+                            intentOTP.putExtra("number", mobileNumber);
+                            intentOTP.putExtra("from", "login");
+                            intentOTP.putExtra("countryCode", "91");
+                            startActivity(intentOTP);
+                        } else {
+
+                            FirebaseAuth.getInstance().signOut();
+                            if (userMain == null) {
+                                Toast.makeText(LoginActivity.this, "This number is not registered, Please register first.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("Appname", "issue OTP : " + databaseError.getMessage());
+                    }
+                });
     }
 
     private void LoginUser(String email, String password) {

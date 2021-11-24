@@ -62,11 +62,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                holder.username.setText(user.getBusiness_name());
-                if (user.getImageurl().equals("default")) {
-                    holder.imageProfile.setImageResource(R.drawable.ic_profile);
-                } else {
-                    AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
+                if (user != null) {
+                    holder.username.setText(user.getName());
+                    if (user.getImageurl() == null || user.getImageurl().equals("default")) {
+                        holder.imageProfile.setImageResource(R.drawable.ic_profile);
+                    } else {
+                        AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
+                    }
                 }
             }
 

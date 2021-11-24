@@ -888,7 +888,7 @@ public class ChatActivity extends Fragment {
             return true;
         } else {
             try {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         AppGlobal.permission_Read_data);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -916,21 +916,6 @@ public class ChatActivity extends Fragment {
 
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "Tap again", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        if (requestCode == AppGlobal.permission_write_data) {
-
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "Tap Again", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-        if (requestCode == AppGlobal.permission_Recording_audio) {
-
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "Tap Again", Toast.LENGTH_SHORT).show();
             }
         }
     }

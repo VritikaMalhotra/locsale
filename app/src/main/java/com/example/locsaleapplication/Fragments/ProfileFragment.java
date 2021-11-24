@@ -1,5 +1,6 @@
 package com.example.locsaleapplication.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +28,10 @@ import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.ShopkeeperDetailActivity;
 import com.example.locsaleapplication.UserFollowersActivity;
+import com.example.locsaleapplication.chat.ChatFunctions;
+import com.example.locsaleapplication.presentation.Inbox.InboxModel;
+import com.example.locsaleapplication.presentation.chat.ChatActivity;
+import com.example.locsaleapplication.presentation.chat.commons.Fragment_Callback;
 import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,16 +73,24 @@ public class ProfileFragment extends Fragment {
     private Button savedPictures;
     private Button editProfile;
     private Button deatils;
+    private Button chat;
 
     private FirebaseUser firebaseUser;
     String profileId;
     public static String token;
+
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.create();
 
         //Back pressed Logic for fragment
         /*view.setFocusableInTouchMode(true);
@@ -121,6 +136,7 @@ public class ProfileFragment extends Fragment {
         //savedPictures = view.findViewById(R.id.saved_pictures);
         editProfile = view.findViewById(R.id.edit_profile);
         deatils = view.findViewById(R.id.details);
+        chat = view.findViewById(R.id.chat);
 
         recyclerView = view.findViewById(R.id.recycler_view_pictures);
         recyclerView.setHasFixedSize(true);
@@ -137,6 +153,7 @@ public class ProfileFragment extends Fragment {
         recyclerViewSaves.setAdapter(postAdaptersaves);
 
         userInfo();
+        getCurrentUserData();
         getFollowersAndFollowingCount();
         getPostCount();
         myPhotos();
@@ -152,6 +169,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), ShopkeeperDetailActivity.class));
+            }
+        });
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkThreadIsExistsOrNot();
             }
         });
 
@@ -361,16 +385,17 @@ public class ProfileFragment extends Fragment {
         });*/
     }
 
+    User businessUserData = null;
     private void userInfo() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(profileId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
+                businessUserData = dataSnapshot.getValue(User.class);
 
-                AppGlobal.loadImageUser(getActivity(), user.getImageurl(), 300, imageProfile);
-                username.setText(user.getBusiness_name());
-                fullname.setText(user.getName());
-                bio.setText(user.getBio());
+                AppGlobal.loadImageUser(getActivity(), businessUserData.getImageurl(), 300, imageProfile);
+                username.setText(businessUserData.getBusiness_name());
+                fullname.setText(businessUserData.getName());
+                bio.setText(businessUserData.getBio());
             }
 
             @Override
@@ -406,5 +431,106 @@ public class ProfileFragment extends Fragment {
 
         Intent myIntent = new Intent(getActivity(), SendNotification.class);
         startActivity(myIntent);
+    }
+
+    private void checkThreadIsExistsOrNot() {
+        String currentUserId = firebaseUser.getUid();
+        String businessUserId = profileId;
+
+        progressDialog.show();
+        FirebaseDatabase.getInstance().getReference().child("Inbox").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                InboxModel model = null;
+                if (dataSnapshot.getChildrenCount() > 0) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        if ((currentUserId + "-" + businessUserId).equals(data.getKey())) {
+                            model = data.getValue(InboxModel.class);
+                            if (model != null) {
+                                model.setId(data.getKey());
+                                AppGlobal.showLog("Open Chat");
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (model == null) {
+                    //Create New Thread
+                    if (businessUserData != null) {
+                        long currentTime = System.currentTimeMillis();
+                        ChatFunctions.insertInbox(FirebaseDatabase.getInstance().getReference(),
+                                firebaseUser.getUid(),
+                                currentUser.getName(),
+                                currentUser.getImageurl(),
+                                businessUserData.getId(),
+                                businessUserData.getName(),
+                                businessUserData.getImageurl(),
+                                "2", new ChatFunctions.OnChatThreadCreated() {
+                                    @Override
+                                    public void onChatThreadCratedSuccess() {
+                                        progressDialog.cancel();
+
+                                        openChatPage(currentUserId + "-" + businessUserId,
+                                                businessUserData.getId(),
+                                                businessUserData.getName(),
+                                                businessUserData.getImageurl());
+                                    }
+
+                                    @Override
+                                    public void onChatThreadCratedFail(String msg) {
+                                        progressDialog.cancel();
+                                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                } else {
+                    //Open Chat Directly
+                    progressDialog.cancel();
+                    openChatPage(model.getId(), model.getSellerId(), model.getSellerName(), model.getSellerPic());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                AppGlobal.showLog("No Data");
+            }
+        });
+    }
+
+    public void openChatPage(String threadId, String receiverid, String name, String picture) {
+        ChatActivity chat_activity = new ChatActivity(new Fragment_Callback() {
+            @Override
+            public void Responce(Bundle bundle) {
+
+            }
+        });
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left, R.anim.in_from_left, R.anim.out_to_right);
+
+        Bundle args = new Bundle();
+        args.putString("thread_id", threadId);
+        args.putString("user_id", receiverid);
+        args.putString("user_name", name);
+        args.putString("user_pic", picture);
+
+        chat_activity.setArguments(args);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.frame_container, chat_activity).commit();
+    }
+
+    User currentUser;
+    private void getCurrentUserData() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                currentUser = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

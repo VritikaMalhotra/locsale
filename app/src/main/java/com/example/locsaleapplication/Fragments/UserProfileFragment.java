@@ -365,7 +365,7 @@ public class UserProfileFragment extends Fragment {
                 User user = dataSnapshot.getValue(User.class);
 
                 AppGlobal.loadImageUser(getActivity(), user.getImageurl(), 300, imageProfile);
-                username.setText(user.getBusiness_name());
+                username.setText(user.getName());
                 fullname.setText(user.getName());
                 bio.setText(user.getBio());
             }

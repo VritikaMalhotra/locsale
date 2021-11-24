@@ -51,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
+        android:visibility="gone"
         android:background="#ECE8E8">
 
         <LinearLayout
@@ -80,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bar"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bar"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/explore_head"
@@ -124,7 +125,7 @@
                     android:layout_marginTop="40dp"
                     android:fontFamily="@font/lora_bold"
                     android:gravity="center"
-                    android:text="Please Follow Your Shopkeepers"
+                    android:text="Please Follow\nYour Businesses"
                     android:textColor="#000000"
                     android:textSize="30sp" />
 
@@ -141,7 +142,7 @@
                     android:background="@drawable/home_button_background"
                     android:fontFamily="sans-serif"
                     android:padding="5dp"
-                    android:text="Explore Shopkeepers"
+                    android:text="Explore Businesses"
                     android:textColor="#ffffff"
                     android:textSize="22sp"
                     android:textStyle="bold" />

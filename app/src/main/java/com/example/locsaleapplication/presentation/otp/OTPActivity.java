@@ -271,7 +271,8 @@ public class OTPActivity extends AppCompatActivity {
                                                     }
                                                 }
 
-                                                if (userMain.getType() != null && userMain.getType().equals("2")) {
+
+                                                if (userMain != null && userMain.getType() != null && userMain.getType().equals("2")) {
                                                     if (type.equalsIgnoreCase("exist")) {
                                                         updateToken(userMain);
                                                     } else if (type.equalsIgnoreCase("change")) {
@@ -284,9 +285,11 @@ public class OTPActivity extends AppCompatActivity {
                                                 } else {
                                                     pd.dismiss();
                                                     FirebaseAuth.getInstance().signOut();
-                                                    Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
-                                                    //Toast.makeText(OTPActivity.this, "Please register with another email for Customer side", Toast.LENGTH_LONG).show();
-                                                    FirebaseAuth.getInstance().signOut();
+                                                    if (userMain == null) {
+                                                        Toast.makeText(OTPActivity.this, "This number is not registered, Please register first.", Toast.LENGTH_LONG).show();
+                                                    } else {
+                                                        Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
+                                                    }
                                                     startActivity(new Intent(OTPActivity.this, LoginActivity.class)
                                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                                     finishAffinity();
@@ -378,20 +381,11 @@ public class OTPActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Users").child(user.getId()).removeValue();
 
         pd.dismiss();
-        if (user.getType() != null && user.getType().equals("2")) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finishAffinity();
-        } else {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
-            //Toast.makeText(OTPActivity.this, "Please register with another email for Customer side", Toast.LENGTH_LONG).show();
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(OTPActivity.this, LoginActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            finishAffinity();
-        }
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finishAffinity();
+
     }
 
     private void updateToken(User user) {
@@ -399,26 +393,14 @@ public class OTPActivity extends AppCompatActivity {
         HashMap<String, Object> mapToken = new HashMap<>();
         mapToken.put("token", token);
 
-        //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         FirebaseDatabase.getInstance().getReference().child("Users").child(user.getId()).updateChildren(mapToken, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 pd.dismiss();
-                if (user.getType() != null && user.getType().equals("2")) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finishAffinity();
-                } else {
-                    FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
-                    //Toast.makeText(OTPActivity.this, "Please register with another email for Customer side", Toast.LENGTH_LONG).show();
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(OTPActivity.this, LoginActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                    finishAffinity();
-                }
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finishAffinity();
             }
         });
     }
