@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.locsaleapplication.presentation.otp.OTPActivity;
@@ -40,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_number;
     private AppCompatTextView register_dob;
     private TextView register_loginUser;
-    private Button register_button;
+    private AppCompatButton register_button;
     private String name, email, /*password, confirmPassword,*/ dob, number/*username*/;
     private CheckBox terms_conditions;
     private TextView terms_conditions_text;

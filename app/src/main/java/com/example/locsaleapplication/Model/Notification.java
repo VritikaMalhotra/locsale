@@ -2,19 +2,22 @@ package com.example.locsaleapplication.Model;
 
 public class Notification {
 
+    private String id;
     private String userid;
     private String test;
     private String postid;
     private boolean isPost;
+    private boolean is_read;
 
     public Notification() {
     }
 
-    public Notification(String userid, String test, String postid, boolean isPost) {
-        this.userid = userid;
-        this.test = test;
-        this.postid = postid;
-        this.isPost = isPost;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserid() {
@@ -47,5 +50,13 @@ public class Notification {
 
     public void setPost(boolean post) {
         isPost = post;
+    }
+
+    public boolean isIs_read() {
+        return is_read;
+    }
+
+    public void setIs_read(boolean is_read) {
+        this.is_read = is_read;
     }
 }

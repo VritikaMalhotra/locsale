@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Model.User;
@@ -76,7 +77,7 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
         public CircleImageView imageProfile;
         public TextView username;
         public TextView name;
-        public Button btnfollow;
+        public AppCompatButton btnfollow;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -112,6 +113,7 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
         map.put("test","Started following you");
         map.put("postid","");
         map.put("isPost",false);
+        map.put("is_read",false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
 

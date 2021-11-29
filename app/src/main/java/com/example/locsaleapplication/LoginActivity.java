@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.presentation.otp.OTPActivity;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,7 +35,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText login_mobile_number;
-    private Button login_button;
+    private AppCompatButton login_button;
     private TextView login_register;
     private FirebaseAuth mAuth;
     private TextView login_forgotPassword;
@@ -227,7 +229,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         if (mAuth.getCurrentUser() != null) {
-
+            AppGlobal.showLog("User Id : " + mAuth.getCurrentUser().getUid());
             Bundle bundleSend = null;
             Bundle intent = getIntent().getExtras();
             if (intent != null) {
@@ -240,6 +242,9 @@ public class LoginActivity extends AppCompatActivity {
                     bundleSend.putString("senderid", intent.getString("senderid", ""));
                     bundleSend.putString("receiverid", intent.getString("receiverid", ""));
                     bundleSend.putString("action_type", intent.getString("action_type", ""));
+                } else if (intent.containsKey("postId")) {
+                    bundleSend = new Bundle();
+                    bundleSend.putString("postId", intent.getString("postId", ""));
                 }
             }
 

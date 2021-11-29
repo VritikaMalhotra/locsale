@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,9 +62,9 @@ public class UserProfileFragment extends Fragment {
     private TextView bio;
     private TextView username;
 
-    private Button myPictures;
-    private Button savedPictures;
-    private Button editProfile;
+    private AppCompatButton myPictures;
+    private AppCompatButton savedPictures;
+    private AppCompatButton editProfile;
 
     private FirebaseUser firebaseUser;
     String profileId;

@@ -57,6 +57,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     bundleSend.putString("senderid", intent.getString("senderid", ""));
                     bundleSend.putString("receiverid", intent.getString("receiverid", ""));
                     bundleSend.putString("action_type", intent.getString("action_type", ""));
+                } else if (intent.containsKey("postId")) {
+                    bundleSend = new Bundle();
+                    bundleSend.putString("postId", intent.getString("postId", ""));
                 }
             }
 

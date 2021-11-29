@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -53,7 +54,7 @@ public class OTPActivity extends AppCompatActivity {
 
     private AppCompatTextView tvResendOTP, tvMobileNo;
     private OtpTextView otpTextView;
-    private Button btnVerify;
+    private AppCompatButton btnVerify;
     private AppCompatImageView imageBack;
 
 
@@ -96,7 +97,7 @@ public class OTPActivity extends AppCompatActivity {
         }
 
         otpTextView = (OtpTextView) findViewById(R.id.otpViewVerifyNumber);
-        btnVerify = (Button) findViewById(R.id.btnOtpVerify);
+        btnVerify = (AppCompatButton) findViewById(R.id.btnOtpVerify);
         imageBack = (AppCompatImageView) findViewById(R.id.imageOTPBack);
         tvResendOTP = (AppCompatTextView) findViewById(R.id.tvVerifyResend);
         tvMobileNo = (AppCompatTextView) findViewById(R.id.tvOTPMobileNumber);

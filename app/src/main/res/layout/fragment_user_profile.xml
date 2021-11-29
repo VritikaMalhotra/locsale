@@ -194,7 +194,7 @@
 
                         </LinearLayout>
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/edit_profile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
                       android:background="@color/transparent"
                       />-->
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/saved_pictures"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.locsaleapplication.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,15 +46,21 @@ public class HomeFragment extends Fragment {
     private List<String> followingList;
     DatabaseReference ttlRef;
     private RelativeLayout home_explore;
-    private Button buttonExplore;
+    private AppCompatButton buttonExplore;
     private ScrollView scroll_view_go_explore;
     private ImageView imageInbox;
+    private String postId = "";
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false) ;
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        if (getArguments() != null && getArguments().containsKey("postId")) {
+            postId = getArguments().getString("postId");
+        }
+
         return view;
     }
 
@@ -83,9 +92,9 @@ public class HomeFragment extends Fragment {
         oldItems.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Post post = itemSnapshot.getValue(Post.class);
-                    if(post.getType().equals("1")){
+                    if (post.getType().equals("1")) {
                         FirebaseDatabase.getInstance().getReference().child("Posts").child(itemSnapshot.getKey())
                                 .child("type").setValue("0");
                     }
@@ -103,7 +112,7 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         recyclerViewPosts.setLayoutManager(linearLayoutManager);
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(),postList);
+        postAdapter = new PostAdapter(getContext(), postList);
         recyclerViewPosts.setAdapter(postAdapter);
         followingList = new ArrayList<>();
 
@@ -120,7 +129,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
         checkFollowingUsers();
     }
 
@@ -130,15 +138,22 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 followingList.clear();
-                if(dataSnapshot.getChildrenCount() < 1){
+                if (dataSnapshot.getChildrenCount() < 1) {
                     home_explore.setVisibility(View.VISIBLE);
                     scroll_view_go_explore.setVisibility(View.VISIBLE);
-                }
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    followingList.add(snapshot.getKey());
+                    recyclerViewPosts.setVisibility(View.GONE);
+                } else {
+                    home_explore.setVisibility(View.GONE);
+                    scroll_view_go_explore.setVisibility(View.GONE);
+                    recyclerViewPosts.setVisibility(View.VISIBLE);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        followingList.add(snapshot.getKey());
+                    }
                 }
                 //followingList.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                readPosts();
+                if (followingList.size() > 0) {
+                    readPosts();
+                }
             }
 
             @Override
@@ -153,20 +168,43 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 postList.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    if(dataSnapshot.getChildrenCount() < 1){
-                        home_explore.setVisibility(View.VISIBLE);
-                        scroll_view_go_explore.setVisibility(View.VISIBLE);
-                    }
-                    Post post = snapshot.getValue(Post.class);
-                    for(String id:followingList){
-                        if(post.getPublisher().equals(id) && !post.getType().equals("0")){
-                            postList.add(post);
+                if (dataSnapshot.getChildrenCount() < 1) {
+                    home_explore.setVisibility(View.VISIBLE);
+                    scroll_view_go_explore.setVisibility(View.VISIBLE);
+                    recyclerViewPosts.setVisibility(View.GONE);
+                } else {
+                    home_explore.setVisibility(View.GONE);
+                    scroll_view_go_explore.setVisibility(View.GONE);
+                    recyclerViewPosts.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Post post = snapshot.getValue(Post.class);
+                        for (String id : followingList) {
+                            if (post.getPublisher().equals(id) && !post.getType().equals("0")) {
+                                postList.add(post);
+                            }
                         }
                     }
                 }
+
                 postAdapter.notifyDataSetChanged();
+
+                if (postId != null && !postId.isEmpty()) {
+                    for (Post post : postList) {
+                        if (post.getPostId() != null && post.getPostId().equals(postId)) {
+                            postId = "";
+                            getActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postId", post.getPostId())
+                                    .apply();
+                            ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction()
+                                    .add(R.id.frame_container, new PostDetailFragment())
+                                    .addToBackStack(null)
+                                    .commit();
+                            break;
+                        }
+                    }
+                }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

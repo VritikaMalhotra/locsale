@@ -77,6 +77,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             resultIntent.putExtra("senderid", remoteMessage.getData().get("senderid"));
             resultIntent.putExtra("receiverid", remoteMessage.getData().get("receiverid"));
             resultIntent.putExtra("action_type", remoteMessage.getData().get("action_type"));
+        } else if (remoteMessage.getData().keySet().contains("postId")) {
+            resultIntent.putExtra("postId", remoteMessage.getData().get("postId"));
         }
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

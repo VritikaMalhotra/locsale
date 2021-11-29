@@ -15,6 +15,7 @@ import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.presentation.category.CategoryModel;
 import com.example.locsaleapplication.utils.OnItemClick;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("All")
@@ -90,6 +91,12 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryAd
             tvTitle = itemView.findViewById(R.id.tvItemCategoryTitle);
             recyclerViewSubCategory = itemView.findViewById(R.id.recyclerViewItemCategory);
         }
+    }
+
+    public void updateList(ArrayList<CategoryModel> list) {
+        listCategories = new ArrayList<>();
+        listCategories = list;
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickCategorySub{

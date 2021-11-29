@@ -85,7 +85,6 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="15dp"
                 android:text="Mobile Number"
-                android:textColor="#4A4949"
                 android:textSize="20sp" />
 
             <EditText
@@ -249,7 +248,7 @@
             </LinearLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

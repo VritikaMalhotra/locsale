@@ -1,9 +1,13 @@
 package com.example.locsaleapplication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,9 +18,13 @@ import com.example.locsaleapplication.Fragments.NotificationFragment;
 import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.Fragments.SearchFragment;
 import com.example.locsaleapplication.Fragments.UserProfileFragment;
+import com.example.locsaleapplication.Model.Notification;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.presentation.Inbox.InboxFragment;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.example.locsaleapplication.utils.SharePref;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +32,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Collections;
 
 @SuppressWarnings("All")
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -86,6 +95,16 @@ public class MainActivity extends AppCompatActivity {
                 inboxFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, inboxFragment)
                         .addToBackStack(null).commit();
+            } else if (intent.containsKey("postId")) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("postId", intent.getString("postId", ""));
+                HomeFragment homeFragment = new HomeFragment();
+                homeFragment.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, homeFragment)
+                        .addToBackStack(null).commit();
+
             } else {
                 String profileId = intent.getString("publisherId");
 
@@ -101,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         getCurrentUserData();
+        getUnreadNotificationCount();
     }
 
     public void showBottomNavigation() {
@@ -137,6 +157,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    int totalNotificationCount = 0;
+
+    public void updateNotificationBedge() {
+        if (totalNotificationCount > 0) {
+            totalNotificationCount = totalNotificationCount - 1;
+            bottomNavigationView.getOrCreateBadge(R.id.nav_heart).setNumber(totalNotificationCount);
+        }
+    }
+
+    private void getUnreadNotificationCount() {
+
+        FirebaseDatabase.getInstance().getReference().child("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                totalNotificationCount = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Notification notification = snapshot.getValue(Notification.class);
+                    notification.setId(snapshot.getKey());
+                    if (!notification.isIs_read()) {
+                        totalNotificationCount = totalNotificationCount + 1;
+                    }
+                }
+                BadgeDrawable bedge = bottomNavigationView.getOrCreateBadge(R.id.nav_heart);
+                bedge.setVisible(true);
+                bedge.setNumber(totalNotificationCount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                AppGlobal.showLog("Error : " + databaseError.getMessage());
             }
         });
     }

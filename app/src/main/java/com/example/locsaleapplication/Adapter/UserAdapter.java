@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +99,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 if(isFragment){
                     mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE)
                             .edit().putString("profileId",user.getId()).apply();
-                    ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new ProfileFragment())
+                    ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().add(R.id.frame_container,new ProfileFragment())
                             .addToBackStack(null).commit();
                 }else{
                     Intent intent = new Intent(mContext, FollowerDetailActivity.class);
@@ -111,7 +112,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
 
-    private void isFollowed(final String id, final Button btnfollow) {
+    private void isFollowed(final String id, final AppCompatButton btnfollow) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                 .child("following");
         reference.addValueEventListener(new ValueEventListener() {
@@ -141,7 +142,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public CircleImageView imageProfile;
         public TextView username;
         public TextView name;
-        public Button btnfollow;
+        public AppCompatButton btnfollow;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -177,6 +178,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         map.put("test","Started following you");
         map.put("postid","");
         map.put("isPost",false);
+        map.put("is_read",false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
 

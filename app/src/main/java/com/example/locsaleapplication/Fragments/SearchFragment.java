@@ -57,6 +57,7 @@ public class SearchFragment extends Fragment {
     private ProgressBar progressBar;
     private AppCompatTextView tvNoData;
     private String stSearchType = "";
+    private String selectedTab = "category";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,7 +138,11 @@ public class SearchFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
-                        searchUserForCategory(s.toString());
+                        //if (selectedTab.equalsIgnoreCase("business")) {
+                            searchUserForCategory(s.toString());
+                        //} else {
+                            searchFromCategory(s.toString());
+                        //}
                     }
                 }.start();
             }
@@ -156,6 +161,7 @@ public class SearchFragment extends Fragment {
         lvBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectedTab = "business";
                 viewBusiness.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
                 viewCategories.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
@@ -172,6 +178,7 @@ public class SearchFragment extends Fragment {
         lvCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectedTab = "category";
                 viewBusiness.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
                 viewCategories.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.red));
 
@@ -243,54 +250,97 @@ public class SearchFragment extends Fragment {
         });
     }*/
 
-    private void searchUserForCategory(String s) {
-        progressBar.setVisibility(View.VISIBLE);
-        Query query = FirebaseDatabase.getInstance().getReference().child("Users");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.GONE);
-                mUsers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    if (user.getType() != null && user.getType().equals("1")) {
+    private void searchFromCategory(String s) {
+        //listCategory.clear();
+        ArrayList<CategoryModel> listCategoryFilter = new ArrayList<>();
+        if (checkStrinValue(s)) {
+            for (CategoryModel modelCategory : listCategory) {
 
-                        if (stSearchType.equalsIgnoreCase("category") &&
-                                checkStrinValueReturn(user.getBusiness_field(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
-                            mUsers.add(user);
-                        } else if (stSearchType.equalsIgnoreCase("subCategory") &&
-                                checkStrinValueReturn(user.getBusiness_sub_category(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
-                            mUsers.add(user);
-                        } else {
-                            if (checkStrinValueReturn(user.getBusiness_name(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)) ||
-                                    checkStrinValueReturn(user.getName(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
-                                mUsers.add(user);
-                            }
+                ArrayList<CategoryModel.SubCategoryModel> listSubCategory = new ArrayList<>();
+                if (modelCategory.getSubCategoryList().size() > 0) {
+                    for (CategoryModel.SubCategoryModel subCategoryModel : modelCategory.getSubCategoryList()) {
+                        if (subCategoryModel.getStSubCategoryName().toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                            listSubCategory.add(subCategoryModel);
                         }
+                    }
+                    if (listSubCategory.size() > 0) {
+                        listCategoryFilter.add(new CategoryModel(modelCategory.getStCategoryName(), listSubCategory, false));
+                    } else {
+                        if (modelCategory.getStCategoryName().toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                            listCategoryFilter.add(new CategoryModel(modelCategory.getStCategoryName(), listSubCategory, false));
+                        }
+                    }
+                } else {
+                    if (modelCategory.getStCategoryName().toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                        listCategoryFilter.add(modelCategory);
+                    }
+                }
+            }
+        } else {
+            listCategoryFilter = listCategory;
+        }
+
+        searchCategoryAdapter.updateList(listCategoryFilter);
+    }
+
+    private void searchUserForCategory(String s) {
+        if (checkStrinValue(s)) {
+            progressBar.setVisibility(View.VISIBLE);
+            Query query = FirebaseDatabase.getInstance().getReference().child("Users");
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+                    mUsers.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        if (user.getType() != null && user.getType().equals("1")) {
+
+                            if (stSearchType.equalsIgnoreCase("category") &&
+                                    checkStrinValueReturn(user.getBusiness_field(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                                mUsers.add(user);
+                            } else if (stSearchType.equalsIgnoreCase("subCategory") &&
+                                    checkStrinValueReturn(user.getBusiness_sub_category(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                                mUsers.add(user);
+                            } else {
+                                if (checkStrinValueReturn(user.getBusiness_name(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)) ||
+                                        checkStrinValueReturn(user.getName(), "").toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                                    mUsers.add(user);
+                                }
+                            }
 
                         /*if (checkStrinValueReturn(user.getBusiness_name(), "").contains(s) ||
                                 checkStrinValueReturn(user.getBusiness_field(), "").contains(s)||
                                 checkStrinValueReturn(user.getBusiness_sub_category(), "").contains(s)) {
                             mUsers.add(user);
                         }*/
+                        }
+                    }
+
+                    if (mUsers != null && mUsers.size() > 0) {
+                        userAdapter.notifyDataSetChanged();
+                        if (selectedTab.equalsIgnoreCase("business")) {
+                            recyclerViewBusiness.setVisibility(View.VISIBLE);
+                            tvNoData.setVisibility(View.GONE);
+                        }
+                    } else {
+                        if (selectedTab.equalsIgnoreCase("business")) {
+                            recyclerViewBusiness.setVisibility(View.GONE);
+                            tvNoData.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
 
-                if (mUsers != null && mUsers.size() > 0) {
-                    userAdapter.notifyDataSetChanged();
-                    recyclerViewBusiness.setVisibility(View.VISIBLE);
-                    tvNoData.setVisibility(View.GONE);
-                } else {
-                    recyclerViewBusiness.setVisibility(View.GONE);
-                    tvNoData.setVisibility(View.VISIBLE);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    progressBar.setVisibility(View.GONE);
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+            });
+        } else {
+            mUsers.clear();
+            userAdapter.notifyDataSetChanged();
+            recyclerViewBusiness.setVisibility(View.VISIBLE);
+        }
     }
 
     public boolean checkStrinValue(String value) {

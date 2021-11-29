@@ -3,6 +3,7 @@ package com.example.locsaleapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPassword extends AppCompatActivity {
 
     private EditText forgotPassword_email;
-    private Button forgotPassword_sendEmail;
+    private AppCompatButton forgotPassword_sendEmail;
     private String email;
 
     FirebaseAuth firebaseAuth;

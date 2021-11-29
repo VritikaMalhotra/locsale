@@ -51,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar"
-        android:visibility="gone"
         android:background="#ECE8E8">
 
         <LinearLayout
@@ -81,19 +80,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bar"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/home_explore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bar"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/explore_head"
@@ -129,7 +127,7 @@
                     android:textColor="#000000"
                     android:textSize="30sp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buttonExplore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

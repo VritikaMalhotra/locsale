@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -69,11 +70,11 @@ public class ProfileFragment extends Fragment {
     private TextView bio;
     private TextView username;
 
-    private Button myPictures;
-    private Button savedPictures;
-    private Button editProfile;
-    private Button deatils;
-    private Button chat;
+    private AppCompatButton myPictures;
+    private AppCompatButton savedPictures;
+    private AppCompatButton editProfile;
+    private AppCompatButton deatils;
+    private AppCompatButton chat;
 
     private FirebaseUser firebaseUser;
     String profileId;
@@ -426,6 +427,7 @@ public class ProfileFragment extends Fragment {
         map.put("test", "Started following you");
         map.put("postid", "");
         map.put("isPost", false);
+        map.put("is_read",false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
 

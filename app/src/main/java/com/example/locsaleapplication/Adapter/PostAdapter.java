@@ -345,6 +345,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         map.put("test", "Liked your post");
         map.put("postid", postId);
         map.put("isPost", true);
+        map.put("is_read",false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(publisherId).push().setValue(map);
     }
