@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,15 +33,16 @@ import java.util.Calendar;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText register_name;
-//    private EditText register_username;
+    //    private EditText register_username;
     private EditText register_email;
-//    private EditText register_password;
+    //    private EditText register_password;
 //    private EditText register_confirmPassword;
     private EditText register_number;
     private AppCompatTextView register_dob;
     private TextView register_loginUser;
     private AppCompatButton register_button;
-    private String name, email, /*password, confirmPassword,*/ dob, number/*username*/;
+    private String name, email, /*password, confirmPassword,*/
+            dob, number/*username*/;
     private CheckBox terms_conditions;
     private TextView terms_conditions_text;
 
@@ -176,8 +176,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if (!terms_conditions.isChecked()) {
 
-            terms_conditions.setError("You need to agree to terms and conditions before proceding further");
-            terms_conditions.requestFocus();
+            Toast.makeText(
+                    RegisterActivity.this,
+                    "You need to agree to terms and conditions before proceding further",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 

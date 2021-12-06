@@ -906,7 +906,7 @@ public class ChatActivity extends Fragment {
         if (requestCode == AppGlobal.permission_camera_code) {
 
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "Tap again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Please select or click the image again", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "camera permission denied", Toast.LENGTH_LONG).show();
             }
@@ -915,7 +915,7 @@ public class ChatActivity extends Fragment {
         if (requestCode == AppGlobal.permission_Read_data) {
 
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(context, "Tap again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Please select or click the image again", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -136,7 +136,7 @@ public class UserProfileFragment extends Fragment {
 
         userInfo();
         getFollowersAndFollowingCount();
-        getPostCount();
+        //getPostCount();
         myPhotos();
         getSavedPosts();
 
@@ -237,6 +237,7 @@ public class UserProfileFragment extends Fragment {
                                 }
                             }
                         }
+                        posts.setText(String.valueOf(mySavedPosts.size()));
                         postAdaptersaves.notifyDataSetChanged();
                     }
 
@@ -294,7 +295,7 @@ public class UserProfileFragment extends Fragment {
         });
     }
 
-    private void getPostCount() {
+    /*private void getPostCount() {
         FirebaseDatabase.getInstance().getReference().child("Saves").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -331,7 +332,7 @@ public class UserProfileFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
     private void getFollowersAndFollowingCount() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId);

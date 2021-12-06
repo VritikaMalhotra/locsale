@@ -248,7 +248,7 @@ public class OTPActivity extends AppCompatActivity {
                             Log.e(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
-                            if (getIntent().hasExtra("from")) {
+
                                 FirebaseDatabase.getInstance().getReference().child("Users")/*.child(mAuth.getCurrentUser().getUid())*/
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -272,16 +272,60 @@ public class OTPActivity extends AppCompatActivity {
                                                     }
                                                 }
 
-
                                                 if (userMain != null && userMain.getType() != null && userMain.getType().equals("2")) {
-                                                    if (type.equalsIgnoreCase("exist")) {
-                                                        updateToken(userMain);
-                                                    } else if (type.equalsIgnoreCase("change")) {
-                                                        updateUserData(userMain, mAuth.getCurrentUser().getUid());
+                                                    if (getIntent().hasExtra("from")) {
+                                                        if (type.equalsIgnoreCase("exist")) {
+                                                            updateToken(userMain);
+                                                        } else if (type.equalsIgnoreCase("change")) {
+                                                            updateUserData(userMain, mAuth.getCurrentUser().getUid());
+                                                        } else {
+                                                            pd.dismiss();
+                                                            FirebaseAuth.getInstance().signOut();
+                                                            Toast.makeText(OTPActivity.this, "This number is not registed", Toast.LENGTH_SHORT).show();
+                                                        }
                                                     } else {
-                                                        pd.dismiss();
-                                                        FirebaseAuth.getInstance().signOut();
-                                                        Toast.makeText(OTPActivity.this, "This number is not registed", Toast.LENGTH_SHORT).show();
+                                                        if (type.equalsIgnoreCase("exist") || type.equalsIgnoreCase("change")) {
+                                                            pd.dismiss();
+                                                            Toast.makeText(OTPActivity.this, "This number is already registed, Please use another number", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            final HashMap<String, Object> map = new HashMap<>();
+                                                            map.put("name", name);
+                                                            map.put("username", "");
+                                                            map.put("email", email);
+                                                            map.put("dob", dob);
+                                                            map.put("id", mAuth.getCurrentUser().getUid());
+                                                            map.put("contact_number", number.toString());
+                                                            map.put("bio", "");
+                                                            map.put("imageurl", "default");
+                                                            map.put("type", "2");
+                                                            map.put("token", token);
+
+                                                            FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        pd.dismiss();
+                                                                        Toast.makeText(OTPActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
+
+                                                                        FirebaseAuth.getInstance().signOut();
+                                                                        Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                        startActivity(intent);
+                                                                        finishAffinity();
+                                                                    } else {
+                                                                        pd.dismiss();
+                                                                        Toast.makeText(OTPActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+
+                                                                    pd.dismiss();
+                                                                    Toast.makeText(OTPActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                        }
                                                     }
                                                 } else {
                                                     pd.dismiss();
@@ -302,51 +346,10 @@ public class OTPActivity extends AppCompatActivity {
                                                 Log.e("Appname", "issue OTP : " + databaseError.getMessage());
                                             }
                                         });
+                            if (getIntent().hasExtra("from")) {
                             } else {
 
-                                final HashMap<String, Object> map = new HashMap<>();
-                                map.put("name", name);
-                                map.put("username", "");
-                                map.put("email", email);
-                                map.put("dob", dob);
-                                map.put("id", mAuth.getCurrentUser().getUid());
-                                map.put("contact_number", number.toString());
-                                map.put("bio", "");
-                                map.put("imageurl", "default");
-                                map.put("type", "2");
-                                map.put("token", token);
 
-                                FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            pd.dismiss();
-                                            Toast.makeText(OTPActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
-                                        /*FirebaseUser user = mAuth.getCurrentUser();
-                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(OTPActivity.this, "Verification email sent", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });*/
-                                            FirebaseAuth.getInstance().signOut();
-                                            Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intent);
-                                            finishAffinity();
-                                        } else {
-                                            pd.dismiss();
-                                            Toast.makeText(OTPActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-
-                                        pd.dismiss();
-                                        Toast.makeText(OTPActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
                             }
                             // Update UI
                         } else {

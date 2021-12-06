@@ -68,7 +68,7 @@ public class PostDetailFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(),postList);
+        postAdapter = new PostAdapter(getContext(),postList, false);
         recyclerView.setAdapter(postAdapter);
 
         FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).addValueEventListener(new ValueEventListener() {

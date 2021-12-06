@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.R;
@@ -42,6 +43,8 @@ public class SearchSubCategoryAdapter extends RecyclerView.Adapter<SearchSubCate
 
         holder.tvTitle.setText(model.getStSubCategoryName());
 
+        holder.icCategoryDp.setImageResource(model.getDrawableIds());
+
         holder.lvMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +66,7 @@ public class SearchSubCategoryAdapter extends RecyclerView.Adapter<SearchSubCate
 
         TextView tvTitle;
         LinearLayout lvMain;
+        AppCompatImageView icCategoryDp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +74,8 @@ public class SearchSubCategoryAdapter extends RecyclerView.Adapter<SearchSubCate
             lvMain = itemView.findViewById(R.id.linearItemSubCategory);
 
             tvTitle = itemView.findViewById(R.id.tvItemSubCategoryTitle);
+
+            icCategoryDp = itemView.findViewById(R.id.icCategoryDp);
         }
     }
 }

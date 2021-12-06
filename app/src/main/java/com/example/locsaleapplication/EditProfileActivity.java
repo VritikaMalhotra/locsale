@@ -72,11 +72,12 @@ public class EditProfileActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 User user = dataSnapshot.getValue(User.class);
                 fullname.setText(user.getName());
                 edMobileNumber.setText(user.getContact_number());
                 bio.setText(user.getBio());
-                AppGlobal.loadImageUser(EditProfileActivity.this, user.getImageurl(), 400, imageprofile);
+                AppGlobal.loadImageUser(getApplicationContext(), user.getImageurl(), 400, imageprofile);
             }
 
             @Override

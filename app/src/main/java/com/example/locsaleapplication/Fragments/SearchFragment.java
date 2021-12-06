@@ -205,16 +205,16 @@ public class SearchFragment extends Fragment {
                     if (checkStrinValueReturn(user.getType(), "").equals("1")
                             && checkStrinValueReturn(user.getBusiness_field(), "").equals("Others")) {
                         if (checkStrinValue(user.getBusiness_sub_category())) {
-                            mListOtherCategory.add(new CategoryModel.SubCategoryModel(user.getBusiness_sub_category(), R.drawable.ic_cat_hospital, false));
+                            mListOtherCategory.add(new CategoryModel.SubCategoryModel(user.getBusiness_sub_category(), R.drawable.ic_cat_other, false));
                         }
                     }
                 }
 
-                if (mListOtherCategory.size() > 0) {
+                /*if (mListOtherCategory.size() > 0) {
                     listCategory.add(new CategoryModel("Other", mListOtherCategory, false));
                 } else {
                     listCategory.add(new CategoryModel("Other", new ArrayList<>(), false));
-                }
+                }*/
 
                 searchCategoryAdapter.notifyDataSetChanged();
             }
@@ -276,6 +276,22 @@ public class SearchFragment extends Fragment {
                     }
                 }
             }
+
+            ArrayList<CategoryModel.SubCategoryModel> listSubCategory = new ArrayList<>();
+            for (CategoryModel.SubCategoryModel modelSearch : mListOtherCategory) {
+                if (modelSearch.getStSubCategoryName().toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                    listSubCategory.add(modelSearch);
+                }
+            }
+
+            if (listSubCategory.size() > 0) {
+                listCategoryFilter.add(new CategoryModel("Other", listSubCategory, false));
+            } else {
+                if ("Other".toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                    listCategoryFilter.add(new CategoryModel("Other", new ArrayList<>(), false));
+                }
+            }
+
         } else {
             listCategoryFilter = listCategory;
         }

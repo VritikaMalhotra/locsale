@@ -6,7 +6,7 @@
     <string name="Logout">logout</string>
     <string name="send">Send</string>
     <string name="chat">Chat</string>
-    <string name="send_message_here">Send Message Here…</string>
+    <string name="send_message_here">Type Message Here…</string>
     <string name="version">1.0</string>
     <string name="device">android</string>
     <string name="resend">Resend</string>

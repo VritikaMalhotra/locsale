@@ -21,28 +21,28 @@ public class CategoryAndSubCategoryCommon {
 
         //Car and Motors Start
         ArrayList<CategoryModel.SubCategoryModel> listCarAndMotors = new ArrayList<>();
-        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Battery", R.drawable.ic_cat_hospital, false));
-        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Service Center", R.drawable.ic_cat_hospital, false));
-        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Showroom", R.drawable.ic_cat_hospital, false));
-        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Spare Parts", R.drawable.ic_cat_hospital, false));
+        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Battery", R.drawable.ic_cat_battery, false));
+        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Service Center", R.drawable.ic_cat_service_center, false));
+        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Showroom", R.drawable.ic_cat_showroom, false));
+        listCarAndMotors.add(new CategoryModel.SubCategoryModel("Spare Parts", R.drawable.ic_cat_spare_parts, false));
         categoryModels.add(new CategoryModel("Car and Motors", listCarAndMotors, false));
         //Car and Motors End
 
         //Clothing and Accessories Start
         ArrayList<CategoryModel.SubCategoryModel> listClothingAndAccessories = new ArrayList<>();
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Jewellery", R.drawable.ic_cat_hospital, false));
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Kid's Wear", R.drawable.ic_cat_hospital, false));
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Men's Wear", R.drawable.ic_cat_hospital, false));
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Women's Wear", R.drawable.ic_cat_hospital, false));
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Optical Shop", R.drawable.ic_cat_hospital, false));
-        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Tailor", R.drawable.ic_cat_hospital, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Jewellery", R.drawable.ic_cat_jewellery, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Kid's Wear", R.drawable.ic_cat_kids_wear, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Men's Wear", R.drawable.ic_cat_mens_wear, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Women's Wear", R.drawable.ic_cat_womens_wear, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Optical Shop", R.drawable.ic_cat_optical_shop, false));
+        listClothingAndAccessories.add(new CategoryModel.SubCategoryModel("Tailor", R.drawable.ic_cat_tailor, false));
         categoryModels.add(new CategoryModel("Clothing and Accessories", listClothingAndAccessories, false));
         //Clothing and Accessories End
 
         //Decoration Start
         ArrayList<CategoryModel.SubCategoryModel> listDecoration = new ArrayList<>();
-        listDecoration.add(new CategoryModel.SubCategoryModel("Birthday Decoration", R.drawable.ic_cat_hospital, false));
-        listDecoration.add(new CategoryModel.SubCategoryModel("Wedding Decoration", R.drawable.ic_cat_hospital, false));
+        listDecoration.add(new CategoryModel.SubCategoryModel("Birthday Decoration", R.drawable.ic_cat_birthday_decoration, false));
+        listDecoration.add(new CategoryModel.SubCategoryModel("Wedding Decoration", R.drawable.ic_cat_wedding_decoration, false));
         categoryModels.add(new CategoryModel("Decoration", listDecoration, false));
         //Decoration End
 
@@ -53,7 +53,7 @@ public class CategoryAndSubCategoryCommon {
 
         //Electronics Shop Start
         ArrayList<CategoryModel.SubCategoryModel> listElectronicsShop = new ArrayList<>();
-        listElectronicsShop.add(new CategoryModel.SubCategoryModel("Electronics Shop", R.drawable.ic_cat_hospital, false));
+        listElectronicsShop.add(new CategoryModel.SubCategoryModel("Electronics Shop", R.drawable.ic_cat_electronics_shop, false));
         categoryModels.add(new CategoryModel("Electronics Shop", listElectronicsShop, false));
         //Electronics Shop End
 
@@ -64,34 +64,34 @@ public class CategoryAndSubCategoryCommon {
 
         //Groceries Start
         ArrayList<CategoryModel.SubCategoryModel> listGroceries = new ArrayList<>();
-        listGroceries.add(new CategoryModel.SubCategoryModel("Kitchen Supply", R.drawable.ic_cat_hospital, false));
+        listGroceries.add(new CategoryModel.SubCategoryModel("Kitchen Supply", R.drawable.ic_cat_kids_wear, false));
         categoryModels.add(new CategoryModel("Groceries", listGroceries, false));
         //Groceries End
 
         //Hardware Start
         ArrayList<CategoryModel.SubCategoryModel> listHardware = new ArrayList<>();
-        listHardware.add(new CategoryModel.SubCategoryModel("Hardware Shop", R.drawable.ic_cat_hospital, false));
+        listHardware.add(new CategoryModel.SubCategoryModel("Hardware Shop", R.drawable.ic_cat_hardware_shop, false));
         categoryModels.add(new CategoryModel("Hardware", listHardware, false));
         //Hardware End
 
         //Health And Medical Start
         ArrayList<CategoryModel.SubCategoryModel> listHealthAndMedical = new ArrayList<>();
-        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Dietitian", R.drawable.ic_cat_hospital, false));
-        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Hospitals", R.drawable.ic_cat_hospital, false));
-        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Medical Stores", R.drawable.ic_cat_hospital, false));
+        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Dietitian", R.drawable.ic_cat_dietitian, false));
+        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Hospitals", R.drawable.ic_cat_hospitals, false));
+        listHealthAndMedical.add(new CategoryModel.SubCategoryModel("Medical Stores", R.drawable.ic_cat_medical_stores, false));
         categoryModels.add(new CategoryModel("Health And Medical", listHealthAndMedical, false));
         //Health And Medical End
 
         //Home Services Start
         ArrayList<CategoryModel.SubCategoryModel> listHomeServices = new ArrayList<>();
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Beauty Parlour Services", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Cooking Services", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Electronic Services", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Gas", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("House Cleaning", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Milk Services", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Newspaper Services", R.drawable.ic_cat_hospital, false));
-        listHomeServices.add(new CategoryModel.SubCategoryModel("Plumber", R.drawable.ic_cat_hospital, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Beauty Parlour Services", R.drawable.ic_cat_beauty_parlour, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Cooking Services", R.drawable.ic_cat_cooking_services, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Electronic Services", R.drawable.ic_cat_electronic_services, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Gas", R.drawable.ic_cat_gas, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("House Cleaning", R.drawable.ic_cat_house_cleaning, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Milk Services", R.drawable.ic_cat_milk_services, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Newspaper Services", R.drawable.ic_cat_newspaper_services, false));
+        listHomeServices.add(new CategoryModel.SubCategoryModel("Plumber", R.drawable.ic_cat_plumber, false));
         categoryModels.add(new CategoryModel("Home Services", listHomeServices, false));
         //Home Services End
 
@@ -102,7 +102,7 @@ public class CategoryAndSubCategoryCommon {
 
         //Photo Studio Start
         ArrayList<CategoryModel.SubCategoryModel> listPhotoStudio = new ArrayList<>();
-        listPhotoStudio.add(new CategoryModel.SubCategoryModel("Photo Studio", R.drawable.ic_cat_hospital, false));
+        listPhotoStudio.add(new CategoryModel.SubCategoryModel("Photo Studio", R.drawable.ic_cat_photo_studio, false));
         categoryModels.add(new CategoryModel("Photo Studio", listPhotoStudio, false));
         //Photo Studio End
 

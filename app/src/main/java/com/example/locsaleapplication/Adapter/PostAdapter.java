@@ -40,10 +40,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> mPosts;
     private FirebaseUser firebaseUser;
     private String type;
+    private boolean isClickable;
 
-    public PostAdapter(Context mContext, List<Post> mPosts) {
+    public PostAdapter(Context mContext, List<Post> mPosts, boolean isClickable) {
         this.mContext = mContext;
         this.mPosts = mPosts;
+        this.isClickable = isClickable;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
@@ -170,12 +172,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postId", post.getPostId())
-                        .apply();
-                ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new PostDetailFragment())
-                        .addToBackStack(null)
-                        .commit();
+                if (isClickable) {
+                    mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postId", post.getPostId())
+                            .apply();
+                    ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_container, new PostDetailFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
         });
 

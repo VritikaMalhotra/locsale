@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+@SuppressWarnings("All")
 public class FollowerDetailActivity extends AppCompatActivity {
 
     private FirebaseUser firebaseUser;
@@ -39,7 +40,7 @@ public class FollowerDetailActivity extends AppCompatActivity {
                 User user = dataSnapshot.getValue(User.class);
 
                 business_name.setText(user.getBusiness_name());
-                business_field.setText(user.getBusiness_field());
+                business_field.setText(user.getBusiness_field() + " : " + user.getBusiness_sub_category());
                 mobile_number.setText(user.getContact_number());
                 address.setText(user.getAddress());
             }

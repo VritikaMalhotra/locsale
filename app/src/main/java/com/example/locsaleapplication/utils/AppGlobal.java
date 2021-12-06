@@ -52,6 +52,7 @@ public class AppGlobal {
         Glide.with(mContext)
                 .load(imagePath)
                 .override(size, size)
+                .placeholder(R.drawable.image_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }

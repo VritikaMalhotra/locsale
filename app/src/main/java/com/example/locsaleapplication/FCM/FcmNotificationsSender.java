@@ -52,6 +52,8 @@ public class FcmNotificationsSender  {
             notiObject.put("title", title);
             notiObject.put("body", body);
             notiObject.put("icon", "ic_noti"); // enter icon that exists in drawable only
+            notiObject.put("action_type", "follow"); // enter icon that exists in drawable only
+            mainObj.put("data", notiObject);
             mainObj.put("notification", notiObject);
 
 

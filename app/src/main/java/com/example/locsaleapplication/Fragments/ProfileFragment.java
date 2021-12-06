@@ -234,10 +234,10 @@ public class ProfileFragment extends Fragment {
         linearProfileFollowers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), UserFollowersActivity.class);
+                /*Intent intent = new Intent(getContext(), UserFollowersActivity.class);
                 intent.putExtra("id", profileId);
                 intent.putExtra("title", "followers");
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 

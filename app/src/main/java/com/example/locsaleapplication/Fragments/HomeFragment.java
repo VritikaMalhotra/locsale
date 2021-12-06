@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -112,7 +111,7 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         recyclerViewPosts.setLayoutManager(linearLayoutManager);
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList);
+        postAdapter = new PostAdapter(getContext(), postList, true);
         recyclerViewPosts.setAdapter(postAdapter);
         followingList = new ArrayList<>();
 
