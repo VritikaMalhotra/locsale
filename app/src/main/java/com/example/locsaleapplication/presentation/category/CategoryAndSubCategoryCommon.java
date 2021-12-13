@@ -25,7 +25,7 @@ public class CategoryAndSubCategoryCommon {
         listCarAndMotors.add(new CategoryModel.SubCategoryModel("Service Center", R.drawable.ic_cat_service_center, false));
         listCarAndMotors.add(new CategoryModel.SubCategoryModel("Showroom", R.drawable.ic_cat_showroom, false));
         listCarAndMotors.add(new CategoryModel.SubCategoryModel("Spare Parts", R.drawable.ic_cat_spare_parts, false));
-        categoryModels.add(new CategoryModel("Car and Motors", listCarAndMotors, false));
+        categoryModels.add(new CategoryModel("Car and Automobile", listCarAndMotors, false));
         //Car and Motors End
 
         //Clothing and Accessories Start

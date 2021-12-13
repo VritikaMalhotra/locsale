@@ -67,6 +67,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -424,6 +425,13 @@ public class ChatActivity extends Fragment {
 
     ValueEventListener other_inbox_listener;
 
+    private void updateLastDateInbox() {
+        HashMap<String, Object> mapInBoxCreated = new HashMap<>();
+        mapInBoxCreated.put("timestamp", ServerValue.TIMESTAMP);
+        FirebaseDatabase.getInstance().getReference().child("Inbox").child(senderid + "-" + Receiverid)
+                .updateChildren(mapInBoxCreated);
+    }
+
     public void getChat_data() {
         mChats.clear();
         mchatRef_reteriving = FirebaseDatabase.getInstance().getReference();
@@ -581,6 +589,9 @@ public class ChatActivity extends Fragment {
         rootref.updateChildren(user_map, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                updateLastDateInbox();
+
                 SendNotification.sendNotification(getActivity(),
                         userName, message, userPic, senderid, Receiverid, token);
             }
@@ -643,6 +654,8 @@ public class ChatActivity extends Fragment {
 
                         user_map.put(current_user_ref + "/" + key, message_user_map);
                         user_map.put(chat_user_ref + "/" + key, message_user_map);
+
+                        updateLastDateInbox();
 
                         rootref.updateChildren(user_map, new DatabaseReference.CompletionListener() {
                             @Override

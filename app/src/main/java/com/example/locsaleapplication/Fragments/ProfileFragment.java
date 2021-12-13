@@ -456,7 +456,7 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 }
-
+                FirebaseDatabase.getInstance().getReference().child("Inbox").removeEventListener(this);
                 if (model == null) {
                     //Create New Thread
                     if (businessUserData != null) {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -249,103 +248,69 @@ public class OTPActivity extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
 
-                                FirebaseDatabase.getInstance().getReference().child("Users")/*.child(mAuth.getCurrentUser().getUid())*/
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                User userMain = null;
-                                                String type = "";
-                                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                    User user = snapshot.getValue(User.class);
-                                                    //user.setId(dataSnapshot.getKey());
-                                                    if (user.getId() != null && user.getId().equals(mAuth.getUid())) {
-                                                        type = "exist";
+                            FirebaseDatabase.getInstance().getReference().child("Users")/*.child(mAuth.getCurrentUser().getUid())*/
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            User userMain = null;
+                                            String type = "";
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                User user = snapshot.getValue(User.class);
+                                                //user.setId(dataSnapshot.getKey());
+                                                if (user.getId() != null && user.getId().equals(mAuth.getUid())) {
+                                                    type = "exist";
+                                                    userMain = user;
+                                                    break;
+                                                } else if (user.getContact_number() != null) {
+                                                    if (stMobileVerify.contains(user.getContact_number())) {
+                                                        type = "change";
                                                         userMain = user;
+                                                        /*updateToken(user);*/
                                                         break;
-                                                    } else if (user.getContact_number() != null) {
-                                                        if (stMobileVerify.contains(user.getContact_number())) {
-                                                            type = "change";
-                                                            userMain = user;
-                                                            /*updateToken(user);*/
-                                                            break;
-                                                        }
                                                     }
                                                 }
-
-                                                if (userMain != null && userMain.getType() != null && userMain.getType().equals("2")) {
+                                            }
+                                            if (userMain == null) {
+                                                if (getIntent().hasExtra("from")) {
+                                                    pd.dismiss();
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    Toast.makeText(OTPActivity.this, "This number is not registered, Please register first.", Toast.LENGTH_LONG).show();
+                                                    startActivity(new Intent(OTPActivity.this, LoginActivity.class)
+                                                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                                    finishAffinity();
+                                                } else {
+                                                    registerUser();
+                                                }
+                                            } else {
+                                                if (userMain.getType() != null && userMain.getType().equals("2")) {
                                                     if (getIntent().hasExtra("from")) {
                                                         if (type.equalsIgnoreCase("exist")) {
                                                             updateToken(userMain);
                                                         } else if (type.equalsIgnoreCase("change")) {
                                                             updateUserData(userMain, mAuth.getCurrentUser().getUid());
-                                                        } else {
-                                                            pd.dismiss();
-                                                            FirebaseAuth.getInstance().signOut();
-                                                            Toast.makeText(OTPActivity.this, "This number is not registed", Toast.LENGTH_SHORT).show();
                                                         }
                                                     } else {
                                                         if (type.equalsIgnoreCase("exist") || type.equalsIgnoreCase("change")) {
                                                             pd.dismiss();
                                                             Toast.makeText(OTPActivity.this, "This number is already registed, Please use another number", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            final HashMap<String, Object> map = new HashMap<>();
-                                                            map.put("name", name);
-                                                            map.put("username", "");
-                                                            map.put("email", email);
-                                                            map.put("dob", dob);
-                                                            map.put("id", mAuth.getCurrentUser().getUid());
-                                                            map.put("contact_number", number.toString());
-                                                            map.put("bio", "");
-                                                            map.put("imageurl", "default");
-                                                            map.put("type", "2");
-                                                            map.put("token", token);
-
-                                                            FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        pd.dismiss();
-                                                                        Toast.makeText(OTPActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
-
-                                                                        FirebaseAuth.getInstance().signOut();
-                                                                        Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
-                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                                        startActivity(intent);
-                                                                        finishAffinity();
-                                                                    } else {
-                                                                        pd.dismiss();
-                                                                        Toast.makeText(OTPActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                            }).addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-
-                                                                    pd.dismiss();
-                                                                    Toast.makeText(OTPActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
                                                         }
                                                     }
                                                 } else {
                                                     pd.dismiss();
                                                     FirebaseAuth.getInstance().signOut();
-                                                    if (userMain == null) {
-                                                        Toast.makeText(OTPActivity.this, "This number is not registered, Please register first.", Toast.LENGTH_LONG).show();
-                                                    } else {
-                                                        Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
-                                                    }
+                                                    Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
                                                     startActivity(new Intent(OTPActivity.this, LoginActivity.class)
                                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                                     finishAffinity();
                                                 }
                                             }
+                                        }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                Log.e("Appname", "issue OTP : " + databaseError.getMessage());
-                                            }
-                                        });
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e("Appname", "issue OTP : " + databaseError.getMessage());
+                                        }
+                                    });
                             if (getIntent().hasExtra("from")) {
                             } else {
 
@@ -366,14 +331,54 @@ public class OTPActivity extends AppCompatActivity {
     }
     // [END sign_in_with_phone]
 
+    private void registerUser() {
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("username", "");
+        map.put("email", email);
+        map.put("dob", dob);
+        map.put("id", mAuth.getCurrentUser().getUid());
+        map.put("contact_number", number.toString());
+        map.put("bio", "");
+        map.put("imageurl", "default");
+        map.put("type", "2");
+        map.put("token", token);
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    pd.dismiss();
+                    Toast.makeText(OTPActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
+
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                } else {
+                    pd.dismiss();
+                    Toast.makeText(OTPActivity.this, "Something happened :( Please try again!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                pd.dismiss();
+                Toast.makeText(OTPActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void updateUserData(User user, String uid) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("name", user.getName());
         map.put("username", user.getUsername());
-        map.put("bio",user.getBio());
-        map.put("contact_number",user.getContact_number());
-        map.put("dob",user.getAddress());
+        map.put("bio", user.getBio());
+        map.put("contact_number", user.getContact_number());
+        map.put("dob", user.getAddress());
         map.put("email", user.getEmail());
         map.put("id", uid);
         map.put("imageurl", user.getImageurl());

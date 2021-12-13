@@ -165,6 +165,11 @@ public class InboxFragment extends Fragment {
 
 
         isview_created = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         getData();
     }
@@ -175,7 +180,7 @@ public class InboxFragment extends Fragment {
 
     public void getData() {
         pbar.setVisibility(View.VISIBLE);
-        inbox_query = root_ref.child("Inbox");
+        inbox_query = root_ref.child("Inbox").orderByChild("timestamp");
         eventListener2 = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
