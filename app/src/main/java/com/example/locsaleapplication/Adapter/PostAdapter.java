@@ -186,10 +186,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.noOfLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, FollowersActivity.class);
+                /*Intent intent = new Intent(mContext, FollowersActivity.class);
                 intent.putExtra("id", post.getPublisher());
                 intent.putExtra("title", "likes");
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
             }
         });
     }

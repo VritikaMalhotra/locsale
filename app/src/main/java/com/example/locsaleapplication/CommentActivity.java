@@ -96,11 +96,24 @@ public class CommentActivity extends AppCompatActivity {
 
                 } else {
                     putComment();
+                    addComments(postId, authorId);
                 }
             }
         });
 
         getComment();
+    }
+
+    private void addComments(String postId, String publisherId) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("userid", fuser.getUid());
+        map.put("test", "commented on your post");
+        map.put("postid", postId);
+        map.put("isPost", true);
+        map.put("is_read",false);
+
+        FirebaseDatabase.getInstance().getReference().child("Notifications").child(publisherId).push().setValue(map);
     }
 
     private void getComment() {

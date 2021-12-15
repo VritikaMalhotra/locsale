@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         getUnreadNotificationCount();
     }
 
+    public void setBottomNavigationItem(int itemId) {
+        bottomNavigationView.getMenu().findItem(itemId).setChecked(true);
+    }
+
     public void showBottomNavigation() {
         bottomNavigationView.setVisibility(View.VISIBLE);
     }

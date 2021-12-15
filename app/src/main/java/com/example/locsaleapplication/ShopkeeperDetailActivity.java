@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.locsaleapplication.Model.User;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +51,10 @@ public class ShopkeeperDetailActivity extends AppCompatActivity {
 
                 business_name.setText(user.getBusiness_name());
                 business_field.setText(user.getBusiness_field());
+                if (AppGlobal.checkStringValue(user.getBusiness_sub_category())) {
+                    business_field.append(" : " + user.getBusiness_sub_category());
+                }
+
                 mobile_number.setText(user.getContact_number());
                 address.setText(user.getAddress());
             }

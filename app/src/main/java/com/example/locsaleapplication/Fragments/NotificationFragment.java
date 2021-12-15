@@ -69,11 +69,13 @@ public class NotificationFragment extends Fragment {
         notificationAdapter = new NotificationAdapter(getContext(), notificationList, new OnItemClick<Notification>() {
             @Override
             public void onItemClick(Notification data, int position) {
-                ((MainActivity) getActivity()).updateNotificationBedge();
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("is_read", true);
-                FirebaseDatabase.getInstance().getReference().child("Notifications")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(data.getId()).updateChildren(map);
+                if (!data.isIs_read()) {
+                    ((MainActivity) getActivity()).updateNotificationBedge();
+                    FirebaseDatabase.getInstance().getReference().child("Notifications")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(data.getId()).updateChildren(map);
+                }
             }
         });
         recyclerView.setAdapter(notificationAdapter);
@@ -81,6 +83,13 @@ public class NotificationFragment extends Fragment {
         readNotification();
 
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setBottomNavigationItem(R.id.nav_heart);
     }
 
     private void readNotification() {

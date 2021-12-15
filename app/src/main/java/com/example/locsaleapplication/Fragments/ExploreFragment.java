@@ -74,6 +74,13 @@ public class ExploreFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setBottomNavigationItem(R.id.nav_explore);
+    }
+
     private void myPhotos() {
         FirebaseDatabase.getInstance().getReference().child("Posts").addValueEventListener(new ValueEventListener() {
             @Override

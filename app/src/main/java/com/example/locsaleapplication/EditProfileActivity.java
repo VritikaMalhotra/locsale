@@ -78,6 +78,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 edMobileNumber.setText(user.getContact_number());
                 bio.setText(user.getBio());
                 AppGlobal.loadImageUser(getApplicationContext(), user.getImageurl(), 400, imageprofile);
+                FirebaseDatabase.getInstance().getReference().child("Users").removeEventListener(this);
             }
 
             @Override

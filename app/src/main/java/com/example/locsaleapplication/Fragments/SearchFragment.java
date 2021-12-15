@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.Adapter.SearchCategoryAdapter;
 import com.example.locsaleapplication.Adapter.UserAdapter;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.presentation.category.CategoryAndSubCategoryCommon;
@@ -64,6 +65,12 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setBottomNavigationItem(R.id.nav_search);
     }
 
     @Override

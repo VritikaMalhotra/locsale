@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.locsaleapplication.Adapter.PhotoAdapter;
 import com.example.locsaleapplication.EditProfileActivity;
 import com.example.locsaleapplication.FollowersActivity;
+import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.OptionsActivity;
@@ -70,6 +71,11 @@ public class UserProfileFragment extends Fragment {
     String profileId;
     int counter;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setBottomNavigationItem(R.id.nav_profile);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

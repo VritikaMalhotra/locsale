@@ -31,6 +31,7 @@ public class SendNotification {
         try {
             notificationBody.put("title", stTitle);
             notificationBody.put("message", stMessage);
+            notificationBody.put("body", stMessage);
             notificationBody.put("icon", picture);
             notificationBody.put("senderid", senderId);
             notificationBody.put("receiverid", receiverId);

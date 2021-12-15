@@ -40,6 +40,22 @@ public class AppGlobal {
         }
     }
 
+    public static boolean checkStringValue(String value) {
+        if (value != null && !value.isEmpty() && !value.equalsIgnoreCase("null")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static String checkStringValueReturn(String value, String returnvalue) {
+        if (value != null && !value.isEmpty() && !value.equalsIgnoreCase("null")) {
+            return value;
+        } else {
+            return returnvalue;
+        }
+    }
+
     public static void loadImage(Context mContext, String imagePath, ImageView imageView) {
         Glide.with(mContext)
                 .load(imagePath)
