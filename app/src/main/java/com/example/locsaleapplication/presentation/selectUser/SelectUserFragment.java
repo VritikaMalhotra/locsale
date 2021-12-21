@@ -215,7 +215,7 @@ public class SelectUserFragment extends Fragment {
                                     currentUser.getName(),
                                     currentUser.getImageurl(),
                                     data.getId(),
-                                    data.getName(),
+                                    data.getBusiness_name(),
                                     data.getImageurl(),
                                     "2", new ChatFunctions.OnChatThreadCreated() {
                                 @Override

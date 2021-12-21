@@ -143,7 +143,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 } else {
                     AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, imageProfile);
                 }
-                username.setText(user.getName());
+                username.setText(user.getBusiness_name());
             }
 
             @Override

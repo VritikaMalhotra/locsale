@@ -218,6 +218,9 @@ public class InboxFragment extends Fragment {
                 if (modelSend != null) {
                     checkMessageRedirection(modelSend);
                 }
+
+                if (inbox_query != null)
+                    inbox_query.removeEventListener(eventListener2);
             }
 
             @Override

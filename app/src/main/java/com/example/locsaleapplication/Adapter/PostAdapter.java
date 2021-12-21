@@ -75,7 +75,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
 
                 holder.username.setText(user.getBusiness_name());
-                holder.author.setText(user.getName());
+                holder.author.setText(user.getBusiness_name());
             }
 
             @Override
