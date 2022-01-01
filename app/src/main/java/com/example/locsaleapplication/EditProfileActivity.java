@@ -2,8 +2,10 @@ package com.example.locsaleapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,12 +14,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.utils.AppGlobal;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +40,9 @@ import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView close;
     private CircleImageView imageprofile;
+    private AppCompatTextView tvAddress;
     private TextView save;
     private TextView changePhoto;
     private EditText fullname;
@@ -56,6 +68,9 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getResources().getString(R.string.places_api_key));
+        }
 
         close = findViewById(R.id.close);
         imageprofile = findViewById(R.id.image_profile);
@@ -64,6 +79,8 @@ public class EditProfileActivity extends AppCompatActivity {
         fullname = findViewById(R.id.fullname);
         edMobileNumber = findViewById(R.id.edMobileNumber);
         bio = findViewById(R.id.bio);
+
+        tvAddress = findViewById(R.id.tvAddress);
 
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -77,6 +94,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 fullname.setText(user.getName());
                 edMobileNumber.setText(user.getContact_number());
                 bio.setText(user.getBio());
+                tvAddress.setText(AppGlobal.checkStringValueReturn(user.getAddressName(), ""));
                 AppGlobal.loadImageUser(getApplicationContext(), user.getImageurl(), 400, imageprofile);
                 FirebaseDatabase.getInstance().getReference().child("Users").removeEventListener(this);
             }
@@ -105,14 +123,38 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        tvAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectLocation();
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!AppGlobal.checkStringValue(tvAddress.getText().toString())) {
+                    Toast.makeText(EditProfileActivity.this, "Please select your address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 updateProfile();
                 finish();
             }
         });
+    }
 
+    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private Place mSelectedplace = null;
+    private void selectLocation() {
+
+        // Set the fields to specify which types of place data to
+        // return after the user has made a selection.
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
     }
 
     private void updateProfile() {
@@ -120,6 +162,10 @@ public class EditProfileActivity extends AppCompatActivity {
         map.put("name", fullname.getText().toString());
         //map.put("username", username.getText().toString());
         map.put("bio", bio.getText().toString());
+        map.put("addressName", mSelectedplace.getName());
+        map.put("addressCity", cityName);
+        map.put("addressLat", "" + mSelectedplace.getLatLng().latitude);
+        map.put("addressLng", "" + mSelectedplace.getLatLng().longitude);
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).updateChildren(map);
     }
@@ -160,16 +206,38 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    private String cityName = "";
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            mImageUri = result.getUri();
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
 
-            uploadImage();
-        } else {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                tvAddress.setText(place.getName());
+
+                mSelectedplace = place;
+                Location mLocation = new Location("location");
+                mLocation.setLatitude(mSelectedplace.getLatLng().latitude);
+                mLocation.setLongitude(mSelectedplace.getLatLng().longitude);
+                cityName = AppGlobal.getCityString(EditProfileActivity.this, mLocation.getLatitude(), mLocation.getLongitude());
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i("TAG", status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+            return;
+        } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                mImageUri = result.getUri();
+
+                uploadImage();
+            } else {
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

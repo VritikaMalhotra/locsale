@@ -68,14 +68,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
-                if (user.getImageurl().equals("default")) {
-                    holder.imageProfile.setImageResource(R.drawable.ic_profile);
-                } else {
-                    AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
-                }
+                if (user != null) {
+                    if (AppGlobal.checkStringValueReturn(user.getImageurl(), "").equals("default")) {
+                        holder.imageProfile.setImageResource(R.drawable.ic_profile);
+                    } else {
+                        AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);
+                    }
 
-                holder.username.setText(user.getBusiness_name());
-                holder.author.setText(user.getBusiness_name());
+                    holder.username.setText(user.getBusiness_name());
+                    holder.author.setText(user.getBusiness_name());
+                }
             }
 
             @Override

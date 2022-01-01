@@ -3,6 +3,8 @@ package com.example.locsaleapplication;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -14,20 +16,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.locsaleapplication.presentation.otp.OTPActivity;
+import com.example.locsaleapplication.utils.AppGlobal;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings("All")
 public class RegisterActivity extends AppCompatActivity {
@@ -38,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     //    private EditText register_password;
 //    private EditText register_confirmPassword;
     private EditText register_number;
-    private AppCompatTextView register_dob;
+    private AppCompatTextView register_dob, registerAddress;
     private TextView register_loginUser;
     private AppCompatButton register_button;
     private String name, email, /*password, confirmPassword,*/
@@ -56,6 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getResources().getString(R.string.places_api_key));
+        }
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -83,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         terms_conditions_text = findViewById(R.id.terms_conditions_text);
 
+        registerAddress = findViewById(R.id.registerAddress);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -128,6 +145,48 @@ public class RegisterActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        registerAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectLocation();
+            }
+        });
+    }
+
+    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private Place mSelectedplace = null;
+    private void selectLocation() {
+
+        // Set the fields to specify which types of place data to
+        // return after the user has made a selection.
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this);
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+    }
+
+    String cityName= "";
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+
+                registerAddress.setText(place.getName());
+
+                mSelectedplace = place;
+                cityName = AppGlobal.getCityString(RegisterActivity.this, mSelectedplace.getLatLng().latitude, mSelectedplace.getLatLng().longitude);
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i("TAG", status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void RegisterUserCheck() {
@@ -174,6 +233,14 @@ public class RegisterActivity extends AppCompatActivity {
             register_number.requestFocus();
             return;
         }
+
+        if (mSelectedplace == null) {
+            Toast.makeText(
+                    RegisterActivity.this,
+                    "Please select your address",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!terms_conditions.isChecked()) {
 
             Toast.makeText(
@@ -196,6 +263,10 @@ public class RegisterActivity extends AppCompatActivity {
         intentOTP.putExtra("dob", dob);
         intentOTP.putExtra("number", number);
         intentOTP.putExtra("countryCode", countryCode);
+        intentOTP.putExtra("addressName", mSelectedplace.getName());
+        intentOTP.putExtra("addressCity", cityName);
+        intentOTP.putExtra("addressLat", "" + mSelectedplace.getLatLng().latitude);
+        intentOTP.putExtra("addressLng", "" + mSelectedplace.getLatLng().longitude);
         startActivity(intentOTP);
 
         /*pd.setMessage("please wait");

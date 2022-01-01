@@ -114,6 +114,18 @@
                     android:clickable="false"
                     android:padding="20dp" />
 
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18sp"
+                    android:background="@drawable/edit_profile_background"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:hint="@string/address"
+                    android:padding="20dp" />
+
                 <EditText
                     android:id="@+id/bio"
                     android:layout_width="match_parent"

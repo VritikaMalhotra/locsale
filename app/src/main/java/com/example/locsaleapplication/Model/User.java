@@ -10,6 +10,10 @@ public class User {
     private String id;
     private String type;
     private String token;
+    private String addressName;
+    private String addressCity;
+    private String addressLat;
+    private String addressLng;
     private String business_name;
     private String business_field;
     private String business_sub_category;
@@ -21,7 +25,8 @@ public class User {
 
     public User(String name, String email, String username, String bio,
                 String imageurl, String id, String type, String token,
-                String business_name, String business_field, String business_sub_category, String contact_number, String address) {
+                String business_name, String business_field, String business_sub_category,
+                String contact_number, String address, String addressName, String addressCity, String addressLat, String addressLng) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -35,6 +40,10 @@ public class User {
         this.business_sub_category = business_sub_category;
         this.contact_number = contact_number;
         this.address = address;
+        this.addressName = addressName;
+        this.addressLat = addressLat;
+        this.addressLng = addressLng;
+        this.addressCity = addressCity;
     }
 
     public String getBusiness_name() {
@@ -139,5 +148,37 @@ public class User {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public String getAddressCity() {
+        return addressCity;
+    }
+
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+
+    public String getAddressLat() {
+        return addressLat;
+    }
+
+    public void setAddressLat(String addressLat) {
+        this.addressLat = addressLat;
+    }
+
+    public String getAddressLng() {
+        return addressLng;
+    }
+
+    public void setAddressLng(String addressLng) {
+        this.addressLng = addressLng;
     }
 }

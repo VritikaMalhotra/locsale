@@ -66,7 +66,7 @@ public class OTPActivity extends AppCompatActivity {
 
     private String name, email, dob, countryCode, number;
     private String stMobileVerify = "";
-    private String stFrom = "";
+    private String stFrom = "", addressName, addressCity, addressLat, addressLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,10 @@ public class OTPActivity extends AppCompatActivity {
                 dob = getIntent.getStringExtra("dob");
                 countryCode = getIntent.getStringExtra("countryCode");
                 number = getIntent.getStringExtra("number");
+                addressName = getIntent.getStringExtra("addressName");
+                addressCity = getIntent.getStringExtra("addressCity");
+                addressLat = getIntent.getStringExtra("addressLat");
+                addressLng = getIntent.getStringExtra("addressLng");
 
                 stMobileVerify = "+" + countryCode + "" + number;
             }
@@ -343,6 +347,10 @@ public class OTPActivity extends AppCompatActivity {
         map.put("imageurl", "default");
         map.put("type", "2");
         map.put("token", token);
+        map.put("addressName", addressName);
+        map.put("addressCity", addressCity);
+        map.put("addressLat", addressLat);
+        map.put("addressLng", addressLng);
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -351,7 +359,7 @@ public class OTPActivity extends AppCompatActivity {
                     pd.dismiss();
                     Toast.makeText(OTPActivity.this, "You are now registered to Locsale", Toast.LENGTH_SHORT).show();
 
-                    FirebaseAuth.getInstance().signOut();
+                    //FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(OTPActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

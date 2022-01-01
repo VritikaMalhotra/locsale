@@ -7,6 +7,8 @@ package com.example.locsaleapplication.presentation.Inbox;
 public class InboxModel {
 
     String id,buyerId,buyerName,buyerPic,sellerId,sellerName,sellerPic,currentUsertype;
+    // isLastMessageRead = 1 for Read, 0 for Unread
+    String isLastMessageRead, senderId, lastMessage;
     long timestamp;
 
     public String getId() {
@@ -79,5 +81,29 @@ public class InboxModel {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getIsLastMessageRead() {
+        return isLastMessageRead;
+    }
+
+    public void setIsLastMessageRead(String isLastMessageRead) {
+        this.isLastMessageRead = isLastMessageRead;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 }

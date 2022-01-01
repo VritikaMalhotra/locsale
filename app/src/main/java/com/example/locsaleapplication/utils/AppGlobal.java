@@ -2,6 +2,8 @@ package com.example.locsaleapplication.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,12 +17,14 @@ import com.example.locsaleapplication.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AppGlobal {
 
     public final static int permission_camera_code = 786;
     public final static int permission_Read_data = 789;
+    public final static int permission_location = 112;
 
     /*public static final  String main_domain="http://api.mastiappind.com/";
     public static final String base_url=main_domain+"app_api/";
@@ -142,5 +146,50 @@ public class AppGlobal {
         }
     }
 
+
+
+    public static String getCompleteAddressString(Context mContext, double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (!addresses.isEmpty()) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+                Log.w("My Current loction", strReturnedAddress.toString());
+            } else {
+                Log.w("My Current loction", "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w("My Current loction", "Canont get Address!");
+        }
+        return strAdd;
+    }
+
+    public static String getCityString(Context mContext, double LATITUDE, double LONGITUDE) {
+        String cityName = "";
+        Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (!addresses.isEmpty()) {
+                Address returnedAddress = addresses.get(0);
+                cityName = returnedAddress.getAddressLine(0);
+
+                Log.w("My Current City", cityName);
+            } else {
+                Log.w("My Current City", "No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w("My Current City", "Canont get Address!");
+        }
+        return cityName;
+    }
 
 }

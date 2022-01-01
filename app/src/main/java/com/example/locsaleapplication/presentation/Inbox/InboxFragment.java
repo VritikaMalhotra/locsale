@@ -113,24 +113,6 @@ public class InboxFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(context);
         inbox_list.setLayoutManager(layout);
         inbox_list.setHasFixedSize(false);
-        mInboxAdapter = new InboxAdapter(context, inbox_arraylist, new InboxAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(InboxModel item) {
-
-                // if user allow the stroage permission then we open the chat view
-                if (check_ReadStoragepermission())
-                    chatFragment(item.getId(), item.getSellerId(), item.getSellerName(), item.getSellerPic());
-
-
-            }
-        }, new InboxAdapter.OnLongItemClickListener() {
-            @Override
-            public void onLongItemClick(InboxModel item) {
-
-            }
-        });
-
-        inbox_list.setAdapter(mInboxAdapter);
 
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +194,18 @@ public class InboxFragment extends Fragment {
                 else {
                     view.findViewById(R.id.no_data_layout).setVisibility(View.GONE);
                     Collections.reverse(inbox_arraylist);
-                    mInboxAdapter.notifyDataSetChanged();
+
+                    mInboxAdapter = new InboxAdapter(context, firebaseUser.getUid(), inbox_arraylist, new InboxAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(InboxModel item) {
+
+                            // if user allow the stroage permission then we open the chat view
+                            if (check_ReadStoragepermission())
+                                chatFragment(item.getId(), item.getSellerId(), item.getSellerName(), item.getSellerPic());
+                        }
+                    });
+
+                    inbox_list.setAdapter(mInboxAdapter);
                 }
 
                 if (modelSend != null) {
@@ -266,7 +259,7 @@ public class InboxFragment extends Fragment {
 
         chat_activity.setArguments(args);
         transaction.addToBackStack(null);
-        transaction.replace(R.id.Inbox_F, chat_activity).commit();
+        transaction.replace(R.id.frame_container, chat_activity).commit();
     }
 
 

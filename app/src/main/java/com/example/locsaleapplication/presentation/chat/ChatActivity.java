@@ -43,11 +43,13 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locsaleapplication.FCM.send.SendNotification;
+import com.example.locsaleapplication.Fragments.ProfileFragment;
 import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.User;
 import com.example.locsaleapplication.R;
@@ -102,6 +104,8 @@ public class ChatActivity extends Fragment {
     public static String token = "null";
 
     EditText message;
+
+    private LinearLayout lvOtherUserProfile;
 
     private DatabaseReference mchatRef_reteriving;
     private DatabaseReference send_typing_indication;
@@ -230,6 +234,17 @@ public class ChatActivity extends Fragment {
                 }
             });
         }
+
+        lvOtherUserProfile = (LinearLayout) view.findViewById(R.id.linearChatProfile);
+        lvOtherUserProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE)
+                        .edit().putString("profileId", Receiverid).apply();
+                ((FragmentActivity) mContext).getSupportFragmentManager()
+                        .beginTransaction().replace(R.id.frame_container, new ProfileFragment()).addToBackStack(null).commit();
+            }
+        });
 
         p_bar = view.findViewById(R.id.progress_bar);
         // this is the black color loader that we see whan we click on save button
@@ -425,9 +440,23 @@ public class ChatActivity extends Fragment {
 
     ValueEventListener other_inbox_listener;
 
-    private void updateLastDateInbox() {
+    private void updateLastDateInbox(String stMessage, String stSenderId) {
         HashMap<String, Object> mapInBoxCreated = new HashMap<>();
         mapInBoxCreated.put("timestamp", ServerValue.TIMESTAMP);
+
+        mapInBoxCreated.put("lastMessage", stMessage);
+        mapInBoxCreated.put("senderId", stSenderId);
+        mapInBoxCreated.put("isLastMessageRead", "0");
+
+        FirebaseDatabase.getInstance().getReference().child("Inbox").child(senderid + "-" + Receiverid)
+                .updateChildren(mapInBoxCreated);
+    }
+
+    private void updateLastDateInboxReadMessage() {
+        HashMap<String, Object> mapInBoxCreated = new HashMap<>();
+
+        mapInBoxCreated.put("isLastMessageRead", "1");
+
         FirebaseDatabase.getInstance().getReference().child("Inbox").child(senderid + "-" + Receiverid)
                 .updateChildren(mapInBoxCreated);
     }
@@ -590,7 +619,7 @@ public class ChatActivity extends Fragment {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                updateLastDateInbox();
+                updateLastDateInbox(message, senderid);
 
                 SendNotification.sendNotification(getActivity(),
                         userName, message, userPic, senderid, Receiverid, token);
@@ -655,7 +684,7 @@ public class ChatActivity extends Fragment {
                         user_map.put(current_user_ref + "/" + key, message_user_map);
                         user_map.put(chat_user_ref + "/" + key, message_user_map);
 
-                        updateLastDateInbox();
+                        updateLastDateInbox("Image", senderid);
 
                         rootref.updateChildren(user_map, new DatabaseReference.CompletionListener() {
                             @Override
@@ -1269,6 +1298,8 @@ public class ChatActivity extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        updateLastDateInboxReadMessage();
         ((MainActivity) getActivity()).hideBottomNavigation();
     }
 

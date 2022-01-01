@@ -90,6 +90,9 @@ dependencies {
         transitive = true
     }
     implementation 'com.gmail.samehadar:iosdialog:1.0'
+
+    //Google Map and Places API
+    implementation 'com.google.android.libraries.places:places:2.5.0'
 }
 repositories {
     mavenCentral()

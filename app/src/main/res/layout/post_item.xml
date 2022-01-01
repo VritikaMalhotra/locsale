@@ -59,11 +59,11 @@
                 android:layout_toEndOf="@+id/profile_image"
                 android:ellipsize="end"
                 android:fontFamily="@font/lora"
-                android:hint="Username"
                 android:maxLines="2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Username" />
 
 
             <TextView
@@ -77,6 +77,7 @@
                 android:background="@drawable/register_button"
                 android:fontFamily="@font/merriweather_bold"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:text="Promoted"
                 android:textColor="#ffffff" />
 
@@ -140,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lora"
                     android:padding="4dp"
-                    android:text="1000"
+                    android:text="0"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
 
@@ -171,7 +172,7 @@
                 android:layout_below="@id/layout1"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/merriweather_bold"
-                android:text="Username"
+                tools:text="Username"
                 android:textColor="#181818"
                 android:textStyle="bold" />
 
@@ -183,7 +184,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/lora"
-                android:text="Please do comment on my post!! #Lets"
+                tools:text="Please do comment on my post!! #Lets"
                 android:textColor="#565656"
                 app:hashtagColor="#1732C8"
                 app:socialFlags="hashtag|mention" />
