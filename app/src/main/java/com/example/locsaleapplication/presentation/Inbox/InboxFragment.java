@@ -60,12 +60,21 @@ public class InboxFragment extends Fragment {
 
     boolean isview_created = false;
     private FirebaseUser firebaseUser;
+    String stActionId = "";
     //private String profileId;
 
     public InboxFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments()!= null && getArguments().containsKey("action_type")) {
+            stActionId = getArguments().getString("action_type");
+        }
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -177,7 +186,7 @@ public class InboxFragment extends Fragment {
                     model.setId(ds.getKey());
                     if (model.getId().contains(firebaseUser.getUid())) {
 
-                        if (bundle != null && bundle.containsKey("action_type")) {
+                        if (bundle != null && AppGlobal.checkStringValue(stActionId)) {
                             if (model.getSellerId().equals(bundle.getString("senderid"))) {
                                 modelSend = model;
                             }
@@ -209,6 +218,7 @@ public class InboxFragment extends Fragment {
                 }
 
                 if (modelSend != null) {
+                    stActionId = "";
                     checkMessageRedirection(modelSend);
                 }
 

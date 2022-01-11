@@ -131,7 +131,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 if (holder.save.getTag().equals("save")) {
                     FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(post.getPostId()).setValue(true);
+
+                    FirebaseDatabase.getInstance().getReference().child("Posts").child(post.getPostId())
+                            .child("savedCount").setValue((post.getSavedCount() + 1));
                 } else {
+                    if (post.getSavedCount() != 0) {
+                        FirebaseDatabase.getInstance().getReference().child("Posts").child(post.getPostId())
+                                .child("savedCount").setValue((post.getSavedCount() - 1));
+                    }
+
                     FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(post.getPostId()).removeValue();
                 }

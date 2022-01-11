@@ -22,13 +22,15 @@ import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("All")
 public class PostDetailFragment extends Fragment {
 
     private String postId;
@@ -71,12 +73,22 @@ public class PostDetailFragment extends Fragment {
         postAdapter = new PostAdapter(getContext(),postList, false);
         recyclerView.setAdapter(postAdapter);
 
-        FirebaseDatabase.getInstance().getReference().child("Posts").child(postId).addValueEventListener(new ValueEventListener() {
+        Query refff = FirebaseDatabase.getInstance().getReference().child("Posts").child(postId);
+
+        refff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 postList.clear();
-                postList.add(dataSnapshot.getValue(Post.class));
+
+                Post postMain = dataSnapshot.getValue(Post.class);
+                postList.add(postMain);
                 postAdapter.notifyDataSetChanged();
+
+                refff.removeEventListener(this);
+
+                //impressionCount
+                FirebaseDatabase.getInstance().getReference().child("Posts").child(postId)
+                        .child("impressionCount").setValue((postMain.getImpressionCount() + 1));
             }
 
             @Override

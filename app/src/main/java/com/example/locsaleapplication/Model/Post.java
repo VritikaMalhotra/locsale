@@ -13,6 +13,8 @@ public class Post {
     private String stLocationName;
     private String stLocationType;
     private String stRadius;
+    private int savedCount;
+    private int impressionCount;
     private long timestamp;
 
     public Post() {
@@ -112,5 +114,21 @@ public class Post {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getSavedCount() {
+        return savedCount;
+    }
+
+    public void setSavedCount(int savedCount) {
+        this.savedCount = savedCount;
+    }
+
+    public int getImpressionCount() {
+        return impressionCount;
+    }
+
+    public void setImpressionCount(int impressionCount) {
+        this.impressionCount = impressionCount;
     }
 }

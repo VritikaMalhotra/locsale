@@ -236,7 +236,14 @@ public class ExploreFragment extends Fragment {
                             mLocationPost.setLatitude(Double.parseDouble(post.getStLocationLat()));
                             mLocationPost.setLongitude(Double.parseDouble(post.getStLocationLng()));
 
-                            if ((mLocationPost.distanceTo(mCurrentLocation) / 1000) <= 10.0) {
+                            float radius = 10.0f;
+                            /*if (AppGlobal.checkStringValueReturn(post.getStLocationType(), "").equalsIgnoreCase("local")) {
+                                radius = Float.parseFloat(AppGlobal.checkStringValueReturn(post.getStRadius(), "0"));
+                            } else {
+                                radius = 10.0f;
+                            }*/
+
+                            if ((mLocationPost.distanceTo(mCurrentLocation) / 1000) <= radius) {
                                 myPhotoList.add(post);
                             }
                         }
