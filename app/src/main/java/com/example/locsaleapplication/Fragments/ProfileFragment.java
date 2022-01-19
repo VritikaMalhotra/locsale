@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +27,6 @@ import com.example.locsaleapplication.OptionsActivity;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.SendNotification;
 import com.example.locsaleapplication.ShopkeeperDetailActivity;
-import com.example.locsaleapplication.UserFollowersActivity;
 import com.example.locsaleapplication.chat.ChatFunctions;
 import com.example.locsaleapplication.presentation.Inbox.InboxModel;
 import com.example.locsaleapplication.presentation.chat.ChatActivity;
@@ -387,6 +385,7 @@ public class ProfileFragment extends Fragment {
     }
 
     User businessUserData = null;
+
     private void userInfo() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(profileId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -395,7 +394,7 @@ public class ProfileFragment extends Fragment {
 
                 AppGlobal.loadImageUser(getActivity(), businessUserData.getImageurl(), 300, imageProfile);
                 username.setText(businessUserData.getBusiness_name());
-                fullname.setText(businessUserData.getName());
+                fullname.setText(businessUserData.getBusiness_name());
                 bio.setText(businessUserData.getBio());
             }
 
@@ -427,7 +426,7 @@ public class ProfileFragment extends Fragment {
         map.put("test", "Started following you");
         map.put("postid", "");
         map.put("isPost", false);
-        map.put("is_read",false);
+        map.put("is_read", false);
 
         FirebaseDatabase.getInstance().getReference().child("Notifications").child(UserId).push().setValue(map);
 
@@ -466,7 +465,7 @@ public class ProfileFragment extends Fragment {
                                 currentUser.getName(),
                                 currentUser.getImageurl(),
                                 businessUserData.getId(),
-                                businessUserData.getName(),
+                                businessUserData.getBusiness_name(),
                                 businessUserData.getImageurl(),
                                 "2", new ChatFunctions.OnChatThreadCreated() {
                                     @Override
@@ -475,7 +474,7 @@ public class ProfileFragment extends Fragment {
 
                                         openChatPage(currentUserId + "-" + businessUserId,
                                                 businessUserData.getId(),
-                                                businessUserData.getName(),
+                                                businessUserData.getBusiness_name(),
                                                 businessUserData.getImageurl());
                                     }
 
@@ -522,6 +521,7 @@ public class ProfileFragment extends Fragment {
     }
 
     User currentUser;
+
     private void getCurrentUserData() {
         FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override

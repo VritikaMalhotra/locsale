@@ -67,7 +67,7 @@ public class SelectUserAdapter extends RecyclerView.Adapter<SelectUserAdapter.Cu
     public void onBindViewHolder(final CustomViewHolder holder, final int i) {
 
         final User item = userList.get(i);
-        holder.username.setText(item.getName());
+        holder.username.setText(item.getBusiness_name());
 
         if (item.getImageurl() != null && !item.getImageurl().equals("")) {
             AppGlobal.loadImageUser(context, item.getImageurl(), 100, holder.user_image);

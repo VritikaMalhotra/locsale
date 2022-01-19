@@ -11,13 +11,13 @@ public class CategoryAndSubCategoryCommon {
 
         //Bakery Start
         ArrayList<CategoryModel.SubCategoryModel> listBakery = new ArrayList<>();
-        listBakery.add(new CategoryModel.SubCategoryModel("Bakery", R.drawable.img, false));
+        listBakery.add(new CategoryModel.SubCategoryModel("Bakery", R.drawable.ic_cat_bakery, false));
         categoryModels.add(new CategoryModel("Bakery", listBakery, false));
         //Bakery End
 
         //Cafe and Restaurant Start
         ArrayList<CategoryModel.SubCategoryModel> listCafeAndRestaurant = new ArrayList<>();
-        listCafeAndRestaurant.add(new CategoryModel.SubCategoryModel("Cafe And Restaurant", R.drawable.img, false));
+        listCafeAndRestaurant.add(new CategoryModel.SubCategoryModel("Cafe And Restaurant", R.drawable.ic_cat_cafe, false));
         categoryModels.add(new CategoryModel("Cafe And Restaurant", listCafeAndRestaurant, false));
         //Cafe and Restaurant End
 
@@ -50,7 +50,7 @@ public class CategoryAndSubCategoryCommon {
 
         //Dry Fruits Shop Start
         ArrayList<CategoryModel.SubCategoryModel> listDryFruitsShop = new ArrayList<>();
-        listDryFruitsShop.add(new CategoryModel.SubCategoryModel("Dry Fruits Shop", R.drawable.img, false));
+        listDryFruitsShop.add(new CategoryModel.SubCategoryModel("Dry Fruits Shop", R.drawable.ic_cat_dryfruit, false));
         categoryModels.add(new CategoryModel("Dry Fruits Shop", listDryFruitsShop, false));
         //Dry Fruits Shop End
 
@@ -62,7 +62,7 @@ public class CategoryAndSubCategoryCommon {
 
         //Gift Shop Start
         ArrayList<CategoryModel.SubCategoryModel> listGiftShop = new ArrayList<>();
-        listGiftShop.add(new CategoryModel.SubCategoryModel("Gift Shop", R.drawable.img, false));
+        listGiftShop.add(new CategoryModel.SubCategoryModel("Gift Shop", R.drawable.ic_cat_gift, false));
         categoryModels.add(new CategoryModel("Gift Shop", listGiftShop, false));
         //Gift Shop End
 
@@ -101,7 +101,7 @@ public class CategoryAndSubCategoryCommon {
 
         //Laundry Start
         ArrayList<CategoryModel.SubCategoryModel> listLaundry = new ArrayList<>();
-        listLaundry.add(new CategoryModel.SubCategoryModel("Laundry", R.drawable.img, false));
+        listLaundry.add(new CategoryModel.SubCategoryModel("Laundry", R.drawable.ic_cat_laundry, false));
         categoryModels.add(new CategoryModel("Laundry", listLaundry, false));
         //Laundry End
 
@@ -119,13 +119,13 @@ public class CategoryAndSubCategoryCommon {
 
         //Stationary Start
         ArrayList<CategoryModel.SubCategoryModel> listStationary = new ArrayList<>();
-        listStationary.add(new CategoryModel.SubCategoryModel("Stationary", R.drawable.img, false));
+        listStationary.add(new CategoryModel.SubCategoryModel("Stationary", R.drawable.ic_cat_stationary, false));
         categoryModels.add(new CategoryModel("Stationary", listStationary, false));
         //Stationary End
 
         //Toys Start
         ArrayList<CategoryModel.SubCategoryModel> listToys = new ArrayList<>();
-        listToys.add(new CategoryModel.SubCategoryModel("Toys", R.drawable.img, false));
+        listToys.add(new CategoryModel.SubCategoryModel("Toys", R.drawable.ic_cat_toys, false));
         categoryModels.add(new CategoryModel("Toys", listToys, false));
         //Toys End
 

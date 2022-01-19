@@ -10,11 +10,11 @@
         android:title=""/>
 
     <item android:id="@+id/nav_explore"
-        android:icon="@drawable/ic_explorer"
+        android:icon="@drawable/ic_explore_new"
         android:title=""/>
 
     <item android:id="@+id/nav_heart"
-        android:icon="@drawable/ic_notification"
+        android:icon="@drawable/ic_notification_new"
         android:title=""/>
 
     <item android:id="@+id/nav_profile"

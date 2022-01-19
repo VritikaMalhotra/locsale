@@ -138,12 +138,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user.getImageurl().equals("default")) {
-                    imageProfile.setImageResource(R.drawable.ic_profile);
-                } else {
-                    AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, imageProfile);
+                if (user != null) {
+                    if (AppGlobal.checkStringValue(user.getImageurl())) {
+                        if (user.getImageurl().equals("default")) {
+                            imageProfile.setImageResource(R.drawable.ic_profile);
+                        } else {
+                            AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, imageProfile);
+                        }
+                    } else {
+                        imageProfile.setImageResource(R.drawable.ic_profile);
+                    }
+                    username.setText(user.getBusiness_name());
                 }
-                username.setText(user.getBusiness_name());
             }
 
             @Override

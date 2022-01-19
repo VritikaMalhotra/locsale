@@ -9,14 +9,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="#ECE8E8">
+        android:layout_height="50dp"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ECE8E8">
+            android:background="@color/white">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -24,11 +24,12 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="20dp"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:text="LocSale"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/merriweather_bold"
+                    android:text="Locsale"
                     android:textAlignment="center"
                     android:textColor="#373833"
                     android:textSize="20sp" />
@@ -37,6 +38,7 @@
                     android:id="@+id/imageInbox"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:padding="10dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="15dp"

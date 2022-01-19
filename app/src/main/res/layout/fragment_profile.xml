@@ -239,7 +239,7 @@
                                 android:fontFamily="sans-serif"
                                 android:text="EDIT"
                                 android:textAlignment="center"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/blueBorderButton"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -253,7 +253,7 @@
                                 android:fontFamily="sans-serif"
                                 android:text="Details"
                                 android:textAlignment="center"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/blueBorderButton"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -267,7 +267,7 @@
                                 android:fontFamily="sans-serif"
                                 android:text="Chat"
                                 android:textAlignment="center"
-                                android:textColor="#FFFFFF"
+                                android:textColor="@color/blueBorderButton"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 

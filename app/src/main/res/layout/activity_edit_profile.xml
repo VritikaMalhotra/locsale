@@ -92,51 +92,59 @@
                     android:textSize="18sp" />
 
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/edit_profile_background"
-                    android:fontFamily="@font/merriweather_bold"
-                    android:hint="@string/full_name"
-                    android:padding="20dp" />
+                    android:layout_marginTop="20dp"
+                    android:hint="Full Name"
+                    android:textColor="#4A4949"
+                    app:met_floatingLabel="normal" />
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/edit_profile_background"
-                    android:fontFamily="@font/merriweather_bold"
                     android:hint="@string/mobile_number"
                     android:focusable="false"
-                    android:clickable="false"
-                    android:padding="20dp" />
+                    app:met_floatingLabel="normal"
+                    android:clickable="false" />
 
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/address"
+                    android:textColor="#4A4949"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18sp"
-                    android:background="@drawable/edit_profile_background"
-                    android:fontFamily="@font/merriweather_bold"
+                    android:layout_marginTop="10dp"
                     android:hint="@string/address"
-                    android:padding="20dp" />
+                    android:paddingVertical="10dp"
+                    android:textColor="#4A4949"
+                    android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="@color/black"
+                    android:visibility="visible" />
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/edit_profile_background"
-                    android:fontFamily="@font/merriweather_bold"
                     android:hint="@string/bio"
                     android:minLines="5"
-                    android:padding="20dp"
                     android:scrollbars="vertical"
+                    app:met_floatingLabel="normal"
                     android:scrollHorizontally="false" />
 
             </LinearLayout>

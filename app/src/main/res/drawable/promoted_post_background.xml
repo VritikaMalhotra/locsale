@@ -13,7 +13,7 @@
         android:endColor="#f9ffb7" />-->
     <stroke
         android:width="3dp"
-        android:color="#6c63ff"
+        android:color="@color/blueBorderButton"
         />
     <solid
         android:color="#ffffff"/>

@@ -37,6 +37,7 @@ import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -54,9 +55,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private AppCompatTextView tvAddress;
     private TextView save;
     private TextView changePhoto;
-    private EditText fullname;
-    private EditText edMobileNumber;
-    private EditText bio;
+    private MaterialEditText fullname;
+    private MaterialEditText edMobileNumber;
+    private MaterialEditText bio;
 
     private FirebaseUser fUser;
     private Uri mImageUri;

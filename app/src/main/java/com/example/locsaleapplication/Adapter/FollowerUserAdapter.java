@@ -56,7 +56,7 @@ public class FollowerUserAdapter extends RecyclerView.Adapter<FollowerUserAdapte
         final User user = mUsers.get(position);
         holder.btnfollow.setVisibility(View.VISIBLE);
 
-        holder.username.setText(user.getBusiness_field());
+        holder.username.setText(user.getBusiness_name());
         holder.name.setText(user.getName());
 
         AppGlobal.loadImageUser(mContext, user.getImageurl(), 300, holder.imageProfile);

@@ -63,7 +63,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 if (user != null) {
-                    holder.username.setText(user.getName());
+                    if (AppGlobal.checkStringValue(user.getType())) {
+                        if (user.getType().equals("1")) {
+                            holder.username.setText(user.getBusiness_name());
+                        } else {
+                            holder.username.setText(user.getName());
+                        }
+                    } else {
+                        holder.username.setText(user.getName());
+                    }
+
                     if (user.getImageurl() == null || user.getImageurl().equals("default")) {
                         holder.imageProfile.setImageResource(R.drawable.ic_profile);
                     } else {
