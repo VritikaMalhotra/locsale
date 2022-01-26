@@ -140,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
         if (fragment instanceof HomeFragment) {
             finishAffinity();
+        } else if (fragment instanceof SearchFragment) {
+            ((SearchFragment)fragment).onBackPressedAll();
         } else {
             super.onBackPressed();
         }

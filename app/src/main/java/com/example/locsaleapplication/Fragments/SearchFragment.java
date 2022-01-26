@@ -381,4 +381,12 @@ public class SearchFragment extends Fragment {
             return returnvalue;
         }
     }
+
+    public void onBackPressedAll() {
+        if (selectedTab.equals("business")) {
+            lvCategories.performClick();
+        } else {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    }
 }

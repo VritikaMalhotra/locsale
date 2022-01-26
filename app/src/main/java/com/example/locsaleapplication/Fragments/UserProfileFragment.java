@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -243,6 +244,13 @@ public class UserProfileFragment extends Fragment {
                                 }
                             }
                         }
+
+                        Collections.sort(mySavedPosts, new Comparator<Post>() {
+                            @Override
+                            public int compare(Post post, Post t1) {
+                                return (post.getTimestamp() <= t1.getTimestamp() ? 1 : -1);
+                            }
+                        });
                         posts.setText(String.valueOf(mySavedPosts.size()));
                         postAdaptersaves.notifyDataSetChanged();
                     }
