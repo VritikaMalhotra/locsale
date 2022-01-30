@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).setBottomNavigationItem(R.id.nav_home);
+        ((MainActivity) getActivity()).setBottomNavigationItem(R.id.nav_home);
     }
 
     @Override
@@ -196,18 +196,17 @@ public class HomeFragment extends Fragment {
                 postAdapter.notifyDataSetChanged();
 
                 if (postId != null && !postId.isEmpty()) {
-                    for (Post post : postList) {
-                        if (post.getPostId() != null && post.getPostId().equals(postId)) {
-                            postId = "";
-                            getActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postId", post.getPostId())
-                                    .apply();
-                            ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction()
-                                    .add(R.id.frame_container, new PostDetailFragment())
-                                    .addToBackStack(null)
-                                    .commit();
-                            break;
-                        }
-                    }
+                    /*for (Post post : postList) {
+                        if (post.getPostId() != null && post.getPostId().equals(postId)) {*/
+                    getActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit().putString("postId", postId)
+                            .apply();
+                    ((FragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction()
+                            .add(R.id.frame_container, new PostDetailFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    postId = "";
+                        /*}
+                    }*/
                 }
             }
 

@@ -15,6 +15,12 @@ public class CategoryAndSubCategoryCommon {
         categoryModels.add(new CategoryModel("Bakery", listBakery, false));
         //Bakery End
 
+        //Bicycle Start
+        ArrayList<CategoryModel.SubCategoryModel> listBicycle = new ArrayList<>();
+        listBicycle.add(new CategoryModel.SubCategoryModel("Bicycle", R.drawable.ic_cat_bicycle, false));
+        categoryModels.add(new CategoryModel("Bicycles", listBicycle, false));
+        //Bicycle End
+
         //Cafe and Restaurant Start
         ArrayList<CategoryModel.SubCategoryModel> listCafeAndRestaurant = new ArrayList<>();
         listCafeAndRestaurant.add(new CategoryModel.SubCategoryModel("Cafe And Restaurant", R.drawable.ic_cat_cafe, false));

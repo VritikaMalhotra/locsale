@@ -302,7 +302,7 @@ public class OTPActivity extends AppCompatActivity {
                                                 } else {
                                                     pd.dismiss();
                                                     FirebaseAuth.getInstance().signOut();
-                                                    Toast.makeText(OTPActivity.this, "This ID is associated with your Shopkeeper account", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(OTPActivity.this, "This ID is associated with your Business account", Toast.LENGTH_LONG).show();
                                                     startActivity(new Intent(OTPActivity.this, LoginActivity.class)
                                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                                     finishAffinity();
