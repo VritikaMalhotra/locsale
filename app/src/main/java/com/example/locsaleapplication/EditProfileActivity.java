@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,6 +95,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 edMobileNumber.setText(user.getContact_number());
                 bio.setText(user.getBio());
                 tvAddress.setText(AppGlobal.checkStringValueReturn(user.getAddressName(), ""));
+
+                cityName = AppGlobal.checkStringValueReturn(user.getAddressCity(), "");
+                addressName = AppGlobal.checkStringValueReturn(user.getAddressName(), "");
+                addressLat = AppGlobal.checkStringValueReturn(user.getAddressLat(), "");
+                addressLng = AppGlobal.checkStringValueReturn(user.getAddressLng(), "");
+
                 AppGlobal.loadImageUser(getApplicationContext(), user.getImageurl(), 400, imageprofile);
                 FirebaseDatabase.getInstance().getReference().child("Users").removeEventListener(this);
             }
@@ -146,7 +151,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
-    private Place mSelectedplace = null;
+    //private Place mSelectedplace = null;
+
     private void selectLocation() {
 
         // Set the fields to specify which types of place data to
@@ -163,10 +169,12 @@ public class EditProfileActivity extends AppCompatActivity {
         map.put("name", fullname.getText().toString());
         //map.put("username", username.getText().toString());
         map.put("bio", bio.getText().toString());
-        map.put("addressName", mSelectedplace.getName());
-        map.put("addressCity", cityName);
-        map.put("addressLat", "" + mSelectedplace.getLatLng().latitude);
-        map.put("addressLng", "" + mSelectedplace.getLatLng().longitude);
+        if (AppGlobal.checkStringValue(addressName)) {
+            map.put("addressCity", AppGlobal.checkStringValueReturn(cityName, ""));
+            map.put("addressName", AppGlobal.checkStringValueReturn(addressName, ""));
+            map.put("addressLat", AppGlobal.checkStringValueReturn(addressLat, ""));
+            map.put("addressLng", AppGlobal.checkStringValueReturn(addressLng, ""));
+        }
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid()).updateChildren(map);
     }
@@ -208,6 +216,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private String cityName = "";
+    private String addressName = "";
+    private String addressLat = "";
+    private String addressLng = "";
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -217,10 +229,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 tvAddress.setText(place.getName());
 
-                mSelectedplace = place;
+                //mSelectedplace = place;
+                addressName = place.getName();
+                addressLat = ""+place.getLatLng().latitude;
+                addressLng = ""+place.getLatLng().longitude;
                 Location mLocation = new Location("location");
-                mLocation.setLatitude(mSelectedplace.getLatLng().latitude);
-                mLocation.setLongitude(mSelectedplace.getLatLng().longitude);
+                mLocation.setLatitude(place.getLatLng().latitude);
+                mLocation.setLongitude(place.getLatLng().longitude);
                 cityName = AppGlobal.getCityString(EditProfileActivity.this, mLocation.getLatitude(), mLocation.getLongitude());
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {

@@ -276,8 +276,11 @@ public class UserProfileFragment extends Fragment {
                 myPhotoList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Post post = snapshot.getValue(Post.class);
-                    if (post.getPublisher().equals(profileId) && !post.getType().equals("0")) {
-                        myPhotoList.add(post);
+                    if (post != null && AppGlobal.checkStringValue(post.getType())
+                            && AppGlobal.checkStringValue(post.getPublisher())) {
+                        if (post.getPublisher().equals(profileId) && !post.getType().equals("0")) {
+                            myPhotoList.add(post);
+                        }
                     }
                 }
                 Collections.reverse(myPhotoList);

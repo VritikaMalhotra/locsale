@@ -214,7 +214,7 @@ public class ChatActivity extends Fragment {
             } else {
                 user_name.setText(Receiver_name); // these two method will get other datial of user like there profile pic link and username
 
-                if (Receiver_pic != null && !Receiver_pic.equalsIgnoreCase(""))
+                if (AppGlobal.checkStringValue(Receiver_pic))
                     AppGlobal.loadImage(getActivity(), Receiver_pic, 100, profileimage);
             }
 
@@ -1282,7 +1282,7 @@ public class ChatActivity extends Fragment {
                 user_name.setText(currentSecond.getName());
 
                 // these two method will get other datial of user like there profile pic link and username
-                if (currentSecond.getImageurl() != null && !currentSecond.getImageurl().equalsIgnoreCase("")) {
+                if (AppGlobal.checkStringValue(currentSecond.getImageurl())) {
                     AppGlobal.loadImage(getActivity(), currentSecond.getImageurl(), 100, profileimage);
                 }
             }

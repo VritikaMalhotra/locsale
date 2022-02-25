@@ -24,6 +24,7 @@ import com.example.locsaleapplication.MainActivity;
 import com.example.locsaleapplication.Model.Post;
 import com.example.locsaleapplication.R;
 import com.example.locsaleapplication.presentation.Inbox.InboxFragment;
+import com.example.locsaleapplication.utils.AppGlobal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -185,9 +186,12 @@ public class HomeFragment extends Fragment {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Post post = snapshot.getValue(Post.class);
-                        for (String id : followingList) {
-                            if (post.getPublisher().equals(id) && !post.getType().equals("0")) {
-                                postList.add(post);
+                        if (post != null) {
+                            for (String id : followingList) {
+                                if (AppGlobal.checkStringValueReturn(post.getPublisher(), "").equals(id)
+                                        && !AppGlobal.checkStringValueReturn(post.getType(), "").equals("0")) {
+                                    postList.add(post);
+                                }
                             }
                         }
                     }

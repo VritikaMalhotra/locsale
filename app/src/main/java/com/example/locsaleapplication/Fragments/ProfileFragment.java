@@ -343,8 +343,11 @@ public class ProfileFragment extends Fragment {
                 int counter = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Post post = snapshot.getValue(Post.class);
-                    if (post.getPublisher().equals(profileId) && !post.getType().equals("0")) {
-                        counter++;
+                    if (post != null && AppGlobal.checkStringValue(post.getType())
+                            && AppGlobal.checkStringValue(post.getPublisher())) {
+                        if (post.getPublisher().equals(profileId) && !post.getType().equals("0")) {
+                            counter++;
+                        }
                     }
 
                 }

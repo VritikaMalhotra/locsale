@@ -1,13 +1,10 @@
 package com.example.locsaleapplication;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,7 +21,6 @@ import com.example.locsaleapplication.presentation.Inbox.InboxFragment;
 import com.example.locsaleapplication.utils.AppGlobal;
 import com.example.locsaleapplication.utils.SharePref;
 import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,8 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Collections;
 
 @SuppressWarnings("All")
 public class MainActivity extends AppCompatActivity {
@@ -154,10 +148,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 currentUser = dataSnapshot.getValue(User.class);
-                SharePref sharePref = new SharePref(MainActivity.this);
-                sharePref.saveStringValue(SharePref.userId, currentUser.getId());
-                sharePref.saveStringValue(SharePref.userImage, currentUser.getImageurl());
-                sharePref.saveStringValue(SharePref.userToken, currentUser.getToken());
+                if (currentUser == null) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                    finish();
+                } else {
+                    SharePref sharePref = new SharePref(MainActivity.this);
+                    if (AppGlobal.checkStringValue(currentUser.getId())) {
+                        sharePref.saveStringValue(SharePref.userId, currentUser.getId());
+                        sharePref.saveStringValue(SharePref.userImage, currentUser.getImageurl());
+                        sharePref.saveStringValue(SharePref.userToken, currentUser.getToken());
+                    }
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).removeEventListener(this);
+                }
             }
 
             @Override
